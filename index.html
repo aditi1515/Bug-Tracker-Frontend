@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="trackflow">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trackflow</title>
+    <base href="#!/" />
+    <link rel="stylesheet" href="./index.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular-route.js"></script>
+
+    <!-- 2D9596 -->
+    <script src="/frontend/app.js"></script>
+
+    <!-- controllers -->
+    <script src="../frontend/login/loginController.js"></script>
+    <script src="../frontend/sidebar/sidebarController.js"></script>
+  </head>
+  <body>
+    <sidebar
+      ng-include="'sidebar/sidebar.html'"
+      ng-if="!isLoginPage()"
+    ></sidebar>
+
+    <main ng-view></main>
+  </body>
+</html>
