@@ -1,0 +1,96 @@
+<link rel="stylesheet" href="../../components/Form/form.css" />
+
+<form ng-submit="submitForm()" name="form" novalidate>
+ <div class="form-wrapper" ng-repeat="subform in formStructure">
+  <h3>{{subform.title}}</h3>
+  <div class="form-fields-wrapper">
+   <div class="form-field input-group-sm" ng-repeat="field in subform.fields">
+    <label>{{field.label}}</label>
+    <div ng-if="field.validatorType === 'pattern'">
+     <input
+      class="form-control"
+      type="{{field.type}}"
+      name="{{field.name}}"
+      placeholder="{{field.placeholder}}"
+      ng-model="formModel[subform.name][field.name]"
+      ng-required="field.required === true"
+     />
+
+     <div class="error">
+      <span
+       ng-show="form[field.name].$error.required && form[field.name].$touched"
+       >* {{field.label}} is required</span
+      >
+      <span
+       ng-show="(form[field.name].$error.pattern || form[field.name].$error.email) && form[field.name].$touched"
+       >* {{field.validPatternMessage}}</span
+      >
+     </div>
+    </div>
+
+    <div ng-if="field.validatorType === 'password'">
+     <input
+      class="form-control"
+      type="{{field.type}}"
+      name="{{field.name}}"
+      placeholder="{{field.placeholder}}"
+      ng-model="formModel[subform.name][field.name]"
+      password-validate
+      ng-required="field.required === true"
+     />
+     <div class="error">
+      <span
+       ng-show="form[field.name].$error.required && form[field.name].$touched"
+       >* Password is required</span
+      >
+      <ul
+       ng-repeat="error in form[field.name].$errorList "
+       ng-show="form[field.name].$touched"
+       class="error-list"
+      >
+       <li>* {{error}}</li>
+      </ul>
+     </div>
+    </div>
+
+    <div ng-if="field.validatorType === 'confirmPassword'">
+     <input
+      class="form-control"
+      type="{{field.type}}"
+      name="{{field.name}}"
+      placeholder="{{field.placeholder}}"
+      ng-model="formModel[subform.name][field.name]"
+      confirm-password-validate
+      compare-with="{{form[field.compareWith]}}"
+      ng-required="field.required === true"
+     />
+     <div class="error">
+      <span
+       ng-show="form[field.name].$error.required && form[field.name].$touched"
+       >* Confirm Password is required</span
+      >
+      <span
+       ng-show="form[field.name].$error.confirmPasswordValidate && !form[field.name].$error.required && form[field.name].$touched "
+      >
+       * Passwords do not match
+      </span>
+     </div>
+    </div>
+
+    <div ng-if="field.validatorType === 'noValidator'">
+     <input
+      class="form-control"
+      type="{{field.type}}"
+      name="{{field.name}}"
+      placeholder="{{field.placeholder}}"
+      ng-model="formModel[subform.name][field.name]"
+     />
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="form-actions">
+  <button class="btn btn-dark" type="submit">Submit</button>
+ </div>
+</form>

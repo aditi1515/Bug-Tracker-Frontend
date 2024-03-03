@@ -1,0 +1,11 @@
+.dashboard_company_wrapper {
+ margin-top: 2rem;
+ padding: 1rem;
+ font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.dashboard_company_wrapper .head {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}

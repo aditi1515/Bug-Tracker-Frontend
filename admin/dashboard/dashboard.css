@@ -1,0 +1,8 @@
+.dashboard_wrapper {
+ display: flex;
+ height: 100%;
+ width: 100vw;
+}
+.dashboard_content {
+ flex: 1;
+}

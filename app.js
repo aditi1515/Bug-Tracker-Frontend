@@ -15,15 +15,39 @@ trackflow.config([
     templateUrl: "./login/login.html",
     controller: "loginController",
    })
-   .state("tracks", {
-    url: "/tracks/{id}",
-    templateUrl: "tracks.html",
-    controller: "TracksCtrl",
+   .state("company", {
+    url: "/company",
+    templateUrl: "./Company/company.html",
+    controller: "companyController",
    })
-   .state("brand", {
-    url: "/brand",
-    templateUrl: "./brand/brand.html",
-    controller: "BrandController",
+   .state("superAdminDasboard", {
+    url: "/dashboard",
+    templateUrl: "./admin/dashboard/dashboard.html",
+    controller: "dashboardController",
+    resolve: {
+     auth: function (UserService, $state, $q) {
+      return UserService.isAuthenticated()
+       .then(function (user) {
+        // User is authenticated, allow access to the dashboard
+        console.log("User is authenticated: ", user);
+        if (user.role !== "SUPER_ADMIN") {
+         $state.go("login");
+         return $q.reject();
+        }
+        return user; // Resolve with the user object
+       })
+       .catch(function () {
+        // User is not authenticated, redirect to login page
+        $state.go("login");
+        // Rejecting the promise to prevent state transition
+        return $q.reject();
+       });
+     },
+    },
+   })
+   .state("superAdminDasboard.company", {
+    url: "/company",
+    templateUrl: "./admin/dashboard/tabs/dashboard_company.html",
    });
 
   $urlRouterProvider.otherwise("/");
@@ -31,26 +55,51 @@ trackflow.config([
 ]);
 
 trackflow.config(function ($httpProvider) {
- $httpProvider.interceptors.push("subdomainInterceptor");
+ $httpProvider.interceptors.push("BaseUrlInterceptor");
 });
 
-trackflow.factory("subdomainInterceptor", function () {
- return {
-  request: function (config) {
-   // Extract subdomain from request URL
-   console.log("Request URL: ", window.location.href);
-   var subdomain = extractSubdomain(window.location.href);
-
-   // Do something with the subdomain if needed
-   console.log("Subdomain: ", subdomain);
-
-   return config;
-  },
+trackflow.service("subdomainService", function () {
+ this.extractSubdomain = function () {
+  var subdomain = window.location.hostname.split(".")[0];
+  
+  return subdomain;
  };
 });
 
-function extractSubdomain(url) {
- var subdomain = url.split("://")[1].split(".")[0];
- console.log("Extracted Subdomain: ", subdomain);
- return subdomain;
-}
+trackflow.constant("BASE_URL", "http://localhost:3000/api/");
+
+trackflow.service("BaseUrlInterceptor", [
+ "subdomainService",
+ function (subdomainService) {
+  this.request = function (config) {
+  
+
+   // Extract subdomain using subdomainService
+   var subdomain = subdomainService.extractSubdomain();
+
+   // Set company_id from subdomain
+   config.headers = config.headers || {};
+  
+   if (subdomain !== "localhost") {
+    config.headers["x_company_name"] = subdomain;
+   }
+
+   // Set authToken from localStorage
+   var authToken =
+    subdomain === "localhost"
+     ? localStorage.getItem("superadmin_authtoken")
+     : localStorage.getItem(subdomain + "_authToken");
+   if (authToken) {
+    config.headers["Authorization"] = "Bearer " + authToken;
+   }
+
+   return config;
+  };
+
+  this.response = function (response) {
+   // Optional: Modify responses here if needed
+   return response;
+  };
+ },
+]);
+

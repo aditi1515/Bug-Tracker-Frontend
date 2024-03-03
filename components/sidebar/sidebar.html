@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="../../components/sidebar/sidebar.css" />
+
+<div class="sidebar">
+ <div class="profile">
+  <div>
+   <span>{{ profile.firstname + " " + profile.lastname }}</span>
+   <p>{{ profile.email }}</p>
+  </div>
+  <i class="bi bi-gear"></i>
+ </div>
+ <hr />
+ <div class="sidebar-options-container">
+  <div class="btn btn-sm sidebar-option" ng-repeat="option in options">
+   <i class="{{ option.icon }}"></i>
+   <a class="link" ui-sref="{{ option.state }}">{{ option.label }}</a>
+  </div>
+ </div>
+</div>

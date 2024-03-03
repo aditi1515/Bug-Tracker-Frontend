@@ -1,0 +1,30 @@
+<section>
+ <link
+  rel="stylesheet"
+  href="../../../admin/dashboard/tabs/dashboard_company.css"
+ />
+ <div class="dashboard_company_wrapper">
+  <div class="head">
+   <h1>Company</h1>
+   <button class="btn btn-dark" ng-click="launchModal('exampleModal')">
+    Add Company
+   </button>
+  </div>
+  {{form}}
+  <my-modal
+   modal-id="exampleModal"
+   title="Add Company"
+   body="Modal body content"
+   close-btn-text="Cancel"
+   confirm-btn-text="confirmAction"
+  >
+   <form-builder
+    on-submit="onSubmit(modalId)"
+    form-structure="formStructure"
+    form-model="formModel"
+    modal-id="exampleModal"
+   ></form-builder>
+   <!-- modal id need only when you want to close dialog on form submit -->
+  </my-modal>
+ </div>
+</section>
