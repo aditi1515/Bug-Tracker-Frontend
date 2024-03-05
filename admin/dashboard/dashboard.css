@@ -5,4 +5,8 @@
 }
 .dashboard_content {
  flex: 1;
+ background: #ffffff;
+ padding: 0 1rem;
 }
+
+

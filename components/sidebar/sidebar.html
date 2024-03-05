@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="../../components/sidebar/sidebar.css" />
 
 <div class="sidebar">
+ <div class="logo">
+  trackFlow
+ </div>
  <div class="profile">
   <div>
    <span>{{ profile.firstname + " " + profile.lastname }}</span>
@@ -10,7 +13,7 @@
  </div>
  <hr />
  <div class="sidebar-options-container">
-  <div class="btn btn-sm sidebar-option" ng-repeat="option in options">
+  <div class="btn btn-sm sidebar-option" ng-repeat="option in options" ui-sref-active="active">
    <i class="{{ option.icon }}"></i>
    <a class="link" ui-sref="{{ option.state }}">{{ option.label }}</a>
   </div>

@@ -1,0 +1,8 @@
+.modal-header {
+ background: var(--dark-purple);
+ color: white;
+}
+
+.modal-header div span{
+ color: white;
+}

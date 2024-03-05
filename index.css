@@ -7,3 +7,22 @@ body {
  padding: 0;
  font-family: "Plus Jakarta Sans", sans-serif;
 }
+:root{
+ --dark-purple:#3B183F;
+ --dark-pink:#BC2550;
+ --light-purple:#F3EBF4;
+ --text-on-dark-purple:#915E96;
+ --dark-purple-text:#39223C;
+ --shadow-purple:#E0D5E1;
+ --pastel-green:#B3DEC1;
+ --pastel-green-dark:#526A5A;
+ --pastel-cyan:#DBF9F0;
+ --pastel-cyan-dark:#7D968F;
+ --pastel-pink:#EE638B;
+ --pastel-pink-dark:#9D2A4B;
+ --pastel-neon-green:#D1DA90;
+ --pastel-neon-green-dark:#818A49;
+ --pastel-dull-green:#C7DEB3;
+ --pastel-dull-green-dark:#8E9475;
+
+}

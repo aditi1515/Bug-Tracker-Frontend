@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../../components/Modal/modal.css">
 <div
  class="modal fade"
  id="{{modalId}}"
@@ -10,14 +11,14 @@
   <div class="modal-content">
    <div class="modal-header">
     <h5 class="modal-title" id="{{modalId}}Label">{{title}}</h5>
-    <button
+    <div
      type="button"
      class="close"
      ng-click="closeModal()"
      aria-label="Close"
     >
-     <span aria-hidden="true">&times;</span>
-    </button>
+     <span  class="bi-x"></span>
+    </div>
    </div>
    <div class="modal-body" ng-transclude></div>
   </div>

@@ -5,7 +5,7 @@ function dashboardController(
  ModalService,
  FormService
 ) {
- $scope.profile = auth;
+ $scope.profile = auth.personalDetails;
 
  $scope.options = SideBarService.getSideBarOptions(auth.role);
 
@@ -17,7 +17,7 @@ function dashboardController(
   ModalService.hideModal(modalId);
  };
 
- $scope.onSubmit = function ( modalId ) {
+ $scope.onSubmit = function (modalId) {
   console.log("Confirm action performed");
   console.log("Modal ID: ", modalId);
   ModalService.hideModal(modalId);
@@ -28,9 +28,9 @@ function dashboardController(
 
  $scope.formStructure = [
   {
-   title: "Personal Information",
-   name: "personalInfo",
-   fields: FormService.getFormFields("registrationForm", "admin"),
+   title: "Company Information",
+   name: "company",
+   fields: FormService.getFormFields("addCompanyForm", "superadmin"),
   },
  ];
 

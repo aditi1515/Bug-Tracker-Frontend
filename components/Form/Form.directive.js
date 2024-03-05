@@ -4,6 +4,7 @@ trackflow.directive("formBuilder", function () {
   scope: {
    formStructure: "=",
    formModel: "=",
+   prefill: "=",
    onSubmit: "&",
    modalId: "@",
   },
@@ -24,7 +25,7 @@ trackflow.directive("formBuilder", function () {
     if (angular.isFunction($scope.onSubmit)) {
      // Call the onSubmit function with the modalId as an argument
      console.log($scope.modalId);
-     $scope.onSubmit({modalId : $scope.modalId});
+     $scope.onSubmit({ modalId: $scope.modalId });
     }
    };
   },

@@ -14,6 +14,7 @@
       placeholder="{{field.placeholder}}"
       ng-model="formModel[subform.name][field.name]"
       ng-required="field.required === true"
+      ng-value="{{formModel[subform.name][field.name]}}"
      />
 
      <div class="error">
@@ -91,6 +92,6 @@
  </div>
 
  <div class="form-actions">
-  <button class="btn btn-dark" type="submit">Submit</button>
+  <button class="btn" type="submit">Submit</button>
  </div>
 </form>

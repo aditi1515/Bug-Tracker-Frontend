@@ -18,13 +18,15 @@ form {
 .form-field {
  display: flex;
  flex-direction: column;
- gap: 5px;
+ gap: 8px;
 }
 
 .form-field label {
- font-size: 12px;
+ font-size: 14px;
  line-height: 12px;
  margin-bottom: 0;
+ font-weight: 400;
+ font-weight: 600;
 }
 
 .form-control:focus {
@@ -32,15 +34,25 @@ form {
  box-shadow: none;
 }
 
+.form-control {
+ font-size: 12px;
+}
+
 .error {
  color: red;
  font-size: 12px;
 }
 
-.error-list{
-  color: red;
-  font-size: 12px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.error-list {
+ color: red;
+ font-size: 12px;
+ list-style: none;
+ padding: 0;
+ margin: 0;
+}
+
+button[type="submit"] {
+ background-color: var(--dark-pink);
+ color: white;
+ font-weight: 300;
 }
