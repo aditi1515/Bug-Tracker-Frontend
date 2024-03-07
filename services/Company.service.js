@@ -1,6 +1,6 @@
 function CompanyService($http, BASE_URL) {
- this.getCompany = function () {
-  return $http.get("/api/company");
+ this.getCompanies = function (pageNo,pageSize,query) {
+  return $http.get(BASE_URL + `/company?pageNo=${pageNo}&&pageSize=${pageSize}&&query=${query}`);
  };
 
  this.saveCompany = function (company) {

@@ -11,7 +11,7 @@ trackflow.directive("myModal", function (ModalService) {
    confirmBtnText: "@",
   },
   templateUrl: "../components/Modal/modal.html", // Path to the directive's template
-  link: function (scope) {
+  link: function (scope, element) {
    // Function to handle modal close
    scope.closeModal = function () {
     if (scope.onClose) {
@@ -30,6 +30,13 @@ trackflow.directive("myModal", function (ModalService) {
     }
     scope.closeModal();
    };
+
+   element.on("click", function (event) {
+    console.log("Modal clicked", element[0], event.target.id);
+    if (event.target.classList.contains('modal') || event.target.classList.contains('modal-dialog')) {
+     scope.$apply(scope.closeModal);
+ }
+   });
   },
  };
 });

@@ -6,6 +6,7 @@ body {
  margin: 0;
  padding: 0;
  font-family: "Plus Jakarta Sans", sans-serif;
+ overflow-x: hidden;
 }
 :root {
  --dark-purple: #3b183f;
@@ -24,6 +25,7 @@ body {
  --pastel-neon-green-dark: #818a49;
  --pastel-dull-green: #c7deb3;
  --pastel-dull-green-dark: #8e9475;
+ --neon-purple: #7c2cdd;
 }
 
 body {
@@ -50,4 +52,14 @@ body {
  display: none;
  opacity: 0;
  transform: translateY(100%);
+}
+
+.modal {
+ /* Apply the blur effect */
+ background-color: rgba(
+  114,
+  110,
+  110,
+  0.5
+ ); /* Set a semi-transparent background color */
 }

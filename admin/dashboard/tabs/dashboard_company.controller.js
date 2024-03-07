@@ -1,22 +1,24 @@
 function dashboardCompanyController(
  $scope,
+ $timeout,
  CompanyService,
  ModalService,
  SnackbarService
 ) {
  $scope.addCompanyFormData = {
   company: {
-   name: "Dummy Company",
-   email: "dummy@example.com",
-   city: "Dummy City",
-   state: "Dummy State",
-   country: "Dummy Country",
+   name: "Dominos",
+   email: "info@dominos.com",
+   domain: "dominos",
+   city: "Ann Arbor",
+   state: "Michigan",
+   country: "United States",
   },
   admin: {
-   firstname: "Dummy First Name",
-   lastname: "Dummy Last Name",
-   email: "admin@example.com",
-   phoneNumber: "1234567890",
+   firstname: "Jatin",
+   lastname: "Pandey",
+   email: "jatin.pandey.personal@gmail.com",
+   phoneNumber: "+1 734 123 4567",
   },
  };
 
@@ -28,6 +30,7 @@ function dashboardCompanyController(
   formData.append("company[email]", $scope.addCompanyFormData.company.email);
   formData.append("company[city]", $scope.addCompanyFormData.company.city);
   formData.append("company[state]", $scope.addCompanyFormData.company.state);
+  formData.append("company[domain]", $scope.addCompanyFormData.company.domain);
   formData.append(
    "company[country]",
    $scope.addCompanyFormData.company.country
@@ -55,7 +58,7 @@ function dashboardCompanyController(
      2000,
      "success"
     );
-    ModalService.hideModal(modalId)
+    ModalService.hideModal(modalId);
    })
    .catch(function (err) {
     console.error("Error saving company: ", err.data.message);
@@ -63,13 +66,54 @@ function dashboardCompanyController(
     addCompanyForm.$invalid = true;
     addCompanyForm.errorMessage = err.data.message;
    });
+ };
 
-  
+ $scope.companiesData = {};
+
+ function getCompanies(
+  pageNo = 1,
+  pageSize = 10,
+  query = $scope.companiesData.query || ""
+ ) {
+  CompanyService.getCompanies(pageNo, pageSize, query)
+   .then(function (response) {
+    $scope.companiesData = response.data;
+   })
+   .catch(function (err) {
+    console.error("Error getting companies: ", err);
+   });
+ }
+
+ getCompanies();
+
+ $scope.pageChange = function (pageNo, pageSize) {
+  console.log("Page changed: ", pageNo);
+  getCompanies(pageNo, pageSize);
+ };
+
+ function searchCompanies(query) {
+  console.log("Search query: ", query);
+  getCompanies(
+   $scope.companiesData.currentPage,
+   $scope.companiesData.pageSize,
+   query
+  );
+ }
+
+ var debounceTimeout;
+
+ $scope.debounceSearch = function () {
+  console.log("Debouncing...");
+  $timeout.cancel(debounceTimeout);
+  debounceTimeout = $timeout(function () {
+   searchCompanies($scope.companiesData.query);
+  }, 1000);
  };
 }
 
 trackflow.controller("dashboardCompanyController", [
  "$scope",
+ "$timeout",
  "CompanyService",
  "ModalService",
  "SnackbarService",

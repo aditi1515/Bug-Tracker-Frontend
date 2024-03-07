@@ -87,7 +87,7 @@ trackflow.service("BaseUrlInterceptor", [
    config.headers = config.headers || {};
 
    if (subdomain !== "localhost") {
-    config.headers["x_company_name"] = subdomain;
+    config.headers["x_company_domain"] = subdomain;
    }
 
    // Set authToken from localStorage

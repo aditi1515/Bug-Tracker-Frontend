@@ -60,3 +60,114 @@ form .btn {
  width: 100%;
  margin-top: 1rem;
 }
+
+.company-table {
+ margin-top: 5rem;
+}
+
+.table {
+ /* border: 1px solid #000000; */
+ border-spacing: 0;
+}
+
+.table th {
+ border: none;
+ font-size: 14px;
+ font-weight: 800;
+ color: var(--dark-purple);
+ background: var(--light-purple);
+ /* display: flex; */
+ flex: 1;
+}
+
+.table tr {
+ border: none;
+ /* display: flex; */
+ justify-content: space-evenly;
+}
+
+.table td {
+ border: none;
+ font-size: 12px;
+ /* display: flex; */
+ vertical-align: middle;
+ align-items: center;
+ flex: 1;
+ white-space: nowrap;
+}
+
+td.action {
+ justify-content: flex-end;
+ padding-right: 2rem;
+}
+
+.pagination {
+ display: flex;
+ justify-content: flex-end;
+ align-items: center;
+}
+
+.pagination li {
+ list-style: none;
+ margin: 0 0.5rem;
+}
+
+.page-link {
+ padding: 0.2rem;
+ color: #000000;
+}
+
+.page-link:hover {
+ padding: 0.2rem;
+ color: #000000;
+}
+
+li.disabled {
+ background: rgb(228, 227, 227);
+ pointer-events: none;
+}
+
+li.disabled a i {
+ pointer-events: none;
+ color: #ababab;
+}
+.pagination-wrapper {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ width: 100%;
+}
+.row-count-wrapper {
+ display: flex;
+ font-size: 12px;
+ align-items: center;
+ gap: 0.5rem;
+}
+
+.pagination {
+ display: flex;
+ justify-content: flex-end;
+ align-items: center;
+ font-size: 12px;
+}
+
+.searchBox {
+ display: flex;
+ gap: 1rem;
+ width: 20rem;
+ margin-bottom: 1rem;
+}
+
+.searchBox button {
+ background-color: var(--dark-pink);
+ color: white;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.table-wrapper {
+ overflow-x: auto;
+ display: flex;
+ flex-direction: column;
+}

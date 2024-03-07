@@ -59,6 +59,28 @@
       Company Email is required
      </div>
     </div>
+    <!-- company domain -->
+    <div class="form-group">
+     <label for="companyDomain">Domain</label>
+     <input
+      type="text"
+      class="form-control"
+      id="companyDomain"
+      name="companyDomain"
+      ng-model="addCompanyFormData.company.domain"
+      required
+      ng-pattern="/^[a-z]+$/"
+     />
+     <div
+      class="error"
+      ng-show="addCompanyForm.companyDomain.$error.required && addCompanyForm.companyDomain.$touched"
+     >
+      Company Domain is required
+     </div>
+     <div class="error" ng-show="addCompanyForm.companyDomain.$error.pattern">
+      only lowercase letters allowed
+     </div>
+    </div>
 
     <div class="form-row">
      <!-- compamy city state country -->
@@ -238,5 +260,102 @@
     </button>
    </form>
   </my-modal>
+
+  <!-- list companies -->
+
+  <div class="company-table">
+   <div class="searchBox">
+    <input
+     type="text"
+     class="form-control"
+     placeholder="Search by company name"
+     ng-model="companiesData.query"
+     ng-change="debounceSearch()"
+    />
+   </div>
+  </div>
+  <div class="table-wrapper">
+   <table class="table table-hover">
+    <thead>
+     <tr>
+      <th scope="col">Company Name</th>
+      <th scope="col">Company Email</th>
+      <th scope="col">Status</th>
+      <th scope="col">Domain</th>
+      <th scope="col">Company Location</th>
+      <!-- admin details -->
+      <th scope="col">Admin Name</th>
+      <th scope="col">Admin Email</th>
+      <th scope="col">Admin Phone No</th>
+
+      <!-- <th scope="col"></th>   -->
+     </tr>
+    </thead>
+    <tbody>
+     <tr ng-repeat="company in companiesData.companies">
+      <td>
+       <img
+        ng-src="{{ company.logo }}"
+        alt="company logo"
+        style="width: 30px; height: 30px; margin-right: 10px"
+       />
+
+       {{ company.name }}
+      </td>
+      <td>{{ company.email }}</td>
+      <td>
+       <span
+        class="badge"
+        ng-class="{'badge-success': company.isEnabled, 'badge-danger': !company.isEnabled}"
+       >
+        {{ company.isEnabled ? 'active' : 'inactive'}}
+       </span>
+      </td>
+      <td>{{ company.domain }}</td>
+      <td>{{ company.city }}, {{ company.state }}, {{ company.country }}</td>
+      <td>{{ company.admin.firstname + " " + company.admin.lastname }}</td>
+      <td>{{ company.admin.email }}</td>
+      <td>{{ company.admin.phoneNumber }}</td>
+
+      <!-- <td class="action">
+            <i
+             class="bi-pencil-fill"
+             ng-click="launchModal('editCompanyModal',company)"
+            >
+            </i>
+           </td> -->
+     </tr>
+    </tbody>
+   </table>
+   <!-- pagination -->
+   <div class="pagination-wrapper">
+    <div class="row-count-wrapper">
+     <span>Rows per page:</span>
+     <select
+      ng-model="companiesData.pageSize"
+      ng-options="size for size in [5,10,15,20]"
+      ng-change="pageChange(1,companiesData.pageSize)"
+     ></select>
+    </div>
+    <ul class="pagination">
+     <li
+      class="page-item"
+      ng-class="{'disabled':companiesData.currentPage === 1}"
+      ng-click="pageChange(companiesData.currentPage - 1)"
+     >
+      <a class="page-link"> <i class="bi-caret-left-fill"></i></a>
+     </li>
+     <span>{{companiesData.currentPage}}/{{companiesData.totalPages}}</span>
+
+     <li
+      class="page-item"
+      ng-class="{'disabled':companiesData.currentPage === companiesData.totalPages}"
+      ng-click="pageChange(companiesData.currentPage + 1)"
+     >
+      <a class="page-link"><i class="bi-caret-right-fill"></i></a>
+     </li>
+    </ul>
+   </div>
+  </div>
  </div>
 </section>
