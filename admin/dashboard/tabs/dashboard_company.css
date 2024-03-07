@@ -20,3 +20,43 @@ button {
  color: white;
  font-weight: 300;
 }
+
+.error {
+ color: red;
+ font-size: 12px;
+}
+
+h4 {
+ color: var(--dark-purple);
+ font-weight: bold;
+}
+
+.form-group {
+ margin-bottom: 0.5rem;
+}
+
+.form-group label {
+ font-size: 14px;
+ line-height: 12px;
+ margin-bottom: 0;
+ font-weight: 400;
+ font-weight: 600;
+}
+
+.form-control:focus {
+ border-color: #000000;
+ box-shadow: none;
+}
+
+.form-control {
+ font-size: 12px;
+}
+
+.btn.disabled {
+ cursor: not-allowed;
+}
+
+form .btn {
+ width: 100%;
+ margin-top: 1rem;
+}

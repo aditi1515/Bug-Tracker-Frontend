@@ -45,12 +45,15 @@
   <script src="sidebar/sidebarController.js"></script>
   <script src="Company/companyController.js"></script>
   <script src="admin/dashboard/dashboardController.js"></script>
+  <script src="admin/dashboard/tabs/dashboard_company.controller.js"></script>
 
   <!-- services -->
   <script src="services/User.service.js"></script>
   <script src="services/sidebar.service.js"></script>
   <script src="services//Modal.service.js"></script>
   <script src="services/Form.service.js"></script>
+  <script src="services/Company.service.js"></script>
+  <script src="services/snackbar.service.js"></script>
 
   <!-- directives -->
   <script src="components/sidebar/sidebarDirective.js"></script>
@@ -64,5 +67,7 @@
   <!-- <sidebar ng-include="'sidebar/sidebar.html'" ng-if="!isLoginPage()"></sidebar> -->
 
   <main ui-view></main>
+
+  <div class="alert hide" role="alert"></div>
  </body>
 </html>

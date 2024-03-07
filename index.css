@@ -7,22 +7,47 @@ body {
  padding: 0;
  font-family: "Plus Jakarta Sans", sans-serif;
 }
-:root{
- --dark-purple:#3B183F;
- --dark-pink:#BC2550;
- --light-purple:#F3EBF4;
- --text-on-dark-purple:#915E96;
- --dark-purple-text:#39223C;
- --shadow-purple:#E0D5E1;
- --pastel-green:#B3DEC1;
- --pastel-green-dark:#526A5A;
- --pastel-cyan:#DBF9F0;
- --pastel-cyan-dark:#7D968F;
- --pastel-pink:#EE638B;
- --pastel-pink-dark:#9D2A4B;
- --pastel-neon-green:#D1DA90;
- --pastel-neon-green-dark:#818A49;
- --pastel-dull-green:#C7DEB3;
- --pastel-dull-green-dark:#8E9475;
+:root {
+ --dark-purple: #3b183f;
+ --dark-pink: #bc2550;
+ --light-purple: #f3ebf4;
+ --text-on-dark-purple: #915e96;
+ --dark-purple-text: #39223c;
+ --shadow-purple: #e0d5e1;
+ --pastel-green: #b3dec1;
+ --pastel-green-dark: #526a5a;
+ --pastel-cyan: #dbf9f0;
+ --pastel-cyan-dark: #7d968f;
+ --pastel-pink: #ee638b;
+ --pastel-pink-dark: #9d2a4b;
+ --pastel-neon-green: #d1da90;
+ --pastel-neon-green-dark: #818a49;
+ --pastel-dull-green: #c7deb3;
+ --pastel-dull-green-dark: #8e9475;
+}
 
+body {
+ display: flex;
+ flex-direction: column;
+ position: relative;
+ width: 100vw;
+ background: #000;
+ max-height: 100vh;
+}
+
+.alert {
+ width: fit-content;
+ display: block;
+ position: absolute;
+ bottom: 8rem;
+ left: 1rem;
+ opacity: 1;
+ transition: opacity 0.5s, transform 0.5s;
+ transform: translateY(0);
+}
+
+.alert.hide {
+ display: none;
+ opacity: 0;
+ transform: translateY(100%);
 }

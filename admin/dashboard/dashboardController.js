@@ -5,7 +5,7 @@ function dashboardController(
  ModalService,
  FormService
 ) {
- $scope.profile = auth.personalDetails;
+ $scope.profile = auth;
 
  $scope.options = SideBarService.getSideBarOptions(auth.role);
 
