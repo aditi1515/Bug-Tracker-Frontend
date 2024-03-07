@@ -15,9 +15,9 @@ function dashboardCompanyController(
    country: "United States",
   },
   admin: {
-   firstname: "Jatin",
-   lastname: "Pandey",
-   email: "jatin.pandey.personal@gmail.com",
+   firstname: "Aditi",
+   lastname: "gemini",
+   email: "aditi152003@gmail.com",
    phoneNumber: "+1 734 123 4567",
   },
  };

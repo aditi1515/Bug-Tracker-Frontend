@@ -9,6 +9,7 @@ trackflow.directive("myModal", function (ModalService) {
    body: "@",
    closeBtnText: "@",
    confirmBtnText: "@",
+   modalSize: "@",
   },
   templateUrl: "../components/Modal/modal.html", // Path to the directive's template
   link: function (scope, element) {
