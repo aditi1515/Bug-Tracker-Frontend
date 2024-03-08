@@ -4,7 +4,7 @@ function sideBarService() {
    return [
     {
      label: "Company",
-     state: "superAdminDasboard.company",
+     state: "superAdminDashboard.company",
      icon: "bi-building",
     },
     {
