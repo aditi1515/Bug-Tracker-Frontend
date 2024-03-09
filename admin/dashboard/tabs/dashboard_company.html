@@ -11,7 +11,7 @@
       </button>
     </div>
     <div class="content">
-      <my-modal modal-size="md" modal-id="addCompanyModal" title="Add Company">
+      <my-modal modal-size="lg" modal-id="addCompanyModal" title="Add Company">
         <!-- <form-builder
          on-submit="onSubmit(modalId)"
          form-structure="formStructure"
@@ -25,7 +25,7 @@
           novalidate
         >
           <div class="form-group">
-            <label for="companyName">Company Name</label>
+            <label for="companyName">Company Name*</label>
             <input
               type="text"
               class="form-control"
@@ -43,7 +43,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="companyEmail">Company Email</label>
+            <label for="companyEmail">Company Email*</label>
             <input
               type="email"
               class="form-control"
@@ -59,10 +59,16 @@
             >
               Company Email is required
             </div>
+            <div
+              class="error"
+              ng-show="addCompanyForm.companyEmail.$error.email && addCompanyForm.companyEmail.$touched"
+            >
+              Invalid email format
+            </div>
           </div>
           <!-- company domain -->
           <div class="form-group">
-            <label for="companyDomain">Domain</label>
+            <label for="companyDomain">Domain*</label>
             <input
               type="text"
               class="form-control"
@@ -90,7 +96,7 @@
             <!-- compamy city state country -->
 
             <div class="form-group col">
-              <label for="companyCity">City</label>
+              <label for="companyCity">City*</label>
               <input
                 type="text"
                 name="companyCity"
@@ -107,7 +113,7 @@
               </div>
             </div>
             <div class="form-group col">
-              <label for="companyState">State</label>
+              <label for="companyState">State*</label>
               <input
                 type="text"
                 class="form-control"
@@ -124,7 +130,7 @@
               </div>
             </div>
             <div class="form-group col">
-              <label for="companyCountry">Country</label>
+              <label for="companyCountry">Country*</label>
               <input
                 type="text"
                 class="form-control"
@@ -143,7 +149,7 @@
           </div>
           <!-- company logo -->
           <div class="form-group">
-            <label for="companyLogo">Company Logo</label>
+            <label for="companyLogo">Company Logo*</label>
             <input
               type="file"
               class="form-control"
@@ -165,18 +171,18 @@
 
           <div class="form-row">
             <div class="form-group col">
-              <label for="adminFirstName">First Name</label>
+              <label for="adminFirstName">First Name*</label>
               <input
                 type="text"
                 class="form-control"
                 id="adminFirstName"
                 name="adminFirstName"
                 ng-model="addCompanyFormData.admin.firstname"
-                required
+                ng-required="true"
               />
               <div
                 class="error"
-                ng-show="addCompanyForm.adminFirstName.$invalid && addCompanyForm.adminFirstName.$touched"
+                ng-show="addCompanyForm.adminFirstName.$error.required && addCompanyForm.adminFirstName.$touched"
               >
                 First Name is required
               </div>
@@ -189,14 +195,13 @@
                 id="adminLastName"
                 name="adminLastName"
                 ng-model="addCompanyFormData.admin.lastname"
-                required
               />
-              <div
+              <!-- <div
                 class="error"
-                ng-show="addCompanyForm.adminLastName.$invalid && addCompanyForm.adminLastName.$touched"
+                ng-show="addCompanyForm.adminLastName.$error.required && addCompanyForm.adminLastName.$touched"
               >
                 Last Name is required
-              </div>
+              </div> -->
             </div>
           </div>
 
@@ -205,20 +210,26 @@
           -->
 
             <div class="form-group">
-              <label for="adminEmail">Email</label>
+              <label for="adminEmail">Email*</label>
               <input
                 type="email"
                 class="form-control"
                 id="adminEmail"
                 name="adminEmail"
                 ng-model="addCompanyFormData.admin.email"
-                required
+                ng-required="true"
               />
               <div
                 class="error"
-                ng-show="addCompanyForm.adminEmail.$invalid && addCompanyForm.adminEmail.$touched"
+                ng-show="addCompanyForm.adminEmail.$error.required && addCompanyForm.adminEmail.$touched"
               >
                 Email is required
+              </div>
+              <div
+                class="error"
+                ng-show="addCompanyForm.adminEmail.$error.email && addCompanyForm.adminEmail.$touched"
+              >
+                Invalid email format
               </div>
             </div>
 
@@ -226,7 +237,7 @@
 
             <div class="form-row">
               <div class="form-group col">
-                <label for="adminPhoneNo">Phone No</label>
+                <label for="adminPhoneNo">Phone No*</label>
                 <input
                   type="text"
                   class="form-control"
