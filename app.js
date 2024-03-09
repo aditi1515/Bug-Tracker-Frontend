@@ -21,7 +21,7 @@ trackflow.config([
     templateUrl: "./Company/company.html",
     controller: "companyController",
    })
-   .state("superAdminDasboard", {
+   .state("superAdminDashboard", {
     url: "/dashboard",
     templateUrl: "./admin/dashboard/dashboard.html",
     controller: "dashboardController",
@@ -46,7 +46,7 @@ trackflow.config([
      },
     },
    })
-   .state("superAdminDasboard.company", {
+   .state("superAdminDashboard.company", {
     url: "/company",
     templateUrl: "./admin/dashboard/tabs/dashboard_company.html",
     controller: "dashboardCompanyController",
@@ -66,6 +66,8 @@ trackflow.config(function ($httpProvider) {
  $httpProvider.interceptors.push("BaseUrlInterceptor");
 });
 
+
+// subdomain service
 trackflow.service("subdomainService", function () {
  this.extractSubdomain = function () {
   var subdomain = window.location.hostname.split(".")[0];
@@ -74,6 +76,7 @@ trackflow.service("subdomainService", function () {
  };
 });
 
+//backend base url 
 trackflow.constant("BASE_URL", "http://localhost:3000/api/");
 
 trackflow.service("BaseUrlInterceptor", [

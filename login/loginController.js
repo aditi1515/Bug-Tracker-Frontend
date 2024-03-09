@@ -1,17 +1,15 @@
 function loginController($scope, $location, UserService) {
- $scope.login = function () {
-  $location.path("/dashboard");
- };
-
- $scope.login = function () {
-  console.log("Login form data: ", $scope.loginFormData);
-  UserService.login($scope.loginFormData);
- };
+  //function for login
+  $scope.login = function () {
+    console.log("Login form data: ", $scope.loginFormData);
+    UserService.login($scope.loginFormData);
+    $location.path("/dashboard");
+  };
 }
 
 trackflow.controller("loginController", [
- "$scope",
- "$location",
- "UserService",
- loginController,
+  "$scope",
+  "$location",
+  "UserService",
+  loginController,
 ]);

@@ -1,11 +1,10 @@
 .sidebar {
  width: 15rem;
- /* border-right: 1px solid black; */
- background: #f9fafb;
+ border-right: 1px solid black;
  padding: 10px;
- min-height: 100vh;
+ /* min-height: 100vh; */
  height: 100%;
- /* background: var(--dark-purple); */
+ background: var(--dark-purple);
 }
 
 .profile {
@@ -35,7 +34,6 @@
  /* border: 1px solid rgb(240, 238, 238); */
  flex-direction: column;
  gap: 1rem;
- align-items: center;
  /* background: #ffffff; */
  /* border-radius: 10px; */
 }
@@ -52,7 +50,7 @@
  /* font-weight: bold; */
  font-size: 0.8rem;
  /* color: var(--text-on-dark-purple); */
- color: rgb(1, 1, 1);
+ color: white;
  /* background: #ffffff; */
 }
 
