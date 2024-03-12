@@ -1,36 +1,20 @@
-.dashboard_company_wrapper {
- margin-top: 2rem;
- padding: 1rem;
- font-family: "Plus Jakarta Sans", sans-serif;
- min-height: 100vh;
+.wrapper {
+ padding: 3rem 1rem;
 }
 
-h2 {
- color: var(--dark-purple);
- font-weight: 600;
-}
-
-.dashboard_company_wrapper .head {
+.wrapper .head {
  display: flex;
  justify-content: space-between;
  align-items: center;
+ padding: 0 20px;
+ margin-bottom: 20px;
 }
 
-button {
+.wrapper .head .btn {
  background-color: var(--dark-pink);
  color: white;
  font-weight: 300;
  font-size: 12px;
-}
-
-.error {
- color: red;
- font-size: 12px;
-}
-
-h4 {
- color: var(--dark-purple);
- font-weight: bold;
 }
 
 .form-group {
@@ -75,7 +59,6 @@ form .btn {
  color: var(--dark-purple);
  background: var(--light-purple);
  /* display: flex; */
- flex: 1;
 }
 
 .table tr {
@@ -186,6 +169,17 @@ li.disabled a i {
  border-radius: 10px;
 
  /* border: 1px solid rgb(229, 229, 229); */
+}
+button {
+ background-color: var(--dark-pink);
+ color: white;
+ font-weight: 300;
+ font-size: 12px;
+}
+
+.error {
+ color: red;
+ font-size: 12px;
 }
 
 .badge {

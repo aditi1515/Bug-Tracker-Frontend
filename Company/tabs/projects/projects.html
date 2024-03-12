@@ -1,0 +1,99 @@
+<section>
+ <link rel="stylesheet" href="../../../Company/tabs/projects/projects.css" />
+ <div class="project-sidebar">
+  <h2>Projects</h2>
+  <div
+   ui-sref="company.projects.manage"
+   ui-sref-active="active"
+   class="project-sidebar-option"
+  >
+   <div class="bi-toggles2"></div>
+   <span>Manage</span>
+  </div>
+  <div
+   ui-sref="company.projects.dashboard"
+   ui-sref-active="active"
+   class="project-sidebar-option"
+  >
+   <div class="bi-clipboard-data"></div>
+   <span>Dashboard</span>
+  </div>
+  <div
+   ui-sref="company.projects.activity"
+   ui-sref-active="active"
+   class="project-sidebar-option"
+  >
+   <div class="bi-clock"></div>
+   <span>Activity</span>
+  </div>
+  <hr />
+  <div
+   class="project-sidebar-option-collapsible"
+   ng-repeat="project in projects"
+  >
+   <div
+    class="collapse-btn"
+    type="button"
+    data-toggle="collapse"
+    data-target="{{'#' + project._id}}"
+    aria-expanded="false"
+    aria-controls="collapse"
+   >
+    <div>
+     <div>
+      <img ng-src="{{project.logo}}" alt="" />
+      <span>{{project.name}}</span>
+     </div>
+     <div class="arrow bi-chevron-down"></div>
+    </div>
+   </div>
+   <div class="collapse" id="{{project._id}}">
+    <div class="link-list" style="padding-left: 2rem">
+     <div class="sub-options-wrapper">
+      <div
+       class="sub-option"
+       ui-sref-active="active"
+       ui-sref="company.projects.project.ticket({projectId: project._id})"
+      >
+       <div class="bi bi-dash"></div>
+       <div class="option-content">
+        <span class="bi-grid-fill"></span> <span>Tickets</span>
+       </div>
+      </div>
+      <div
+       class="sub-option"
+       ui-sref-active="active"
+       ui-sref="company.projects.project.manage({projectId: project._id})"
+      >
+       <div class="bi bi-dash"></div>
+       <div class="option-content">
+        <span class="bi-grid-fill"></span> <span>Manage</span>
+       </div>
+      </div>
+      <div
+       class="sub-option"
+       ui-sref-active="active"
+       ui-sref="company.projects.dashboard({projectId: project.id})"
+      >
+       <div class="bi bi-dash"></div>
+       <div class="option-content">
+        <span class="bi-grid-fill"></span> <span>Dashboard</span>
+       </div>
+      </div>
+      <div
+       class="sub-option"
+       ui-sref-active="active"
+       ui-sref="company.projects.activity({projectId: project.id})"
+      >
+       <div class="bi bi-dash"></div>
+       <div class="option-content">
+        <span class="bi-grid-fill"></span> <span>Activity</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div class="subview" ui-view></div>
+</section>

@@ -1,0 +1,157 @@
+section {
+ display: flex;
+ gap: 1rem;
+}
+
+.subview {
+ flex: 1;
+}
+
+.project-sidebar {
+ display: flex;
+ flex-direction: column;
+ gap: 0.5rem;
+ background: #ffffff;
+ border-radius: 10px;
+ padding: 1rem;
+ width: fit-content;
+ min-width: 15rem;
+ min-height: 100vh;
+}
+
+.project-sidebar h2 {
+ margin-top: 1rem;
+ font-size: 1.2rem;
+ font-weight: bold;
+ color: var(--dark-pink);
+}
+
+.project-sidebar-option {
+ display: flex;
+ gap: 5px;
+ font-size: 13px;
+ font-weight: 600;
+ padding: 7px 1rem;
+ cursor: pointer;
+}
+
+.project-sidebar-option.active {
+ /* background: var(--shadow-purple); */
+ border-radius: 3px;
+}
+
+.project-sidebar-option:hover {
+ background: var(--shadow-purple);
+ border-radius: 3px;
+ color: black;
+}
+
+.project-sidebar-option div {
+ -webkit-text-stroke: 0.3px;
+}
+
+.project-sidebar-option-collapsible {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ width: 100%;
+ cursor: pointer;
+}
+
+.collapse {
+ gap: 1rem;
+ background: #ffffff;
+ border-radius: 10px;
+}
+
+.collapse-btn > div {
+ display: flex;
+ gap: 5px;
+ align-items: center;
+ justify-content: space-between;
+ padding: 5px 8px;
+}
+
+.collapse-btn > div .arrow {
+ -webkit-text-stroke: 1px;
+}
+
+.collapse-btn {
+ font-size: 13px;
+ font-weight: 600;
+ background: var(--very-light-purple);
+ width: 100%;
+ /* border-radius: 10px; */
+}
+
+.collapse-btn img {
+ width: 30px;
+ height: 30px;
+ border-radius: 10%;
+}
+
+.collapse .link-list {
+ padding-left: 2rem;
+ display: flex;
+ flex-direction: column;
+ background: transparent;
+ border: none;
+}
+
+.link-list > div {
+ font-size: 0.8rem;
+ font-weight: 600;
+ display: flex;
+ flex-direction: column;
+ gap: 0.5rem;
+}
+
+.sub-option {
+ display: flex;
+ gap: 5px;
+ justify-content: flex-start;
+ padding: 0 0.5rem;
+ position: relative;
+ color: #9da2b3;
+}
+
+.sub-option.active {
+ font-weight: 800;
+ background: transparent;
+ color: var(--dark-pink);
+}
+
+.bi-dash {
+ position: absolute;
+ left: -4px;
+ -webkit-text-stroke: 1px;
+ color: #e2e2e2;
+}
+
+.collapsing {
+ transition: 0.002;
+}
+
+.arrow {
+ transition: 0.5s;
+}
+
+.collapse-btn[aria-expanded="true"] .arrow {
+ transform: rotate(180deg);
+}
+
+.sub-options-wrapper {
+ margin-top: 0.5rem;
+ border-left: 2px solid #e2e2e2;
+}
+
+.option-content {
+ display: flex;
+ gap: 1rem;
+ cursor: pointer;
+}
+
+hr {
+ width: 100%;
+ border: 1px solid #e2e2e2;
+}

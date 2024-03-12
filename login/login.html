@@ -56,12 +56,15 @@
        <span ng-show="loginFail">* Incorrect email or password</span>
       </div>
      </div>
+
      <button class="btn" type="submit" class="login-btn">Log In</button>
+     <div class="error">{{loginForm.errorMessage}}</div>
      <a class="forget-password" href="">Forgot Password?</a>
      <!-- class='{{loginForm.$valid? "login-btn": "login-btn-disabled"}}' -->
     </form>
    </div>
   </div>
+
   <div class="login-page-image">
    <img src="../assets/tfe.png" alt="login-page-image" />
   </div>

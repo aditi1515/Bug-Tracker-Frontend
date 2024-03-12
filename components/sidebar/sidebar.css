@@ -1,10 +1,18 @@
 .sidebar {
  width: 15rem;
- border-right: 1px solid black;
+ /* border-right: 1px solid black; */
  padding: 10px;
  /* min-height: 100vh; */
  height: 100%;
- background: var(--dark-purple);
+ background: white;
+ /* background: var(--dark-purple); */
+ transition: 0.2s ease;
+ position: relative;
+ border-right: 1px solid rgb(191, 188, 188);
+}
+
+.sidebar.collapsed {
+ width: 4rem;
 }
 
 .profile {
@@ -16,12 +24,18 @@
  align-items: center;
  padding: 0.4rem 0.8rem;
  background: var(--light-purple);
+ transition: 0.4s ease;
 }
 
 .profile span {
  font-size: 0.9rem;
  font-weight: 500;
  line-height: 0.8rem;
+}
+
+.collapsed .profile {
+ justify-content: center;
+ padding: 0.4rem 0;
 }
 
 .profile p {
@@ -49,9 +63,14 @@
  background-color: transparent;
  /* font-weight: bold; */
  font-size: 0.8rem;
+ -webkit-text-stroke: 0.3px;
  /* color: var(--text-on-dark-purple); */
- color: white;
+
  /* background: #ffffff; */
+}
+
+.sidebar-option.collapsed {
+ justify-content: center;
 }
 
 .sidebar-option:hover {
@@ -83,4 +102,29 @@
  font-size: 2rem;
  font-weight: bold;
  color: var(--dark-pink);
+ justify-content: center;
+}
+
+.profile img {
+ width: 30px;
+ height: 30px;
+ border-radius: 50%;
+}
+
+.sidebar-collapse-btn {
+ position: absolute;
+ top: 2rem;
+ right: -0.7rem;
+ border: 1px solid;
+ border-radius: 50%;
+ padding: 5px;
+ font-size: 10px;
+ font-weight: bold;
+ background: #000;
+ color: white;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ -webkit-text-stroke: 1px;
+ cursor: pointer;
 }

@@ -12,6 +12,7 @@ body {
  --dark-purple: #3b183f;
  --dark-pink: #bc2550;
  --light-purple: #f3ebf4;
+ --very-light-purple: #f5f2f5;
  --text-on-dark-purple: #915e96;
  --dark-purple-text: #39223c;
  --shadow-purple: #e0d5e1;
@@ -26,6 +27,7 @@ body {
  --pastel-dull-green: #c7deb3;
  --pastel-dull-green-dark: #8e9475;
  --neon-purple: #7c2cdd;
+ --base-grey: #f9fafb;
 }
 
 body {
@@ -62,4 +64,10 @@ body {
   110,
   0.5
  ); /* Set a semi-transparent background color */
+}
+
+.select-option-image {
+ width: 2rem;
+ height: 2rem;
+ object-fit: cover;
 }

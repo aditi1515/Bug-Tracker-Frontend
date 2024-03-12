@@ -58,6 +58,7 @@ function dashboardCompanyController(
      2000,
      "success"
     );
+    getCompanies()
     ModalService.hideModal(modalId);
    })
    .catch(function (err) {

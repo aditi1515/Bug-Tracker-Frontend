@@ -1,5 +1,5 @@
 trackflow.service("SnackbarService", function () {
- this.showAlert = function (message, time, type) {
+ this.showAlert = function (message, time = 2000, type = 'success') {
   var alertElement = angular.element(document.querySelector(".alert"));
   console.log(alertElement);
   alertElement.html(message);
@@ -9,6 +9,6 @@ trackflow.service("SnackbarService", function () {
   setTimeout(function () {
    alertElement.removeClass("alert-" + type);
    alertElement.addClass("hide");
-  }, 3000); // Hides the alert after 3 seconds
+  }, time); // Hides the alert after 3 seconds
  };
 });

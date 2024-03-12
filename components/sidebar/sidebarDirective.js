@@ -6,5 +6,12 @@ trackflow.directive("sidebar", function () {
    options: "=",
   },
   templateUrl: "../components/sidebar/sidebar.html",
+  controller: function ($scope, $location) {
+   $scope.expanded = false;
+
+   $scope.toggle = function () {
+    $scope.expanded = !$scope.expanded;
+   };
+  },
  };
 });

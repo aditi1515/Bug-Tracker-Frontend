@@ -22,13 +22,10 @@ function dashboardController(
  };
 
  $scope.onSubmit = function (modalId) {
-  console.log("Confirm action performed");
-  console.log("Modal ID: ", modalId);
   ModalService.hideModal(modalId);
  };
 
  $scope.formFields = FormService.getFormFields("registrationForm", "admin");
- console.log("Form fields: ", $scope.formFields);
 
  $scope.formStructure = [
   {
@@ -39,7 +36,6 @@ function dashboardController(
  ];
 
  $scope.formModel = {};
- console.log("Form model: ", $scope.formModel);
 }
 
 trackflow.controller("dashboardController", [

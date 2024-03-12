@@ -2,6 +2,7 @@
  display: flex;
  height: 100%;
  width: 100vw;
+ min-height: 100vh;
 }
 .dashboard_content {
  flex: 1;
