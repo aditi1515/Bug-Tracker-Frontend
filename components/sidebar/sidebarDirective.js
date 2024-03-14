@@ -7,7 +7,7 @@ trackflow.directive("sidebar", function () {
   },
   templateUrl: "../components/sidebar/sidebar.html",
   controller: function ($scope, $location) {
-   $scope.expanded = false;
+   $scope.expanded = true;
 
    $scope.toggle = function () {
     $scope.expanded = !$scope.expanded;

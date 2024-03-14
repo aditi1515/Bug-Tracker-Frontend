@@ -29,6 +29,7 @@ trackflow.config([
     url: "/dashboard",
     templateUrl: "./admin/dashboard/dashboard.html",
     controller: "dashboardController",
+    redirectTo: "superAdminDashboard.company",
     resolve: {
      auth: isSuperAdminAuthenticated,
     },
