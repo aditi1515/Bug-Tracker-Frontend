@@ -22,7 +22,6 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
 
    //store user in localStorage
    var user = response.data.user;
-   localStorage.setItem("user", JSON.stringify(user));
 
    if (user.role === "SUPER_ADMIN") {
     $state.go("superAdminDashboard");
@@ -51,7 +50,6 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
  };
 
  this.getAllUsers = function (queryObject) {
-
   const params = new URLSearchParams();
 
   // Append all parameters from the queryObject
@@ -72,11 +70,19 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
   }
 
   const queryString = params.toString();
- 
 
-  return $http.get(
-   BASE_URL + `user/all?${queryString}`
-  );
+  return $http.get(BASE_URL + `user/all?${queryString}`);
+ };
+
+ this.logout = function () {
+  var companyDomain = subdomainService.extractSubdomain();
+  if (companyDomain && companyDomain !== "localhost") {
+   localStorage.removeItem(companyDomain + "_authToken");
+  } else {
+   localStorage.removeItem("superadmin_authToken");
+  }
+
+  $state.go("login");
  };
 }
 
