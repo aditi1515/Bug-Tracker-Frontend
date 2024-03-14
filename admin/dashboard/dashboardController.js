@@ -25,17 +25,19 @@ function dashboardController(
   ModalService.hideModal(modalId);
  };
 
- $scope.formFields = FormService.getFormFields("registrationForm", "admin");
+ 
 
- $scope.formStructure = [
-  {
-   title: "Company Information",
-   name: "company",
-   fields: FormService.getFormFields("addCompanyForm", "superadmin"),
-  },
- ];
+//  $scope.formFields = FormService.getFormFields("registrationForm", "admin");
 
- $scope.formModel = {};
+//  $scope.formStructure = [
+//   {
+//    title: "Company Information",
+//    name: "company",
+//    fields: FormService.getFormFields("addCompanyForm", "superadmin"),
+//   },
+//  ];
+
+//  $scope.formModel = {};
 }
 
 trackflow.controller("dashboardController", [

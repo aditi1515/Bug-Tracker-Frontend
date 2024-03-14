@@ -160,6 +160,7 @@ function isAuthenticated($q, UserService, $state) {
   });
 }
 
+//check super admin authentication
 function isSuperAdminAuthenticated($q, UserService, $state) {
  return UserService.isAuthenticated()
   .then(function (user) {

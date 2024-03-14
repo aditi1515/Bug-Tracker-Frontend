@@ -299,6 +299,7 @@
               <th scope="col">Domain</th>
               <th scope="col">Company Location</th>
               <th scope="col">Status</th>
+              <!-- <th scope="col">More Details</th> -->
               <!-- admin details -->
               <!-- <th scope="col">Admin Name</th>
        <th scope="col">Admin Email</th>
@@ -332,20 +333,14 @@
                   {{ company.isEnabled ? 'active' : 'inactive'}}
                 </span>
               </td>
+
               <!-- <td>{{ company.admin.firstname + " " + company.admin.lastname }}</td>
        <td>{{ company.admin.email }}</td>
        <td>{{ company.admin.phoneNumber }}</td> -->
-
-              <!-- <td class="action">
-                 <i
-                  class="bi-pencil-fill"
-                  ng-click="launchModal('editCompanyModal',company)"
-                 >
-                 </i>
-                </td> -->
             </tr>
           </tbody>
         </table>
+
         <!-- pagination -->
         <div class="pagination-wrapper">
           <div class="row-count-wrapper">

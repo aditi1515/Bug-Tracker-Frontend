@@ -74,6 +74,8 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
   return $http.get(BASE_URL + `user/all?${queryString}`);
  };
 
+
+ //logout function
  this.logout = function () {
   var companyDomain = subdomainService.extractSubdomain();
   if (companyDomain && companyDomain !== "localhost") {
