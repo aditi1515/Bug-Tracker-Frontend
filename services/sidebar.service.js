@@ -8,16 +8,6 @@ function sideBarService() {
      icon: "bi-building",
     },
     {
-     label: "Tracks",
-     state: "admin.tracks",
-     icon: "bi-compass",
-    },
-    {
-     label: "Users",
-     state: "admin.users",
-     icon: "bi-people",
-    },
-    {
      label: "Settings",
      state: "admin.settings",
      icon: "bi-gear",
@@ -32,7 +22,7 @@ function sideBarService() {
     },
     {
      label: "Projects",
-     state: "company.projects",
+     state: "company.projects.base",
      icon: "bi-clipboard",
     },
     {

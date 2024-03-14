@@ -7,18 +7,18 @@ function dashboardCompanyController(
 ) {
  $scope.addCompanyFormData = {
   company: {
-   name: "Dominos",
-   email: "info@dominos.com",
-   domain: "dominos",
-   city: "Ann Arbor",
-   state: "Michigan",
-   country: "United States",
+   name: "Zenith Enterprises",
+   email: "info@zenithenterprises.com",
+   domain: "zenith",
+   city: "Tokyo",
+   state: "Tokyo",
+   country: "Japan",
   },
   admin: {
    firstname: "Aditi",
-   lastname: "gemini",
-   email: "aditi152003@gmail.com",
-   phoneNumber: "+1 734 123 4567",
+   lastname: "Gemini",
+   email: "aditigemini295@gmail.com",
+   phoneNumber: "+81 123 456 789",
   },
  };
 
@@ -58,7 +58,7 @@ function dashboardCompanyController(
      2000,
      "success"
     );
-    getCompanies()
+    getCompanies();
     ModalService.hideModal(modalId);
    })
    .catch(function (err) {

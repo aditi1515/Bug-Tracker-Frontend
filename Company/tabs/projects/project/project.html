@@ -1,3 +1,25 @@
-<section>
+<section class="project-wrapper">
+ <link
+  rel="stylesheet"
+  href="../../../../Company/tabs/projects/project/project.css"
+ />
+ <div class="project-header">
+  <div class="top">
+   <img ng-src="{{metaData.projectDetails.logo}}" alt="" />
+   <span>{{metaData.projectDetails.name }}</span>
+  </div>
+  <div class="bottom">
+   <div class="project-detail">
+    <span>{{metaData.people.length}} members</span>
+   </div>
+   <div class="profile-imgs">
+    <img
+     ng-src="{{person.image}}"
+     ng-repeat="person in metaData.people"
+     alt=""
+    />
+   </div>
+  </div>
+ </div>
  <div ui-view></div>
 </section>

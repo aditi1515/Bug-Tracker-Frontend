@@ -1,6 +1,7 @@
 function companyProjectsManageController(
  $scope,
  $timeout,
+ $state,
  ModalService,
  SnackbarService,
  UserService,
@@ -19,12 +20,11 @@ function companyProjectsManageController(
   ProjectService.addProject($scope.addProjectFormData)
    .then(function (response) {
     SnackbarService.showAlert("Project created successfully", 2000, "success");
-    getAllProjects();
+    $state.reload();
     ModalService.hideModal(modalId);
    })
    .catch(function (error) {
     console.log("Error adding employee: ", error);
-    addProjectForm.$invalid = true;
     addProjectForm.errorMessage = error.data.message;
    });
  };
@@ -57,7 +57,7 @@ function companyProjectsManageController(
 
  $scope.pageChange = function (pageNo, pageSize) {
   console.log("Page changed: ", pageNo);
-  getAllProject(pageNo, pageSize);
+  getAllProjects(pageNo, pageSize);
  };
 
  function searchProject(query) {
@@ -83,6 +83,7 @@ function companyProjectsManageController(
 trackflow.controller("companyProjectsManageController", [
  "$scope",
  "$timeout",
+ "$state",
  "ModalService",
  "SnackbarService",
  "UserService",

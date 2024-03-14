@@ -156,7 +156,6 @@
        <th scope="col">Role</th>
        <th scope="col">Status</th>
        <th scope="col">Join Date</th>
-       <th scope="col">Projects</th>
        <!-- admin details -->
        <!-- <th scope="col">Admin Name</th>
   <th scope="col">Admin Email</th>
@@ -175,7 +174,11 @@
         <span class="badge">{{person.role}}</span>
        </td>
        <td>
-        <span class="badge" ng-class="{'badge-success': person.isEnabled, 'badge-danger': !person.isEnabled}">{{person.isEnabled}}</span>
+        <span
+         class="badge"
+         ng-class="{'badge-success': person.isEnabled, 'badge-danger': !person.isEnabled}"
+         >{{person.isEnabled}}</span
+        >
        </td>
        <td>{{person.createdAt | date : 'MM/dd/yyyy'}}</td>
        <!-- <td>{{ company.admin.firstname + " " + company.admin.lastname }}</td>

@@ -11,6 +11,7 @@ function ProjectService($http, BASE_URL) {
   formdata.append("status", project.status);
   formdata.append("logo", project.logo);
   formdata.append("key", project.key);
+  
 
   return $http.post(BASE_URL + "project", formdata, {
    headers: { "Content-Type": undefined },
@@ -45,6 +46,9 @@ function ProjectService($http, BASE_URL) {
  };
  this.deleteProject = function (projectId) {
   return $http.delete(BASE_URL + "project/" + projectId);
+ };
+ this.getProjectById = function (projectId) {
+  return $http.get(BASE_URL + "project/" + projectId);
  };
 }
 

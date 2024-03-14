@@ -1,6 +1,5 @@
-section {
+.projects-wrapper {
  display: flex;
- gap: 1rem;
 }
 
 .subview {
@@ -154,4 +153,82 @@ section {
 hr {
  width: 100%;
  border: 1px solid #e2e2e2;
+}
+
+.select-multiple-wrapper {
+ display: flex;
+ flex-direction: column;
+ gap: 0.5rem;
+ width: 100%;
+}
+
+.select2-selection--single {
+ display: flex;
+ flex-direction: column;
+ gap: 0.5rem;
+ width: 100%;
+}
+.select2-results__option--selected {
+ display: none;
+}
+
+.select2-container--classic
+ .select2-selection--multiple
+ .select2-selection__choice {
+ border-radius: 10px;
+ background-color: white;
+ display: flex;
+ align-items: center;
+ width: fit-content;
+ padding: 0.2rem 0.3rem;
+}
+
+.select2-container--classic .select2-search--inline .select2-search__field {
+ display: flex;
+}
+
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+ display: flex;
+ flex-wrap: wrap;
+}
+.select2-selection__choice img {
+ width: 20px;
+ height: 20px;
+ border-radius: 50%;
+ margin-right: 5px;
+}
+
+.form-group {
+ margin-bottom: 0.5rem;
+}
+
+.form-group label {
+ font-size: 14px;
+ line-height: 12px;
+ margin-bottom: 0;
+ font-weight: 400;
+ font-weight: 600;
+}
+
+.form-control:focus {
+ border-color: #000000;
+ box-shadow: none;
+}
+
+.form-control,
+select {
+ font-size: 12px;
+}
+
+select {
+ height: 24px;
+}
+
+.btn.disabled {
+ cursor: not-allowed;
+}
+
+form .btn {
+ width: 100%;
+ margin-top: 1rem;
 }

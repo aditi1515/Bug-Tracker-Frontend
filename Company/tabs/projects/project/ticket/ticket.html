@@ -1,1 +1,325 @@
-<section>ticket</section>
+<section class="ticket-section-wrapper">
+ <link
+  rel="stylesheet"
+  href="../../../../../Company/tabs/projects/project/ticket/ticket.css"
+ />
+ <div class="header">
+  <h3>Tickets</h3>
+  <button class="btn" ng-click="launchModal('addTicketModal')">
+   Create Ticket
+  </button>
+ </div>
+ <my-modal modal-size="lg" modal-id="addTicketModal" title="Add Ticket">
+  <form
+   name="addTicketForm"
+   ng-submit="addTicketFormSubmit('addTicketModal',addTicketForm)"
+   novalidate
+  >
+   <!-- select for project -->
+   <div class="form-group">
+    <label for="project">Project*</label>
+    <select
+     class="form-control"
+     id="project"
+     name="project"
+     ng-model="addTicketFormData.project"
+     disabled="{{metaData.projectDetails._id !== undefined}}"
+     ng-init="{{addTicketFormData.project = metaData.projectDetails._id}}"
+     ng-required="true"
+    >
+     <option ng-value="project._id" value="" ng-repeat="project in projects">
+      {{ project.name }}
+     </option>
+    </select>
+    <div
+     class="error"
+     ng-show="addTicketForm.project.$error.required && addTicketForm.project.$touched"
+    >
+     Project is required
+    </div>
+   </div>
+   <div class="form-group">
+    <label for="ticketDescription">Description</label>
+    <textarea
+     class="form-control"
+     id="ticketDescription"
+     name="ticketDescription"
+     ng-model="addTicketFormData.description"
+    ></textarea>
+   </div>
+   <div class="form-row">
+    <div class="form-group col">
+     <label for="ticketType">Ticket Type*</label>
+     <select
+      class="form-control"
+      id="ticketType"
+      name="ticketType"
+      ng-model="addTicketFormData.ticketType"
+      ng-options="type for type in ['BUG', 'FR']"
+      ng-required="true"
+      ng-init="addTicketFormData.ticketType = 'BUG'"
+     ></select>
+     <div
+      class="error"
+      ng-show="addTicketForm.ticketType.$error.required && addTicketForm.ticketType.$touched"
+     >
+      Ticket Type is required
+     </div>
+    </div>
+    <div class="form-group col">
+     <label for="ticketStatus">Status*</label>
+     <select
+      type="text"
+      class="form-control"
+      id="ticketStatus"
+      name="ticketStatus"
+      ng-options="status for status in ['OPEN', 'IN PROGRESS', 'IN REVIEW' ,'CLOSED']"
+      ng-model="addTicketFormData.status"
+      ng-required="true"
+      ng-init="addTicketFormData.status = 'OPEN'"
+     />
+     <div
+      class="error"
+      ng-show="addTicketForm.ticketStatus.$error.required && addTicketForm.ticketStatus.$touched"
+     >
+      Ticket Status is required
+     </div>
+    </div>
+   </div>
+
+   <div class="form-row" ng-if="addTicketFormData.ticketType === 'FR'">
+    <div class="form-group reporterClient">
+     <label for="reporterClient">Reporter Client</label>
+     <!-- <select -->
+     <!-- class="form-control " 
+     id="project"
+     name="project"
+     ng-model="addTicketFormData.reporterClient"
+     select2-init
+     ng-required="true"
+    > -->
+
+     <!-- <option  ng-value="person._id"    data-image="{{person.image}}" ng-repeat="person in metaData.people">
+     {{person.firstname}}
+ </option> -->
+     <!-- </select> -->
+
+     <input
+      type="text"
+      class="form-control"
+      id="reporterClient"
+      name="reporterClient"
+      ng-model="addTicketFormData.reporterClient"
+      ng-required="true"
+      ng-init="addTicketFormData.reporterClient = profile.firstname + ' ' + profile.lastname"
+     />
+     <div
+      class="error"
+      ng-show="addTicketForm.reporterClient.$error.required && addTicketForm.reporterClient.$touched"
+     >
+      Reporter Client is required
+     </div>
+    </div>
+   </div>
+   <div class="form-row">
+    <div class="form-group col select-multiple-wrapper">
+     <label for="members">Assignees *</label>
+     <select
+      class="form-control"
+      id="assignees"
+      name="assignees"
+      ng-model="addTicketFormData.assignees"
+      ng-required="true"
+      multiple
+      select2-init
+      style="width: 100%"
+      placeholder="Select Assignees"
+     >
+      <option
+       ng-value="person._id"
+       data-image="{{person.image}}"
+       ng-repeat="person in metaData.people"
+      >
+       {{person.firstname}}
+      </option>
+     </select>
+    </div>
+   </div>
+   <div class="form-row">
+    <!-- priority and dueDate -->
+    <div class="form-group col">
+     <label for="ticketPriority">Priority*</label>
+     <select
+      class="form-control"
+      id="ticketPriority"
+      name="ticketPriority"
+      ng-model="addTicketFormData.priority"
+      ng-options="priority for priority in ['LOW', 'MEDIUM', 'HIGH']"
+      ng-required="true"
+      ng-init="addTicketFormData.priority = 'LOW'"
+     ></select>
+     <div
+      class="error"
+      ng-show="addTicketForm.ticketPriority.$error.required && addTicketForm.ticketPriority.$touched"
+     >
+      Ticket Priority is required
+     </div>
+    </div>
+    <div class="form-group col">
+     <label for="dueDate">Due Date*</label>
+     <input
+      type="date"
+      class="form-control"
+      id="dueDate"
+      name="dueDate"
+      ng-model="addTicketFormData.dueDate"
+      ng-required="true"
+      min="{{currentDate | date:'yyyy-MM-dd'}}"
+     />
+     <div
+      class="error"
+      ng-show="addTicketForm.dueDate.$error.required && addTicketForm.dueDate.$touched"
+     >
+      Ticket due date is required
+     </div>
+    </div>
+   </div>
+
+   <div class="form-row">
+    <!-- attachments -->
+    <div class="form-group col">
+     <label for="attachments">Attachments</label>
+     <input
+      multiple
+      type="file"
+      class="form-control"
+      id="attachments"
+      name="attachments"
+      ng-model="addTicketFormData.attachments"
+      file-model="addTicketFormData.attachments"
+     />
+
+     <div id="file-preview-container">
+      <div
+       class="file-preview-item"
+       file-preview
+       files="addTicketFormData.attachments"
+      ></div>
+     </div>
+    </div>
+   </div>
+   <div class="formerror">
+    <div
+     class="error"
+     ng-show="addTicketForm.$invalid && addTicketForm.$submitted"
+    >
+     {{addTicketForm.errorMessage}}
+    </div>
+   </div>
+
+   <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+ </my-modal>
+
+ <div class="tickets-container">
+  <div class="topbar">
+   <div class="searchBox">
+    <input
+     type="text"
+     class="form-control"
+     placeholder="Search"
+     ng-model="searchTicket"
+     ng-change="debounceSearch()"
+    />
+   </div>
+   <div class="basic-filters">
+    <div
+     class="basic-filter"
+     ng-click="basicFilterSelected(filterOption)"
+     ng-class="{'active' : filterOption.filterValue === selectedBasicFilter.filterValue}"
+     ng-repeat="filterOption in [
+    { filterType: 'status', filterValue: 'OPEN' , displayValue:'OPEN'},
+    { filterType: 'ticketType', filterValue: 'BUG' , displayValue:'BUG' },
+    { filterType: 'ticketType', filterValue: 'FR' , displayValue:'FR' },
+    { filterType: 'priority', filterValue: 'LOW' , displayValue:'LOW' },
+    { filterType: 'priority', filterValue: 'MEDIUM' , displayValue:'MEDIUM' },
+    { filterType: 'priority', filterValue: 'HIGH' , displayValue:'HIGH' }
+
+]"
+    >
+     {{filterOption.displayValue}}
+    </div>
+   </div>
+  </div>
+
+  <div class="tickets-wrapper">
+   <div class="ticket" ng-repeat="ticket in ticketsData.tickets">
+    <div class="ticket-header">
+     <div class="ticket-title">
+      <span>{{ticket.name}}</span>
+     </div>
+     <div class="ticket-status" ng-class="{ 'status-open': ticket.status ===
+     'OPEN', 'status-in-progress': ticket.status === 'IN PROGRESS',
+     'status-in-review': ticket.status === 'IN REVIEW', 'status-closed':
+     ticket.status === 'CLOSED'}">
+     <span class="status" ng-class="ticket.status">{{ticket.status}}</span>
+    </div>
+   </div>
+   <div class="ticket-body">{{ ticket.description | limitTo:80 }}</div>
+   <div class="ticket-footer">
+    <div class="footer-left">
+     <div
+      class="ticket-priority"
+      ng-class="{ 
+      'priority-low': ticket.priority === 'LOW',
+      'priority-medium': ticket.priority === 'MEDIUM',
+      'priority-high': ticket.priority === 'HIGH'
+  }"
+     >
+      <span>{{ ticket.priority }}</span>
+     </div>
+     <div
+      class="ticket-type"
+      ng-class="{ 
+      'type-bug': ticket.ticketType === 'BUG',
+      'type-fr': ticket.ticketType === 'FR',
+  }"
+     >
+      <span> {{ticket.ticketType}}</span>
+     </div>
+    </div>
+    <div class="ticket-due-date">
+     <span> {{ticket.dueDate | date:'dd-MM-yyyy'}}</span>
+    </div>
+   </div>
+  </div>
+  <div class="pagination-wrapper">
+   <div class="row-count-wrapper">
+    <span>Rows per page:</span>
+    <select
+     ng-model="ticketsData.pageSize"
+     ng-options="size for size in [5,10,15,20]"
+     ng-change="pageChange(1,ticketsData.pageSize)"
+    ></select>
+   </div>
+   <ul class="pagination">
+    <li
+     class="page-item"
+     ng-class="{'disabled':ticketsData.pageNo === 1}"
+     ng-click="pageChange(ticketsData.pageNo - 1,ticketsData.pageSize)"
+    >
+     <a class="page-link"> <i class="bi-caret-left-fill"></i></a>
+    </li>
+    <span>{{ticketsData.pageNo}}/{{ticketsData.totalPages}}</span>
+
+    <li
+     class="page-item"
+     ng-class="{'disabled':ticketsData.pageNo === ticketsData.totalPages}"
+     ng-click="pageChange(ticketsData.pageNo + 1,ticketsData.pageSize)"
+    >
+     <a class="page-link"><i class="bi-caret-right-fill"></i></a>
+    </li>
+   </ul>
+  </div>
+ </div>
+</section>

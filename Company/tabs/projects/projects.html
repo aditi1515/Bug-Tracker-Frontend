@@ -1,8 +1,10 @@
-<section>
+<section class="projects-wrapper">
  <link rel="stylesheet" href="../../../Company/tabs/projects/projects.css" />
  <div class="project-sidebar">
   <h2>Projects</h2>
+
   <div
+   ng-show="profile.role==='COMPANY_ADMIN'"
    ui-sref="company.projects.manage"
    ui-sref-active="active"
    class="project-sidebar-option"
@@ -10,24 +12,10 @@
    <div class="bi-toggles2"></div>
    <span>Manage</span>
   </div>
-  <div
-   ui-sref="company.projects.dashboard"
-   ui-sref-active="active"
-   class="project-sidebar-option"
-  >
-   <div class="bi-clipboard-data"></div>
-   <span>Dashboard</span>
-  </div>
-  <div
-   ui-sref="company.projects.activity"
-   ui-sref-active="active"
-   class="project-sidebar-option"
-  >
-   <div class="bi-clock"></div>
-   <span>Activity</span>
-  </div>
+
   <hr />
   <div
+   ui-sref="company.projects.project.ticket({ projectId: project._id })"
    class="project-sidebar-option-collapsible"
    ng-repeat="project in projects"
   >

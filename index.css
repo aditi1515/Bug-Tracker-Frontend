@@ -28,6 +28,21 @@ body {
  --pastel-dull-green-dark: #8e9475;
  --neon-purple: #7c2cdd;
  --base-grey: #f9fafb;
+ --smoke-grey: #a9adb0;
+ --nice-blue: #e2faff;
+ --nice-purple: #e3e2ff;
+ --nice-dark-blue: #e3ebfb;
+ --nice-red: #ffdcdc;
+ --nice-pink: #fee2ff;
+ --nice-blue-text: #6cc5d7;
+ --nice-purple-text: #7e7cf6;
+ --nice-dark-blue-text: #729cf0;
+ --nice-red-text: #e93c3c;
+ --nice-pink-text: #ea73ee;
+ --nice-crimson: #e47a88;
+ --nice-crimson-text: #a62e3e;
+ --nice-orange: #e9a77e;
+ --nice-orange-text: #e85a00;
 }
 
 body {

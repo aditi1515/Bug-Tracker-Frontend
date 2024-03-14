@@ -1,0 +1,56 @@
+.project-wrapper {
+ display: flex;
+ flex-direction: column;
+}
+
+.project-header {
+ display: flex;
+ flex-direction: column;
+ padding: 1rem;
+ border-bottom: 1px solid rgb(229, 229, 229);
+ border-left: 1px solid rgb(229, 229, 229);
+ background: #ffffff;
+}
+
+.project-header .top {
+ display: flex;
+ align-items: center;
+ gap: 0.2rem;
+}
+
+.project-header img {
+ width: 30px;
+ height: 30px;
+ border-radius: 50%;
+}
+
+.project-header span {
+ font-size: 1.3rem;
+ font-weight: 600;
+}
+
+.project-header .bottom {
+ display: flex;
+ gap: 0.5rem;
+ align-items: center;
+ margin-left: 2.5rem;
+}
+
+.project-header .bottom .project-detail {
+ display: flex;
+ font-size: 10px;
+}
+
+.project-header .bottom .project-detail span {
+ display: flex;
+ gap: 1rem;
+ font-size: 12px;
+ font-weight: bold;
+ color: grey;
+}
+
+.profile-imgs img {
+ margin-right: -0.6rem;
+ height: 20px;
+ width: 20px;
+}

@@ -5,7 +5,7 @@
  />
  <div class="wrapper">
   <div class="head">
-   <h2>Manage People</h2>
+   <h2>Manage Projects</h2>
    <button class="btn" ng-click="launchModal('addProjectModal')">
     Create Project
    </button>
@@ -48,6 +48,7 @@
        ng-model="addProjectFormData.key"
        style="text-transform: uppercase"
        ng-required="true"
+       ng-change="addProjectFormData.key = addProjectFormData.key.toUpperCase()"
       />
 
       <div
@@ -230,7 +231,7 @@
        <td>{{project.members.length}}</td>
        <td class="member-avatar-container">
         <span class="badge" ng-repeat="member in project.members">
-         <img ng-src="{{member.user.image}}" class="avatar" alt="" />
+         <img ng-src="{{member.image}}" class="avatar" alt="" />
         </span>
        </td>
 
