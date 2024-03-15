@@ -110,6 +110,10 @@ function dashboardCompanyController(
    searchCompanies($scope.companiesData.query);
   }, 1000);
  };
+
+ $scope.launchModal = function (modalId) {
+  ModalService.showModal(modalId);
+ };
 }
 
 trackflow.controller("dashboardCompanyController", [

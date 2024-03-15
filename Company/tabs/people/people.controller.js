@@ -6,9 +6,9 @@ function companyPeopleController(
  UserService
 ) {
  $scope.addEmployeeFormData = {
-  firstname: "Jatin",
-  lastname: "Pandey",
-  email: "playerhun191@gmail.com",
+  firstname: "Hello",
+  lastname: "",
+  email: "hello@gmail.com",
   role: "PROJECT_MANAGER",
   phoneNumber: "1234567890",
  };

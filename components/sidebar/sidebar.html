@@ -1,33 +1,38 @@
 <link rel="stylesheet" href="../../components/sidebar/sidebar.css" />
 
 <div class="sidebar" ng-class="{ 'collapsed': !expanded }">
- <div class="top-sidebar">
-  <div class="logo" ng-show="expanded">trackFlow</div>
-  <div class="logo" ng-show="!expanded">t</div>
-  <div class="profile">
-   <img ng-src="{{profile.image}}" alt="profile picture" />
-   <div ng-show="expanded">
-    <span>{{ profile.firstname + " " + profile.lastname }}</span>
-   </div>
+  <div class="top-sidebar">
+    <div class="logo" ng-show="expanded">trackFlow</div>
+    <div class="logo" ng-show="!expanded">tF</div>
+    <div class="profile">
+      <img ng-src="{{profile.image}}" alt="profile picture" />
+      <div ng-show="expanded">
+        <span>{{ profile.firstname + " " + profile.lastname }}</span>
+      </div>
+    </div>
+    <hr />
+    <div class="sidebar-options-container">
+      <div
+        ui-sref="{{ option.state }}"
+        class="btn btn-sm sidebar-option"
+        ng-class="{ 'collapsed': !expanded }"
+        ng-repeat="option in options"
+        ui-sref-active="active"
+      >
+        <i class="{{ option.icon }}"></i>
+        <a class="link" ng-show="expanded">{{ option.label }}</a>
+      </div>
+    </div>
+    <div
+      class="sidebar-collapse-btn"
+      ng-class="{'bi-chevron-right' : !expanded , 'bi-chevron-left' : expanded}"
+      ng-click="toggle()"
+    ></div>
   </div>
-  <hr />
-  <div class="sidebar-options-container">
-   <div
-    ui-sref="{{ option.state }}"
-    class="btn btn-sm sidebar-option"
-    ng-class="{ 'collapsed': !expanded }"
-    ng-repeat="option in options"
-    ui-sref-active="active"
-   >
-    <i class="{{ option.icon }}"></i>
-    <a class="link" ng-show="expanded">{{ option.label }}</a>
-   </div>
+  <div class="logout-btn btn" ng-click="logout()" ng-show="expanded">
+    Logout
   </div>
-  <div
-   class="sidebar-collapse-btn"
-   ng-class="{'bi-chevron-right' : !expanded , 'bi-chevron-left' : expanded}"
-   ng-click="toggle()"
-  ></div>
- </div>
- <div class="logout-btn btn" ng-click="logout()">Logout</div>
+  <div ng-click="logout()" ng-show="!expanded" class="logout-icon">
+    <i class="bi bi-box-arrow-left"></i>
+  </div>
 </div>
