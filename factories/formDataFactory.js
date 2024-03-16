@@ -3,14 +3,14 @@ function formDataFactory() {
 
  factory.getCompanyFormData = function (companyFormData) {
   var formData = new FormData();
-
+  console.log("Company data: ", companyFormData);
   // Append company details
-  formData.append("company[name]", companyFormData.company.name);
-  formData.append("company[city]", companyFormData.company.city);
-  formData.append("company[state]", companyFormData.company.state);
-  formData.append("company[domain]", companyFormData.company.domain);
-  formData.append("company[country]", companyFormData.company.country);
-  formData.append("company[logo]", companyFormData.company.logo);
+  formData.append("name", companyFormData.name);
+  formData.append("city", companyFormData.city);
+  formData.append("state", companyFormData.state);
+  formData.append("domain", companyFormData.domain);
+  formData.append("country", companyFormData.country);
+  formData.append("logo", companyFormData.logo);
   // Append admin details
   formData.append("admin[firstname]", companyFormData.admin.firstname);
   formData.append("admin[lastname]", companyFormData.admin.lastname);

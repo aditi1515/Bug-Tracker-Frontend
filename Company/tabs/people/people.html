@@ -176,8 +176,8 @@
        <td>
         <span
          class="badge"
-         ng-class="{'badge-success': person.isEnabled, 'badge-danger': !person.isEnabled}"
-         >{{person.isEnabled}}</span
+         ng-class="{'badge-success': person.isCurrentMember, 'badge-danger': !person.isCurrentMember}"
+         >{{person.isCurrentMember}}</span
         >
        </td>
        <td>{{person.createdAt | date : 'MM/dd/yyyy'}}</td>

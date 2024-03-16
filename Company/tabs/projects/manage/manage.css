@@ -82,6 +82,7 @@ form .btn {
 td.action {
  justify-content: flex-end;
  padding-right: 1rem;
+ cursor: pointer;
 }
 
 .pagination {

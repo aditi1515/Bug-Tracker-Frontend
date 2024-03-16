@@ -11,10 +11,11 @@ function companyProjectsManageController(
   inProgress: true,
   dueDate: new Date(),
  };
+
  $scope.currentDate = new Date();
  $scope.projectData = {};
-
  $scope.metaData = {};
+ $scope.isEditingProject = false;
 
  $scope.addProjectFormSubmit = function (modalId, addProjectForm) {
   ProjectService.addProject($scope.addProjectFormData)
@@ -28,6 +29,13 @@ function companyProjectsManageController(
     addProjectForm.errorMessage = error.data.message;
    });
  };
+
+ $scope.editProjectForm = function (project,modalId) {
+  $scope.isEditingProject = true;
+  $scope.addProjectFormData = project;
+  ModalService.showModal(modalId);
+ 
+ }
 
  function getAllEmployees() {
   UserService.getAllUsers({ onlyEnabled: true }).then(function (response) {

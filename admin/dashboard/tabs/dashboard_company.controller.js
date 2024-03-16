@@ -5,8 +5,25 @@ function dashboardCompanyController(
  ModalService,
  SnackbarService
 ) {
+ $scope.addCompanyFormData = {
+  name: "Acme Corporation",
+  domain: "acme",
+  city: "New York",
+  state: "NY",
+  country: "USA",
+
+  admin: {
+   firstname: "John",
+   lastname: "Doe",
+   email: "john.doe@example.com",
+   phoneNumber: "123-456-7890",
+  },
+ };
+ $scope.companiesData = {};
+ $scope.isEditing = false;
 
  $scope.addCompanyFormSubmit = function (modalId, addCompanyForm) {
+  console.log("Form data: ", $scope.addCompanyFormData);
   CompanyService.saveCompany($scope.addCompanyFormData)
    .then(function (response) {
     console.log("Company saved successfully: ", response);
@@ -29,7 +46,29 @@ function dashboardCompanyController(
    });
  };
 
- $scope.companiesData = {};
+ $scope.editCompany = function (company, modalId) {
+  console.log(company);
+  var editCompanyData = {
+   name: company.name,
+   domain: company.domain,
+   city: company.city,
+   state: company.state,
+   country: company.country,
+   logo: company.logo,
+   admin: {
+    firstname: company.admin.firstname,
+    lastname: company.admin.lastname,
+    email: company.admin.email,
+    phoneNumber: company.admin.phoneNumber,
+   },
+  };
+
+  $scope.addCompanyFormData = editCompanyData;
+  $scope.isEditing = true;
+  ModalService.showModal(modalId);
+
+  console.log($scope.addCompanyFormData);
+ };
 
  //display all companies
  function getCompanies(
@@ -74,6 +113,8 @@ function dashboardCompanyController(
  };
 
  $scope.launchModal = function (modalId) {
+  $scope.isEditing = false;
+  $scope.addCompanyFormData = {};
   ModalService.showModal(modalId);
  };
 

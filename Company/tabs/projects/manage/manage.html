@@ -155,7 +155,7 @@
        placeholder="Select Members"
       >
        <option
-        ng-value="person._id"
+        ng-value="{'_id': person._id, 'firstname': person.firstname, 'lastname' : person.firstname , 'email': person.email}"
         data-image="{{person.image}}"
         ng-repeat="person in metaData.people"
        >
@@ -205,6 +205,7 @@
        <th scope="col">Start Date</th>
        <th scope="col">Team Size</th>
        <th scope="col">Members</th>
+       <th scope="col"></th>
        <!-- admin details -->
        <!-- <th scope="col">Admin Name</th>
     <th scope="col">Admin Email</th>
@@ -238,13 +239,13 @@
     <td>{{ company.admin.email }}</td>
     <td>{{ company.admin.phoneNumber }}</td> -->
 
-       <!-- <td class="action">
-              <i
-               class="bi-pencil-fill"
-               ng-click="launchModal('editCompanyModal',company)"
-              >
-              </i>
-             </td> -->
+       <td class="action" ng-click="editProjectForm(project,'addProjectModal')">
+        <i
+         class="bi-pencil-fill"
+         ng-click="launchModal('editCompanyModal',company)"
+        >
+        </i>
+       </td>
       </tr>
      </tbody>
     </table>

@@ -50,26 +50,8 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
  };
 
  this.getAllUsers = function (queryObject) {
-  var params = new URLSearchParams();
 
-  // Append all parameters from the queryObject
-  for (var key in queryObject) {
-   if (queryObject.hasOwnProperty(key) && queryObject[key] !== undefined) {
-    if (key === "query") {
-     // If it's the 'query' object, append its properties
-     for (var queryKey in queryObject.query) {
-      if (queryObject.query.hasOwnProperty(queryKey)) {
-       params.append(queryKey, queryObject.query[queryKey]);
-      }
-     }
-    } else {
-     // For other parameters, directly append them
-     params.append(key, queryObject[key]);
-    }
-   }
-  }
-
-  var queryString = params.toString();
+  var queryString = QueryGenerator(queryObject);
 
   return $http.get(BASE_URL + `user/all?${queryString}`);
  };
