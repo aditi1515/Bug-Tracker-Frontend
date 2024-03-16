@@ -22,6 +22,10 @@ function CompanyService($http, BASE_URL) {
       }
     );
   };
+
+  this.getCompanyByDomain = function (companyDomain) {
+    return $http.get(BASE_URL + `company/getSiteDetails?domain=${companyDomain}`);
+   };
 }
 
 trackflow.service("CompanyService", ["$http", "BASE_URL", CompanyService]);
