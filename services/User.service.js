@@ -50,14 +50,14 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
  };
 
  this.getAllUsers = function (queryObject) {
-  const params = new URLSearchParams();
+  var params = new URLSearchParams();
 
   // Append all parameters from the queryObject
-  for (const key in queryObject) {
+  for (var key in queryObject) {
    if (queryObject.hasOwnProperty(key) && queryObject[key] !== undefined) {
     if (key === "query") {
      // If it's the 'query' object, append its properties
-     for (const queryKey in queryObject.query) {
+     for (var queryKey in queryObject.query) {
       if (queryObject.query.hasOwnProperty(queryKey)) {
        params.append(queryKey, queryObject.query[queryKey]);
       }
@@ -69,18 +69,18 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
    }
   }
 
-  const queryString = params.toString();
+  var queryString = params.toString();
 
   return $http.get(BASE_URL + `user/all?${queryString}`);
  };
 
  this.getAllUsersByProjectId = function (queryObject) {
-  const params = new URLSearchParams();
+  var params = new URLSearchParams();
 
-  for (const key in queryObject) {
+  for (var key in queryObject) {
    if (queryObject.hasOwnProperty(key) && queryObject[key] !== undefined) {
     if (key === "query") {
-     for (const queryKey in queryObject.query) {
+     for (var queryKey in queryObject.query) {
       if (queryObject.query.hasOwnProperty(queryKey)) {
        params.append(queryKey, queryObject.query[queryKey]);
       }
@@ -91,7 +91,7 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
    }
   }
 
-  const queryString = params.toString();
+  var queryString = params.toString();
 
   return $http.get(BASE_URL + `user/allByProjectId?${queryString}`);
  };

@@ -17,11 +17,10 @@ function ticketController(
 
  $scope.currentDate = new Date();
 
-
  //add ticket
  $scope.addTicketFormSubmit = function (modalId, addTicketForm) {
   console.log("Add ticket form data: ", $scope.addTicketFormData);
-  $scope.addTicketFormData.project = $scope.metaData.projectDetails
+  $scope.addTicketFormData.project = $scope.metaData.projectDetails;
   TicketService.createTicket($scope.addTicketFormData)
    .then(function (response) {
     console.log("Ticket created successfully: ", response);
@@ -39,7 +38,6 @@ function ticketController(
     console.log("Error adding ticket: ", error);
    });
  };
-
 
  //get all tickets
  function getAllTickets(pageNo = 1, pageSize = 10, query = {}) {
@@ -64,7 +62,7 @@ function ticketController(
 
   console.log("Query: ", query);
 
-  // Calling getAllTickets with the constructed query object
+  // Calling getAllTickets with the varructed query object
   getAllTickets(
    $scope.ticketsData.currentPage,
    $scope.ticketsData.pageSize,

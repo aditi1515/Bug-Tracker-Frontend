@@ -3,7 +3,6 @@ function dashboardController(
  auth,
  SideBarService,
  ModalService,
- FormService
 ) {
 
 
@@ -26,18 +25,6 @@ function dashboardController(
  };
 
  
-
-//  $scope.formFields = FormService.getFormFields("registrationForm", "admin");
-
-//  $scope.formStructure = [
-//   {
-//    title: "Company Information",
-//    name: "company",
-//    fields: FormService.getFormFields("addCompanyForm", "superadmin"),
-//   },
-//  ];
-
-//  $scope.formModel = {};
 }
 
 trackflow.controller("dashboardController", [
@@ -45,6 +32,5 @@ trackflow.controller("dashboardController", [
  "auth",
  "SideBarService",
  "ModalService",
- "FormService",
  dashboardController,
 ]);

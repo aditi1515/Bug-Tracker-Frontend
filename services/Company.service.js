@@ -1,4 +1,4 @@
-function CompanyService($http, BASE_URL) {
+function CompanyService($http, BASE_URL , FormDataFactory) {
   this.getCompanies = function (pageNo, pageSize, query) {
     return $http.get(
       BASE_URL +
@@ -7,8 +7,9 @@ function CompanyService($http, BASE_URL) {
   };
 
   this.saveCompany = function (company) {
-    console.log("Company data: ", ...company);
-    return $http.post(BASE_URL + "company", company, {
+    var formData = FormDataFactory.getCompanyFormData(company);
+    console.log("Company data: ", ...formData);
+    return $http.post(BASE_URL + "company", formData, {
       headers: { "Content-Type": undefined },
     });
   };
@@ -28,4 +29,4 @@ function CompanyService($http, BASE_URL) {
    };
 }
 
-trackflow.service("CompanyService", ["$http", "BASE_URL", CompanyService]);
+trackflow.service("CompanyService", ["$http", "BASE_URL","FormDataFactory", CompanyService]);

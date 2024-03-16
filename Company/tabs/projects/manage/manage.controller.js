@@ -8,7 +8,7 @@ function companyProjectsManageController(
  ProjectService
 ) {
  $scope.addProjectFormData = {
-  status: "IN_PROGRESS",
+  inProgress: true,
   dueDate: new Date(),
  };
  $scope.currentDate = new Date();
@@ -29,8 +29,6 @@ function companyProjectsManageController(
    });
  };
 
-
- 
  function getAllEmployees() {
   UserService.getAllUsers({ onlyEnabled: true }).then(function (response) {
    console.log("All people: ", response.data.users);
@@ -48,8 +46,7 @@ function companyProjectsManageController(
   ProjectService.getAllProjects({
    pageNo: pageNo,
    pageSize: pageSize,
- query
-
+   query,
   }).then(function (response) {
    console.log("All projects: ", response);
    $scope.projectData = response.data;
@@ -58,22 +55,18 @@ function companyProjectsManageController(
 
  getAllProjects();
 
-
  //on page change
  $scope.pageChange = function (pageNo, pageSize) {
   console.log("Page changed: ", pageNo);
   getAllProjects(pageNo, pageSize);
  };
 
-
- //serach project 
+ //serach project
  function searchProject(query) {
   console.log("Search query: ", query);
-  getAllProjects(
-   $scope.projectData.currentPage,
-   $scope.projectData.pageSize,
-   { query: query}
-  );
+  getAllProjects($scope.projectData.currentPage, $scope.projectData.pageSize, {
+   query: query,
+  });
  }
 
  var debounceTimeout;

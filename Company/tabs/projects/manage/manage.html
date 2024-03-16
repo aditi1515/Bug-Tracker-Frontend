@@ -119,22 +119,22 @@
       </div>
      </div>
      <div class="form-group col">
-      <label for="status">Status*</label>
+      <label for="inProgress">Status*</label>
       <select
        type="date"
        class="form-control"
-       id="status"
-       name="status"
-       ng-model="addProjectFormData.status"
+       id="inProgress"
+       name="inProgress"
+       ng-model="addProjectFormData.inProgress"
        ng-required="true"
       >
-       <option value="IN_PROGRESS" selected>In Progress</option>
-       <option value="COMPLETED">Completed</option>
+       <option ng-value="true" selected>In Progress</option>
+       <option ng-value="false">Completed</option>
       </select>
 
       <div
        class="error"
-       ng-show="addProjectForm.status.$error.required && addProjectForm.status.$touched"
+       ng-show="addProjectForm.inProgress.$error.required && addProjectForm.inProgress.$touched"
       >
        Project status is required
       </div>
@@ -143,13 +143,12 @@
 
     <div class="form-row">
      <div class="form-group col select-multiple-wrapper">
-      <label for="members">Members *</label>
+      <label for="members">Members</label>
       <select
        class="form-control"
        id="members"
        name="members"
        ng-model="addProjectFormData.members"
-       ng-required="true"
        multiple
        select2-init
        style="width: 100%"
@@ -223,8 +222,8 @@
        <td>
         <span
          class="badge"
-         ng-class="{'badge-primary': project.status === 'IN_PROGRESS', 'badge-success': project.status === 'COMPLETED'}"
-         >{{project.status}}</span
+         ng-class="{'badge-primary': project.inProgress === true, 'badge-success': project.inProgress === false}"
+         >{{project.status ? "In Progress" : "Completed"}}</span
         >
        </td>
        <td>{{project.createdAt | date : 'MM/dd/yyyy'}}</td>
