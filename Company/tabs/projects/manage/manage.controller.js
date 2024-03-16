@@ -29,6 +29,8 @@ function companyProjectsManageController(
    });
  };
 
+
+ 
  function getAllEmployees() {
   UserService.getAllUsers({ onlyEnabled: true }).then(function (response) {
    console.log("All people: ", response.data.users);
@@ -37,6 +39,7 @@ function companyProjectsManageController(
  }
  getAllEmployees();
 
+ //get all projects
  function getAllProjects(
   pageNo = 1,
   pageSize = 10,
@@ -45,8 +48,8 @@ function companyProjectsManageController(
   ProjectService.getAllProjects({
    pageNo: pageNo,
    pageSize: pageSize,
-   query: query,
-   onlyMeta: true,
+ query
+
   }).then(function (response) {
    console.log("All projects: ", response);
    $scope.projectData = response.data;
@@ -55,17 +58,21 @@ function companyProjectsManageController(
 
  getAllProjects();
 
+
+ //on page change
  $scope.pageChange = function (pageNo, pageSize) {
   console.log("Page changed: ", pageNo);
   getAllProjects(pageNo, pageSize);
  };
 
+
+ //serach project 
  function searchProject(query) {
   console.log("Search query: ", query);
   getAllProjects(
    $scope.projectData.currentPage,
    $scope.projectData.pageSize,
-   query
+   { query: query}
   );
  }
 

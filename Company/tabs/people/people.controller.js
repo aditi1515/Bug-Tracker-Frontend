@@ -15,6 +15,8 @@ function companyPeopleController(
 
  $scope.peopleData = {};
 
+
+ //submit add employee form
  $scope.addEmployeeFormSubmit = function (modalId, addEmployeeForm) {
   console.log("Form submitted: ", addEmployeeForm);
   UserService.createUser({ user: $scope.addEmployeeFormData })
@@ -59,7 +61,7 @@ function companyPeopleController(
   getAllPeople(
    $scope.peopleData.currentPage,
    $scope.peopleData.pageSize,
-   query
+   {query: query}
   );
  }
 

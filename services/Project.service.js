@@ -17,6 +17,10 @@ function ProjectService($http, BASE_URL) {
    headers: { "Content-Type": undefined },
   });
  };
+
+
+
+ 
  this.getAllProjects = function (queryObject) {
   const params = new URLSearchParams();
 

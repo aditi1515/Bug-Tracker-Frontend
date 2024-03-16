@@ -77,18 +77,15 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
  this.getAllUsersByProjectId = function (queryObject) {
   const params = new URLSearchParams();
 
-  // Append all parameters from the queryObject
   for (const key in queryObject) {
    if (queryObject.hasOwnProperty(key) && queryObject[key] !== undefined) {
     if (key === "query") {
-     // If it's the 'query' object, append its properties
      for (const queryKey in queryObject.query) {
       if (queryObject.query.hasOwnProperty(queryKey)) {
        params.append(queryKey, queryObject.query[queryKey]);
       }
      }
     } else {
-     // For other parameters, directly append them
      params.append(key, queryObject[key]);
     }
    }

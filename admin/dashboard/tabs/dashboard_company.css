@@ -66,6 +66,7 @@ form .btn {
 .table {
   /* border: 1px solid #000000; */
   border-spacing: 0;
+  padding: 4rem;
 }
 
 .table th {
@@ -74,8 +75,6 @@ form .btn {
   font-weight: 600;
   color: var(--dark-purple);
   background: var(--light-purple);
-  /* display: flex; */
-  flex: 1;
 }
 
 .table tr {
@@ -86,24 +85,25 @@ form .btn {
 
 .table td {
   border: none;
-  font-size: 12px;
-  /* display: flex; */
+  font-size: 13px;
+
   vertical-align: middle;
   align-items: center;
   /* border: 1px solid var(--dark-purple); */
-
   /* white-space: nowrap; */
 }
 
 td.action {
   display: flex;
   justify-content: center;
-  margin-right: 2rem;
-  font-size: 1rem;
+  margin: 0 2rem;
+  font-size: 12px;
+  text-decoration: underline;
 }
 td.action:hover {
   cursor: pointer;
   color: blue;
+  text-decoration: underline;
 }
 
 .pagination {
@@ -202,4 +202,13 @@ li.disabled a i {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.badge-success:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+.badge-danger:hover {
+  background-color: grey;
+  cursor: pointer;
 }

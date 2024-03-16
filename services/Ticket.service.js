@@ -1,5 +1,7 @@
 function TicketService($http, BASE_URL, $state, $timeout, $q) {
  this.createTicket = function (ticketData) {
+
+    // have to put form data creation in factory
   var formdata = new FormData();
   console.log("Ticket data: ", ticketData.attachments);
   formdata.append("description", ticketData.description);

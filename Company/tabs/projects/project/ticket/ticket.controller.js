@@ -17,6 +17,8 @@ function ticketController(
 
  $scope.currentDate = new Date();
 
+
+ //add ticket
  $scope.addTicketFormSubmit = function (modalId, addTicketForm) {
   console.log("Add ticket form data: ", $scope.addTicketFormData);
   $scope.addTicketFormData.project = $scope.metaData.projectDetails
@@ -38,6 +40,8 @@ function ticketController(
    });
  };
 
+
+ //get all tickets
  function getAllTickets(pageNo = 1, pageSize = 10, query = {}) {
   TicketService.getAllTickets({
    pageNo: pageNo,

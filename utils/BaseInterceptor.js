@@ -28,7 +28,6 @@ trackflow.service("BaseUrlInterceptor", [
     config.headers["x_company_domain"] = subdomain;
    }
 
-   // Set authToken from localStorage
    var authToken =
     subdomain === "localhost"
      ? localStorage.getItem("superadmin_authToken")
