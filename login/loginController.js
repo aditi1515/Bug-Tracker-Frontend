@@ -1,4 +1,7 @@
-function loginController($scope, $location, UserService) {
+function loginController($scope, $location, UserService, company) {
+ console.log("Company: ", company);
+ $scope.company = company;
+
  //function for login
  $scope.login = function () {
   console.log("Login form data: ", $scope.loginFormData);
@@ -17,5 +20,6 @@ trackflow.controller("loginController", [
  "$scope",
  "$location",
  "UserService",
+ "company",
  loginController,
 ]);

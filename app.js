@@ -12,6 +12,14 @@ trackflow.config([
     url: "/login",
     templateUrl: "./login/login.html",
     controller: "loginController",
+    resolve: {
+     company: isCompanyExists,
+    },
+   })
+   .state("companyNotExists", {
+    url: "/companyNotExists",
+    templateUrl: "./Company/CompanyNotExists/companyNotExists.html",
+    controller: "CompanyNotExistsController",
    })
    .state("company", {
     url: "/company",
@@ -109,4 +117,20 @@ function isAdmin($q, UserService, $state, user) {
   return $q.reject();
  }
  return user;
+}
+
+function isCompanyExists($q, CompanyService, subdomainService, $state) {
+ var companyDomain = subdomainService.extractSubdomain();
+
+ return CompanyService.getCompanyByDomain(companyDomain)
+  .then(function (companyRespone) {
+   return companyRespone.data.company;
+  })
+  .catch(function (err) {
+   console.log("Error: ", err);
+   if (err.status === 510) {
+    $state.go("companyNotExists");
+   }
+   return $q.reject();
+  });
 }
