@@ -3,8 +3,15 @@
 
  <div class="login-container">
   <div class="login-form-wrapper">
-   <div class="logo">
-    <img src="../assets/tfp.jpg" alt="logo" />
+   <div class="logo-wrapper">
+    <div class="logo">
+     <img src="../assets/tfp.jpg" alt="logo" />
+    </div>
+    <div class="x-seperate">x</div>
+    <div class="company-name">{{company.name}}</div>
+    <div class="logo">
+     <!-- <img ng-src="{{company.logo}}" alt="companyLogo" /> -->
+    </div>
    </div>
    <div class="login-form-container">
     <form class="login-form" name="loginForm" ng-submit="login()" novalidate>

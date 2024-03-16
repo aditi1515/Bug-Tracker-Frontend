@@ -1,71 +1,79 @@
 var trackflow = angular.module("trackflow", ["ui.router"]);
 
 trackflow.config([
-  "$stateProvider",
-  "$urlRouterProvider",
-  function ($stateProvider, $urlRouterProvider) {
-    $stateProvider
-      .state("home", {
-        url: "/",
-      })
-      .state("login", {
-        url: "/login",
-        templateUrl: "./login/login.html",
-        controller: "loginController",
-      })
-      .state("company", {
-        url: "/company",
-        templateUrl: "./Company/company.html",
-        controller: "companyController",
-        redirectTo: "company.projects",
-        resolve: {
-          auth: isAuthenticated,
-        },
-      })
-      .state("superAdminDashboard", {
-        url: "/dashboard",
-        templateUrl: "./admin/dashboard/dashboard.html",
-        controller: "dashboardController",
-        redirectTo: "superAdminDashboard.company",
-        resolve: {
-          auth: isSuperAdminAuthenticated,
-        },
-      })
-      .state("superAdminDashboard.company", {
-        url: "/company",
-        templateUrl: "./admin/dashboard/tabs/dashboard_company.html",
-        controller: "dashboardCompanyController",
-      })
-      .state("company.people", {
-        url: "/people",
-        templateUrl: "./Company/tabs/people/people.html",
-        controller: "companyPeopleController",
-      })
-      .state("company.projects", {
-        url: "/projects",
-        templateUrl: "./Company/tabs/projects/projects.html",
-        controller: "companyProjectsController",
-        redirectTo: "company.projects.base",
-      })
-      .state("company.projects.base", {
-        url: "/base",
-        templateUrl: "./Company/tabs/projects/projectsBasePage.html",
-      })
-      .state("company.projects.manage", {
-        url: "/manage",
-        templateUrl: "./Company/tabs/projects/manage/manage.html",
-        controller: "companyProjectsManageController",
-      })
-      .state("company.projects.project", {
-        url: "/:projectId",
-        templateUrl: "./Company/tabs/projects/project/project.html",
-        controller: "ProjectController",
-      })
-      .state("company.projects.project.ticket", {
-        url: "/ticket",
-        templateUrl: "./Company/tabs/projects/project/ticket/ticket.html",
-        controller: "ticketController",
-      });
+ "$stateProvider",
+ "$urlRouterProvider",
+ function ($stateProvider, $urlRouterProvider) {
+  $stateProvider
+   .state("home", {
+    url: "/",
+   })
+   .state("login", {
+    url: "/login",
+    templateUrl: "./login/login.html",
+    controller: "loginController",
+    resolve: {
+     company: isCompanyExists,
+    },
+   })
+   .state("companyNotExists", {
+    url: "/companyNotExists",
+    templateUrl: "./Company/CompanyNotExists/companyNotExists.html",
+    controller: "CompanyNotExistsController",
+   })
+   .state("company", {
+    url: "/company",
+    templateUrl: "./Company/company.html",
+    controller: "companyController",
+    redirectTo: "company.projects",
+    resolve: {
+     auth: isAuthenticated,
+    },
+   })
+   .state("superAdminDashboard", {
+    url: "/dashboard",
+    templateUrl: "./admin/dashboard/dashboard.html",
+    controller: "dashboardController",
+    redirectTo: "superAdminDashboard.company",
+    resolve: {
+     auth: isSuperAdminAuthenticated,
+    },
+   })
+   .state("superAdminDashboard.company", {
+    url: "/company",
+    templateUrl: "./admin/dashboard/tabs/dashboard_company.html",
+    controller: "dashboardCompanyController",
+   })
+   .state("company.people", {
+    url: "/people",
+    templateUrl: "./Company/tabs/people/people.html",
+    controller: "companyPeopleController",
+   })
+   .state("company.projects", {
+    url: "/projects",
+    templateUrl: "./Company/tabs/projects/projects.html",
+    controller: "companyProjectsController",
+    redirectTo: "company.projects.base",
+   })
+   .state("company.projects.base", {
+    url: "/base",
+    templateUrl: "./Company/tabs/projects/projectsBasePage.html",
+   })
+   .state("company.projects.manage", {
+    url: "/manage",
+    templateUrl: "./Company/tabs/projects/manage/manage.html",
+    controller: "companyProjectsManageController",
+   })
+   .state("company.projects.project", {
+    url: "/:projectId",
+    templateUrl: "./Company/tabs/projects/project/project.html",
+    controller: "ProjectController",
+   })
+   .state("company.projects.project.ticket", {
+    url: "/ticket",
+    templateUrl: "./Company/tabs/projects/project/ticket/ticket.html",
+    controller: "ticketController",
+   });
 
     $urlRouterProvider.otherwise("/");
   },
@@ -114,4 +122,20 @@ function isAdmin($q, UserService, $state, user) {
     return $q.reject();
   }
   return user;
+}
+
+function isCompanyExists($q, CompanyService, subdomainService, $state) {
+ var companyDomain = subdomainService.extractSubdomain();
+
+ return CompanyService.getCompanyByDomain(companyDomain)
+  .then(function (companyRespone) {
+   return companyRespone.data.company;
+  })
+  .catch(function (err) {
+   console.log("Error: ", err);
+   if (err.status === 510) {
+    $state.go("companyNotExists");
+   }
+   return $q.reject();
+  });
 }
