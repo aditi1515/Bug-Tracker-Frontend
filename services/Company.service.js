@@ -1,4 +1,4 @@
-function CompanyService($http, BASE_URL , FormDataFactory) {
+function CompanyService($http, BASE_URL, FormDataFactory) {
   this.getCompanies = function (pageNo, pageSize, query) {
     return $http.get(
       BASE_URL +
@@ -14,19 +14,34 @@ function CompanyService($http, BASE_URL , FormDataFactory) {
     });
   };
 
-  this.changeCompanyStatus = function (companyId) {
-    return $http.patch(
-      BASE_URL + "company/" + companyId,
-      {},
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+  // this.changeCompanyStatus = function (companyId) {
+  //   return $http.patch(
+  //     BASE_URL + "company/" + companyId,
+  //     {},
+  //     {
+  //       headers: { "Content-Type": "application/json" },
+  //     }
+  //   );
+  // };
+
+  this.editCompany = function (companyId, companyData) {
+    console.log(companyId , companyData);
+    var formData = FormDataFactory.getCompanyFormData(companyData);
+    return $http.patch(BASE_URL + "company/" + companyId, formData, {
+      headers: { "Content-Type": undefined },
+    });
   };
 
   this.getCompanyByDomain = function (companyDomain) {
-    return $http.get(BASE_URL + `company/getSiteDetails?domain=${companyDomain}`);
-   };
+    return $http.get(
+      BASE_URL + `company/getSiteDetails?domain=${companyDomain}`
+    );
+  };
 }
 
-trackflow.service("CompanyService", ["$http", "BASE_URL","FormDataFactory", CompanyService]);
+trackflow.service("CompanyService", [
+  "$http",
+  "BASE_URL",
+  "FormDataFactory",
+  CompanyService,
+]);
