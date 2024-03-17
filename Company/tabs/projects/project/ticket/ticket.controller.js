@@ -20,7 +20,7 @@ function ticketController(
  //add ticket
  $scope.addTicketFormSubmit = function (modalId, addTicketForm) {
   console.log("Add ticket form data: ", $scope.addTicketFormData);
-  $scope.addTicketFormData.project = $scope.metaData.projectDetails;
+  $scope.addTicketFormData.project = $scope.projectDetails;
   TicketService.createTicket($scope.addTicketFormData)
    .then(function (response) {
     console.log("Ticket created successfully: ", response);
@@ -31,12 +31,28 @@ function ticketController(
     addTicketForm.$setPristine();
     addTicketForm.$setUntouched();
 
-    $state.reload();
+    $state.reload("company.projects.project.ticket");
    })
    .catch(function (error) {
     addTicketForm.errorMessage = error.message;
     console.log("Error adding ticket: ", error);
    });
+ };
+
+ $scope.$on("fileSelected", function (event, files) {
+  console.log("Files: ", typeof files[0]);
+
+  var objectUrls = Object.keys(files).map(function (key) {
+   var blobUrl = URL.createObjectURL(files[key]);
+   return { url: blobUrl, type: files[key].type };
+  });
+
+  $scope.addTicketFormData.attachmentsPreview = objectUrls;
+ });
+
+ $scope.isImage = function (preview) {
+  // Check if the fileType starts with "image/"
+  return preview.type && preview.type.startsWith("image/");
  };
 
  //get all tickets
@@ -94,6 +110,15 @@ function ticketController(
  };
 
  getAllTickets();
+
+ //  view ticket
+
+ $scope.viewTicket = function (modalId, ticket) {
+  console.log("Viewing ticket: ", ticket);
+  $scope.viewTicketDetails = ticket;
+  $scope.viewTicketDetails.dueDate = new Date(ticket.dueDate);
+  ModalService.showModal(modalId);
+ };
 }
 
 trackflow.controller("ticketController", [

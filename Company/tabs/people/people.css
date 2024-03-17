@@ -21,6 +21,12 @@
  margin-bottom: 0.5rem;
 }
 
+.bi-pencil-fill {
+ color: var(--dark-purple);
+
+ cursor: pointer;
+}
+
 .form-group label {
  font-size: 14px;
  line-height: 12px;

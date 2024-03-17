@@ -4,14 +4,17 @@
  <div class="wrapper">
   <div class="head">
    <h2>Manage People</h2>
-   <button class="btn" ng-click="launchModal('addEmployeeModal')">
+   <button
+    class="btn"
+    ng-click="launchModal('addEmployeeModal',addEmployeeForm)"
+   >
     Add Employee
    </button>
   </div>
   <my-modal modal-size="lg" modal-id="addEmployeeModal" title="Add Employee">
    <form
     name="addEmployeeForm"
-    ng-submit="addEmployeeFormSubmit('addEmployeeModal',addEmployeeForm)"
+    ng-submit="isEditing ? editEmployeeFormSubmit('addEmployeeModal',addEmployeeForm) :  addEmployeeFormSubmit('addEmployeeModal',addEmployeeForm) "
     novalidate
    >
     <div class="form-row">
@@ -103,8 +106,7 @@
        >
         <option value="COMPANY_ADMIN">Company Admin</option>
         <option value="PROJECT_MANAGER">Project Manager</option>
-        <option value="Employee">Employee</option>
-        <option value="EXTERNAL">External</option>
+        <option value="EMPLOYEE">Employee</option>
        </select>
 
        <div
@@ -156,6 +158,8 @@
        <th scope="col">Role</th>
        <th scope="col">Status</th>
        <th scope="col">Join Date</th>
+       <!-- edit-btn -->
+       <th scope="col"></th>
        <!-- admin details -->
        <!-- <th scope="col">Admin Name</th>
   <th scope="col">Admin Email</th>
@@ -185,13 +189,13 @@
   <td>{{ company.admin.email }}</td>
   <td>{{ company.admin.phoneNumber }}</td> -->
 
-       <!-- <td class="action">
-            <i
-             class="bi-pencil-fill"
-             ng-click="launchModal('editCompanyModal',company)"
-            >
-            </i>
-           </td> -->
+       <td class="action">
+        <i
+         class="bi-pencil-fill"
+         ng-click="editEmployee('addEmployeeModal',person)"
+        >
+        </i>
+       </td>
       </tr>
      </tbody>
     </table>

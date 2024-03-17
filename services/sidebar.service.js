@@ -22,13 +22,26 @@ function sideBarService() {
     },
     {
      label: "Projects",
-     state: "company.projects.base",
+     state: "company.projects",
      icon: "bi-clipboard",
     },
     {
      label: "People",
      state: "company.people",
      icon: "bi-people",
+    },
+    {
+     label: "Settings",
+     state: "company.settings",
+     icon: "bi-gear",
+    },
+   ];
+  } else if (role === "PROJECT_MANAGER" || role === "EMPLOYEE") {
+   return [
+    {
+     label: "Projects",
+     state: "company.projects.base",
+     icon: "bi-clipboard",
     },
     {
      label: "Settings",

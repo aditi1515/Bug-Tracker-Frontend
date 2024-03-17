@@ -8,6 +8,10 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
   return $http.post(BASE_URL + "user/", user);
  };
 
+ this.updateUser = function (userId, user) {
+  return $http.patch(BASE_URL + "user/" + userId, user);
+ };
+
  this.login = function (user) {
   return $http.post(BASE_URL + "user/login", user).then(function (response) {
    console.log("Login response: ", response.data);
@@ -50,7 +54,6 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
  };
 
  this.getAllUsers = function (queryObject) {
-
   var queryString = QueryGenerator(queryObject);
 
   return $http.get(BASE_URL + `user/all?${queryString}`);

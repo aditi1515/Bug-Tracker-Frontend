@@ -1,5 +1,6 @@
 function companyController($scope, auth, SideBarService, ModalService) {
  $scope.profile = auth;
+ console.log("auth", auth);
  $scope.sideBarOptions = SideBarService.getSideBarOptions(auth.role);
 
  $scope.launchModal = function (modalId) {

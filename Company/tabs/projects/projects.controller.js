@@ -1,4 +1,6 @@
-function companyProjectsController($scope, ProjectService) {
+function companyProjectsController($scope, ProjectService, UserService) {
+ $scope.allEmployeesInCompany = [];
+
  function getAllProjects() {
   ProjectService.getAllProjects().then(function (response) {
    console.log("All projects: ", response);
@@ -10,9 +12,21 @@ function companyProjectsController($scope, ProjectService) {
  }
 
  getAllProjects();
+
+ function getAllEmployeesInCompany() {
+  UserService.getAllUsers({
+   onlyEnabled: true,
+  }).then(function (response) {
+   console.log("All people: ", response.data.users);
+   $scope.allEmployeesInCompany = response.data.users;
+  });
+ }
+
+ getAllEmployeesInCompany();
 }
 trackflow.controller("companyProjectsController", [
  "$scope",
  "ProjectService",
+ "UserService",
  companyProjectsController,
 ]);

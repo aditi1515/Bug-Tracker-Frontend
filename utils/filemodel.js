@@ -14,6 +14,7 @@ trackflow.directive("fileModel", [
       } else {
        modelSetter(scope, element[0].files[0]);
       }
+      scope.$emit("fileSelected", element[0].files);
      });
     });
    },

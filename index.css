@@ -54,6 +54,10 @@ body {
  max-height: 100vh;
 }
 
+form {
+ padding: 1rem;
+}
+
 .alert {
  width: fit-content;
  display: block;

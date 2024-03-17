@@ -75,53 +75,45 @@ trackflow.config([
     controller: "ticketController",
    });
 
-    $urlRouterProvider.otherwise("/");
-  },
+  $urlRouterProvider.otherwise("/");
+ },
 ]);
 
 function isAuthenticated($q, UserService, $state) {
-  return UserService.isAuthenticated()
-    .then(function (user) {
-      console.log("User is authenticated: ", user);
-      if (
-        user.role === "COMPANY_ADMIN" ||
-        user.role === "EMPLOYEE" ||
-        user.role === "PROJECT_MANAGER"
-      )
-        return user;
-    })
-    .catch(function () {
-      $state.go("login");
-      return $q.reject();
-    });
+ return UserService.isAuthenticated()
+  .then(function (user) {
+   console.log("User is authenticated: ", user);
+   if (
+    user.role === "COMPANY_ADMIN" ||
+    user.role === "EMPLOYEE" ||
+    user.role === "PROJECT_MANAGER"
+   )
+    return user;
+  })
+  .catch(function () {
+   $state.go("login");
+   return $q.reject();
+  });
 }
 
 //check super admin authentication
 function isSuperAdminAuthenticated($q, UserService, $state) {
-  return UserService.isAuthenticated()
-    .then(function (user) {
-      // User is authenticated, allow access to the dashboard
-      console.log("User is authenticated: ", user);
-      if (user.role !== "SUPER_ADMIN") {
-        $state.go("login");
-        return $q.reject();
-      }
-      return user; // Resolve with the user object
-    })
-    .catch(function () {
-      // User is not authenticated, redirect to login page
-      $state.go("login");
-      // Rejecting the promise to prevent state transition
-      return $q.reject();
-    });
-}
-
-function isAdmin($q, UserService, $state, user) {
-  if (user.role !== "SUPER_ADMIN") {
+ return UserService.isAuthenticated()
+  .then(function (user) {
+   // User is authenticated, allow access to the dashboard
+   console.log("User is authenticated: ", user);
+   if (user.role !== "SUPER_ADMIN") {
     $state.go("login");
     return $q.reject();
-  }
-  return user;
+   }
+   return user; // Resolve with the user object
+  })
+  .catch(function () {
+   // User is not authenticated, redirect to login page
+   $state.go("login");
+   // Rejecting the promise to prevent state transition
+   return $q.reject();
+  });
 }
 
 function isCompanyExists($q, CompanyService, subdomainService, $state) {

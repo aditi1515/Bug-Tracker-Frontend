@@ -8,6 +8,7 @@ trackflow.directive("select2Init", function () {
    // Initialize Select2 when the element is ready
 
    function formatOption(option) {
+    console.log("Option here : ", option);
     if (!option.id) {
      return option.text;
     }

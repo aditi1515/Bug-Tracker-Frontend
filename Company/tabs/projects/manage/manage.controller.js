@@ -16,6 +16,7 @@ function companyProjectsManageController(
  $scope.projectData = {};
  $scope.metaData = {};
  $scope.isEditingProject = false;
+ $scope.currentEditingProjectId = null;
 
  $scope.addProjectFormSubmit = function (modalId, addProjectForm) {
   ProjectService.addProject($scope.addProjectFormData)
@@ -30,12 +31,79 @@ function companyProjectsManageController(
    });
  };
 
- $scope.editProjectForm = function (project,modalId) {
+ $scope.editProjectFormSubmit = function (modalId, editProjectForm) {
+  console.log("Editing project: ", $scope.addProjectFormData);
+  ProjectService.updateProject(
+   $scope.currentEditingProjectId,
+   $scope.addProjectFormData
+  )
+   .then(function (response) {
+    SnackbarService.showAlert("Project updated successfully", 2000, "success");
+    $state.reload();
+    ModalService.hideModal(modalId);
+   })
+   .catch(function (error) {
+    console.log("Error updating project: ", error);
+    editProjectForm.errorMessage = error.data.message;
+   });
+ };
+
+ $scope.editProject = function (project, modalId) {
   $scope.isEditingProject = true;
-  $scope.addProjectFormData = project;
+  $scope.currentEditingProjectId = project._id;
+  console.log("Editing project: ", project);
+
+  var editProjectFormData = {
+   name: project.name,
+   description: project.description,
+   inProgress: project.inProgress,
+   dueDate: new Date(project.dueDate),
+   people: project.people,
+   previewLogo: [project.logo],
+   previousLogo: project.logo,
+   membersAlreadySelected: project.members,
+   removedMembers: [],
+   members: [],
+   key: project.key,
+  };
+
+  $scope.addProjectFormData = editProjectFormData;
   ModalService.showModal(modalId);
- 
- }
+ };
+
+ $scope.isMemberSelected = function (person) {
+  return $scope.addProjectFormData.membersAlreadySelected?.some(function (
+   member
+  ) {
+   if (member._id === person._id) {
+    console.log("Member selected: ", member._id, person._id);
+   }
+   return member._id === person._id;
+  });
+ };
+
+ $scope.removeMember = function (person) {
+  console.log("Removing member: ", person);
+  $scope.addProjectFormData.removedMembers.push(person);
+  $scope.addProjectFormData.membersAlreadySelected =
+   $scope.addProjectFormData.membersAlreadySelected.filter(function (member) {
+    return member._id !== person._id;
+   });
+ };
+
+ $scope.$on("fileSelected", function (event, files) {
+  console.log("Files here: ", files);
+  if (files.length === 0) {
+   console.log("No files selected");
+   $scope.addProjectFormData.previewLogo = null;
+   return;
+  }
+  var objectUrls = Object.keys(files).map(function (key) {
+   return URL.createObjectURL(files[key]);
+  });
+
+  $scope.addProjectFormData.previewLogo = objectUrls;
+ });
 
  function getAllEmployees() {
   UserService.getAllUsers({ onlyEnabled: true }).then(function (response) {

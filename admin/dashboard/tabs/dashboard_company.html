@@ -1,363 +1,362 @@
 <section>
-  <link
-    rel="stylesheet"
-    href="../../../admin/dashboard/tabs/dashboard_company.css"
-  />
-  <div class="dashboard_company_wrapper">
-    <div class="head">
-      <h2>Companies</h2>
-      <button class="btn" ng-click="launchModal('addCompanyModal')">
-        Add Company
-      </button>
-    </div>
-    <div class="content">
-      <my-modal
-        modal-size="lg"
-        modal-id="addCompanyModal"
-        title="{{isEditing ? 'Edit Company' : 'Add Company'}}"
-      >
-        <!-- <form-builder
+ <link
+  rel="stylesheet"
+  href="../../../admin/dashboard/tabs/dashboard_company.css"
+ />
+ <div class="dashboard_company_wrapper">
+  <div class="head">
+   <h2>Companies</h2>
+   <button class="btn" ng-click="launchModal('addCompanyModal',addCompanyForm)">
+    Add Company
+   </button>
+  </div>
+
+  <div class="content">
+   <my-modal
+    modal-size="lg"
+    modal-id="addCompanyModal"
+    title="{{isEditing ? 'Edit Company' : 'Add Company'}}"
+   >
+    <!-- <form-builder
          on-submit="onSubmit(modalId)"
          form-structure="formStructure"
          form-model="formModel"
          modal-id="exampleModal"
         ></form-builder> -->
-        <h4>Company</h4>
-        <form
-          ng-submit="isEditing ?editCompanyFormSubmit('addCompanyModal' , addCompanyForm):addCompanyFormSubmit('addCompanyModal',addCompanyForm)"
-          name="addCompanyForm"
-          novalidate
-        >
-          <div class="form-group">
-            <label for="companyName">Company Name*</label>
-            <input
-              type="text"
-              class="form-control"
-              id="companyName"
-              name="companyName"
-              ng-model="addCompanyFormData.name"
-              required
-            />
+    <h4>Company</h4>
+    <form
+     ng-submit="isEditing ?editCompanyFormSubmit('addCompanyModal' , addCompanyForm):addCompanyFormSubmit('addCompanyModal',addCompanyForm)"
+     name="addCompanyForm"
+     novalidate
+    >
+     <div class="form-group">
+      <label for="companyName">Company Name*</label>
+      <input
+       type="text"
+       class="form-control"
+       id="companyName"
+       name="companyName"
+       ng-model="addCompanyFormData.name"
+       required
+      />
 
-            <div
-              class="error"
-              ng-show="addCompanyForm.companyName.$error.required && addCompanyForm.companyName.$touched"
-            >
-              Company Name is required
-            </div>
-          </div>
+      <div
+       class="error"
+       ng-show="addCompanyForm.companyName.$error.required && addCompanyForm.companyName.$touched"
+      >
+       Company Name is required
+      </div>
+     </div>
 
-          <!-- company domain -->
-          <div class="form-group">
-            <label for="companyDomain">Domain*</label>
-            <input
-              type="text"
-              class="form-control"
-              id="companyDomain"
-              name="companyDomain"
-              ng-model="addCompanyFormData.domain"
-              required
-              ng-pattern="/^[a-z]+$/"
-            />
-            <div
-              class="error"
-              ng-show="addCompanyForm.companyDomain.$error.required && addCompanyForm.companyDomain.$touched"
-            >
-              Company Domain is required
-            </div>
-            <div
-              class="error"
-              ng-show="addCompanyForm.companyDomain.$error.pattern"
-            >
-              only lowercase letters allowed
-            </div>
-          </div>
+     <!-- company domain -->
+     <div class="form-group">
+      <label for="companyDomain">Domain*</label>
+      <input
+       type="text"
+       class="form-control"
+       id="companyDomain"
+       name="companyDomain"
+       ng-model="addCompanyFormData.domain"
+       required
+       ng-pattern="/^[a-z]+$/"
+      />
+      <div
+       class="error"
+       ng-show="addCompanyForm.companyDomain.$error.required && addCompanyForm.companyDomain.$touched"
+      >
+       Company Domain is required
+      </div>
+      <div class="error" ng-show="addCompanyForm.companyDomain.$error.pattern">
+       only lowercase letters allowed
+      </div>
+     </div>
 
-          <div class="form-row">
-            <!-- compamy city state country -->
+     <div class="form-row">
+      <!-- compamy city state country -->
 
-            <div class="form-group col">
-              <label for="companyCity">City*</label>
-              <input
-                type="text"
-                name="companyCity"
-                class="form-control"
-                id="companyCity"
-                ng-model="addCompanyFormData.city"
-                required
-              />
-              <div
-                class="error"
-                ng-show="addCompanyForm.companyCity.$invalid && addCompanyForm.companyCity.$touched"
-              >
-                City is required
-              </div>
-            </div>
-            <div class="form-group col">
-              <label for="companyState">State*</label>
-              <input
-                type="text"
-                class="form-control"
-                name="companyState"
-                id="companyState"
-                ng-model="addCompanyFormData.state"
-                required
-              />
-              <div
-                class="error"
-                ng-show="addCompanyForm.companyState.$invalid && addCompanyForm.companyState.$touched"
-              >
-                State is required
-              </div>
-            </div>
-            <div class="form-group col">
-              <label for="companyCountry">Country*</label>
-              <input
-                type="text"
-                class="form-control"
-                id="companyCountry"
-                name="companyCountry"
-                ng-model="addCompanyFormData.country"
-                required
-              />
-              <div
-                class="error"
-                ng-show="addCompanyForm.companyCountry.$invalid && addCompanyForm.companyCountry.$touched"
-              >
-                Country is required
-              </div>
-            </div>
-          </div>
-          <!-- company logo -->
-          <div class="form-group">
-            <label for="companyLogo">Company Logo*</label>
-            <input
-              type="file"
-              class="form-control"
-              id="companyLogo"
-              name="companyLogo"
-              ng-model="addCompanyFormData.logo"
-              file-model="addCompanyFormData.logo"
-              required
-            />
-            <div
-              class="error"
-              ng-show="addCompanyForm.companyLogo.$dirty && addCompanyForm.companyLogo.$invalid"
-            >
-              Company Logo is required
-            </div>
-          </div>
+      <div class="form-group col">
+       <label for="companyCity">City*</label>
+       <input
+        type="text"
+        name="companyCity"
+        class="form-control"
+        id="companyCity"
+        ng-model="addCompanyFormData.city"
+        required
+       />
+       <div
+        class="error"
+        ng-show="addCompanyForm.companyCity.$invalid && addCompanyForm.companyCity.$touched"
+       >
+        City is required
+       </div>
+      </div>
+      <div class="form-group col">
+       <label for="companyState">State*</label>
+       <input
+        type="text"
+        class="form-control"
+        name="companyState"
+        id="companyState"
+        ng-model="addCompanyFormData.state"
+        required
+       />
+       <div
+        class="error"
+        ng-show="addCompanyForm.companyState.$invalid && addCompanyForm.companyState.$touched"
+       >
+        State is required
+       </div>
+      </div>
+      <div class="form-group col">
+       <label for="companyCountry">Country*</label>
+       <input
+        type="text"
+        class="form-control"
+        id="companyCountry"
+        name="companyCountry"
+        ng-model="addCompanyFormData.country"
+        required
+       />
+       <div
+        class="error"
+        ng-show="addCompanyForm.companyCountry.$invalid && addCompanyForm.companyCountry.$touched"
+       >
+        Country is required
+       </div>
+      </div>
+     </div>
+     <!-- company logo -->
+     <div class="form-group">
+      <label for="companyLogo">Company Logo {{isEditing ? "" : "*"}} </label>
+      <input
+       type="file"
+       class="form-control"
+       id="companyLogo"
+       name="companyLogo"
+       ng-model="addCompanyFormData.logo"
+       file-model="addCompanyFormData.logo"
+       ng-required="isEditing ? false : true"
+      />
 
-          <h4>Admin</h4>
+      <div
+       class="error"
+       ng-show="addCompanyForm.companyLogo.$dirty && addCompanyForm.companyLogo.$invalid"
+      >
+       Company Logo is required
+      </div>
+      <div class="logoPreview" ng-if="addCompanyFormData.previewLogo">
+       <img ng-src="{{addCompanyFormData.previewLogo[0]}}" alt="" />
+      </div>
+     </div>
 
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="adminFirstName">First Name*</label>
-              <input
-                type="text"
-                class="form-control"
-                id="adminFirstName"
-                name="adminFirstName"
-                ng-model="addCompanyFormData.admin.firstname"
-                ng-required="true"
-              />
-              <div
-                class="error"
-                ng-show="addCompanyForm.adminFirstName.$error.required && addCompanyForm.adminFirstName.$touched"
-              >
-                First Name is required
-              </div>
-            </div>
-            <div class="form-group col">
-              <label for="adminLastName">Last Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="adminLastName"
-                name="adminLastName"
-                ng-model="addCompanyFormData.admin.lastname"
-              />
-              <!-- <div
+     <h4>Admin</h4>
+
+     <div class="form-row">
+      <div class="form-group col">
+       <label for="adminFirstName">First Name*</label>
+       <input
+        type="text"
+        class="form-control"
+        id="adminFirstName"
+        name="adminFirstName"
+        ng-model="addCompanyFormData.admin.firstname"
+        ng-required="true"
+       />
+       <div
+        class="error"
+        ng-show="addCompanyForm.adminFirstName.$error.required && addCompanyForm.adminFirstName.$touched"
+       >
+        First Name is required
+       </div>
+      </div>
+      <div class="form-group col">
+       <label for="adminLastName">Last Name</label>
+       <input
+        type="text"
+        class="form-control"
+        id="adminLastName"
+        name="adminLastName"
+        ng-model="addCompanyFormData.admin.lastname"
+       />
+       <!-- <div
                 class="error"
                 ng-show="addCompanyForm.adminLastName.$error.required && addCompanyForm.adminLastName.$touched"
               >
                 Last Name is required
               </div> -->
-            </div>
-          </div>
+      </div>
+     </div>
 
-          <div>
-            <!-- email  
+     <div>
+      <!-- email  
           -->
 
-            <div class="form-group">
-              <label for="adminEmail">Email*</label>
-              <input
-                type="email"
-                class="form-control"
-                id="adminEmail"
-                name="adminEmail"
-                ng-model="addCompanyFormData.admin.email"
-                ng-required="true"
-              />
-              <div
-                class="error"
-                ng-show="addCompanyForm.adminEmail.$error.required && addCompanyForm.adminEmail.$touched"
-              >
-                Email is required
-              </div>
-              <div
-                class="error"
-                ng-show="addCompanyForm.adminEmail.$error.email && addCompanyForm.adminEmail.$touched"
-              >
-                Invalid email format
-              </div>
-            </div>
-
-            <!-- phone no countru code on left -->
-
-            <div class="form-row">
-              <div class="form-group col">
-                <label for="adminPhoneNo">Phone No*</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="adminPhoneNo"
-                  name="adminPhoneNo"
-                  ng-model="addCompanyFormData.admin.phoneNumber"
-                  required
-                />
-                <div
-                  class="error"
-                  ng-show="addCompanyForm.adminPhoneNo.$invalid && addCompanyForm.adminPhoneNo.$touched"
-                >
-                  Phone No is required
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- btn to submit-->
-          <div class="formerror">
-            <div
-              class="error"
-              ng-show="addCompanyForm.$invalid && addCompanyForm.$submitted"
-            >
-              {{addCompanyForm.errorMessage}}
-            </div>
-          </div>
-          <button
-            type="submit"
-            class="btn"
-            ng-disabled="addCompanyForm.$invalid"
-            ng-class="{'disabled': addCompanyForm.$invalid}"
-          >
-            submit
-          </button>
-        </form>
-      </my-modal>
-
-      <!-- list companies -->
-
-      <div class="company-table">
-        <div class="searchBox">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search by company name"
-            ng-model="companiesData.query"
-            ng-change="debounceSearch()"
-          />
-        </div>
+      <div class="form-group">
+       <label for="adminEmail">Email*</label>
+       <input
+        type="email"
+        class="form-control"
+        id="adminEmail"
+        name="adminEmail"
+        ng-model="addCompanyFormData.admin.email"
+        ng-required="true"
+       />
+       <div
+        class="error"
+        ng-show="addCompanyForm.adminEmail.$error.required && addCompanyForm.adminEmail.$touched"
+       >
+        Email is required
+       </div>
+       <div
+        class="error"
+        ng-show="addCompanyForm.adminEmail.$error.email && addCompanyForm.adminEmail.$touched"
+       >
+        Invalid email format
+       </div>
       </div>
-      <div class="table-wrapper">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Company Name</th>
 
-              <th scope="col">Domain</th>
-              <th scope="col">City</th>
-              <th scope="col">State</th>
-              <th scope="col">Country</th>
-              <th scope="col">Joining Date</th>
-              <th scope="col">Status</th>
-              <th scope="col"></th>
-              <!-- admin details -->
-              <!-- <th scope="col">Admin Name</th>
+      <!-- phone no countru code on left -->
+
+      <div class="form-row">
+       <div class="form-group col">
+        <label for="adminPhoneNo">Phone No*</label>
+        <input
+         type="text"
+         class="form-control"
+         id="adminPhoneNo"
+         name="adminPhoneNo"
+         ng-model="addCompanyFormData.admin.phoneNumber"
+         required
+        />
+        <div
+         class="error"
+         ng-show="addCompanyForm.adminPhoneNo.$invalid && addCompanyForm.adminPhoneNo.$touched"
+        >
+         Phone No is required
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- btn to submit-->
+     <div class="formerror">
+      <div
+       class="error"
+       ng-show="addCompanyForm.$invalid && addCompanyForm.$submitted"
+      >
+       {{addCompanyForm.errorMessage}}
+      </div>
+     </div>
+     <button
+      type="submit"
+      class="btn"
+      ng-disabled="addCompanyForm.$invalid"
+      ng-class="{'disabled': addCompanyForm.$invalid}"
+     >
+      submit
+     </button>
+    </form>
+   </my-modal>
+
+   <!-- list companies -->
+
+   <div class="company-table">
+    <div class="searchBox">
+     <input
+      type="text"
+      class="form-control"
+      placeholder="Search by company name"
+      ng-model="companiesData.query"
+      ng-change="debounceSearch()"
+     />
+    </div>
+   </div>
+   <div class="table-wrapper">
+    <table class="table table-hover">
+     <thead>
+      <tr>
+       <th scope="col">Company Name</th>
+
+       <th scope="col">Domain</th>
+       <th scope="col">City</th>
+       <th scope="col">State</th>
+       <th scope="col">Country</th>
+       <th scope="col">Joining Date</th>
+       <th scope="col">Status</th>
+       <th scope="col"></th>
+       <!-- admin details -->
+       <!-- <th scope="col">Admin Name</th>
        <th scope="col">Admin Email</th>
        <th scope="col">Admin Phone No</th> -->
 
-              <!-- <th scope="col"></th>   -->
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="company in companiesData.companies">
-              <td>
-                <img
-                  ng-src="{{ company.logo }}"
-                  alt="company logo"
-                  style="width: 30px; height: 30px; margin-right: 10px"
-                />
+       <!-- <th scope="col"></th>   -->
+      </tr>
+     </thead>
+     <tbody>
+      <tr ng-repeat="company in companiesData.companies">
+       <td>
+        <img
+         ng-src="{{ company.logo }}"
+         alt="company logo"
+         style="width: 30px; height: 30px; margin-right: 10px"
+        />
 
-                {{ company.name }}
-              </td>
+        {{ company.name }}
+       </td>
 
-              <td>{{ company.domain }}</td>
-              <td>{{ company.city }}</td>
-              <td>{{ company.state }}</td>
-              <td>{{ company.country }}</td>
-              <td>{{ company.createdAt }}</td>
-              <td>
-                <span
-                  class="badge"
-                  ng-class="{'badge-success': company.isEnabled, 'badge-danger': !company.isEnabled}"
-                  ng-click="changeCompanyStatus(company._id , company)"
-                >
-                  {{ company.isEnabled ? 'active' : 'inactive'}}
-                </span>
-              </td>
-              <td ng-click="editCompany(company , 'addCompanyModal')">
-                <i class="bi bi-pencil-square edit-btn"></i>
-              </td>
-              <!-- <td>{{ company.admin.firstname + " " + company.admin.lastname }}</td>
+       <td>{{ company.domain }}</td>
+       <td>{{ company.city }}</td>
+       <td>{{ company.state }}</td>
+       <td>{{ company.country }}</td>
+       <td>{{ company.createdAt }}</td>
+       <td>
+        <span
+         class="badge"
+         ng-class="{'badge-success': company.isEnabled, 'badge-danger': !company.isEnabled}"
+         ng-click="changeCompanyStatus(company._id , company)"
+        >
+         {{ company.isEnabled ? 'active' : 'inactive'}}
+        </span>
+       </td>
+       <td ng-click="editCompany(company , 'addCompanyModal')">
+        <i class="bi bi-pencil-square edit-btn"></i>
+       </td>
+       <!-- <td>{{ company.admin.firstname + " " + company.admin.lastname }}</td>
        <td>{{ company.admin.email }}</td>
        <td>{{ company.admin.phoneNumber }}</td> -->
-            </tr>
-          </tbody>
-        </table>
-        <!-- pagination -->
-        <div class="pagination-wrapper">
-          <div class="row-count-wrapper">
-            <span>Rows per page:</span>
-            <select
-              ng-model="companiesData.pageSize"
-              ng-options="size for size in [5,10,15,20]"
-              ng-change="pageChange(1,companiesData.pageSize)"
-            ></select>
-          </div>
-          <ul class="pagination">
-            <li
-              class="page-item"
-              ng-class="{'disabled':companiesData.currentPage === 1}"
-              ng-click="pageChange(companiesData.currentPage - 1,companiesData.pageSize)"
-            >
-              <a class="page-link"> <i class="bi-caret-left-fill"></i></a>
-            </li>
-            <span
-              >{{companiesData.currentPage}}/{{companiesData.totalPages}}</span
-            >
+      </tr>
+     </tbody>
+    </table>
+    <!-- pagination -->
+    <div class="pagination-wrapper">
+     <div class="row-count-wrapper">
+      <span>Rows per page:</span>
+      <select
+       ng-model="companiesData.pageSize"
+       ng-options="size for size in [5,10,15,20]"
+       ng-change="pageChange(1,companiesData.pageSize)"
+      ></select>
+     </div>
+     <ul class="pagination">
+      <li
+       class="page-item"
+       ng-class="{'disabled':companiesData.currentPage === 1}"
+       ng-click="pageChange(companiesData.currentPage - 1,companiesData.pageSize)"
+      >
+       <a class="page-link"> <i class="bi-caret-left-fill"></i></a>
+      </li>
+      <span>{{companiesData.currentPage}}/{{companiesData.totalPages}}</span>
 
-            <li
-              class="page-item"
-              ng-class="{'disabled':companiesData.currentPage === companiesData.totalPages}"
-              ng-click="pageChange(companiesData.currentPage + 1,companiesData.pageSize)"
-            >
-              <a class="page-link"><i class="bi-caret-right-fill"></i></a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <li
+       class="page-item"
+       ng-class="{'disabled':companiesData.currentPage === companiesData.totalPages}"
+       ng-click="pageChange(companiesData.currentPage + 1,companiesData.pageSize)"
+      >
+       <a class="page-link"><i class="bi-caret-right-fill"></i></a>
+      </li>
+     </ul>
     </div>
+   </div>
   </div>
+ </div>
 </section>
