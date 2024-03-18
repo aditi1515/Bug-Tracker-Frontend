@@ -30,6 +30,7 @@
        name="name"
        ng-model="addProjectFormData.name"
        ng-required="true"
+       ng-disabled="isEditingProject"
       />
 
       <div
@@ -52,6 +53,7 @@
        style="text-transform: uppercase"
        ng-required="true"
        ng-change="addProjectFormData.key = addProjectFormData.key.toUpperCase()"
+       ng-disabled="isEditingProject"
       />
 
       <div

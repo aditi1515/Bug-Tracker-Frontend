@@ -16,11 +16,13 @@ function ticketController(
  };
 
  $scope.currentDate = new Date();
+ $scope.isEditing = false;
+ $scope.currentEditingTicket = null;
 
  //add ticket
  $scope.addTicketFormSubmit = function (modalId, addTicketForm) {
   console.log("Add ticket form data: ", $scope.addTicketFormData);
-  $scope.addTicketFormData.project = $scope.projectDetails;
+  $scope.addTicketFormData.projectDetails = $scope.projectDetails;
   TicketService.createTicket($scope.addTicketFormData)
    .then(function (response) {
     console.log("Ticket created successfully: ", response);
@@ -47,12 +49,31 @@ function ticketController(
    return { url: blobUrl, type: files[key].type };
   });
 
-  $scope.addTicketFormData.attachmentsPreview = objectUrls;
+  if ($scope.isEditing) {
+   $scope.viewTicketDetails.attachmentsPreview = objectUrls;
+  } else {
+   $scope.addTicketFormData.attachmentsPreview = objectUrls;
+  }
  });
+
+ $scope.setReporterClient = function () {
+  var currentUsername =
+   $scope.profile.firstname + " " + $scope.profile.lastname;
+  $scope.viewTicketDetails.reporterClient =
+   $scope.viewTicketDetails.reporterClient || currentUsername;
+ };
 
  $scope.isImage = function (preview) {
   // Check if the fileType starts with "image/"
   return preview.type && preview.type.startsWith("image/");
+ };
+
+ $scope.isImageUrl = function (url) {
+  // check extensions
+  var imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "svg", "webp"];
+  var extension = url.split(".").pop();
+
+  return imageExtensions.includes(extension);
  };
 
  //get all tickets
@@ -115,9 +136,85 @@ function ticketController(
 
  $scope.viewTicket = function (modalId, ticket) {
   console.log("Viewing ticket: ", ticket);
-  $scope.viewTicketDetails = ticket;
+
+  $scope.currentEditingTicket = ticket;
+  $scope.isEditing = false;
+
+  $scope.viewTicketDetails = angular.copy(ticket);
+  $scope.viewTicketDetails.removedAttachments = [];
+  $scope.viewTicketDetails.previousAttachments = ticket.attachments;
+  $scope.viewTicketDetails.alreadyAssigned = ticket.assignees;
+  $scope.viewTicketDetails.assignees = [];
+  $scope.viewTicketDetails.attachments = [];
+  $scope.viewTicketDetails.removeAssignees = [];
   $scope.viewTicketDetails.dueDate = new Date(ticket.dueDate);
+
   ModalService.showModal(modalId);
+ };
+
+ $scope.removeAttachment = function (url) {
+  console.log("Removing attachment: ", url);
+
+  $scope.viewTicketDetails.removedAttachments.push(url);
+
+  $scope.viewTicketDetails.previousAttachments =
+   $scope.viewTicketDetails.previousAttachments.filter(function (preview) {
+    return preview !== url;
+   });
+
+  console.log(
+   "new attachments: ",
+   $scope.viewTicketDetails.previousAttachments
+  );
+ };
+
+ $scope.isAssigneeSelected = function (member) {
+  return $scope.viewTicketDetails.alreadyAssigned.some(function (m) {
+   return m._id === member._id;
+  });
+ };
+
+ $scope.removeAssignee = function (member) {
+  console.log("Removing member: ", member);
+  $scope.viewTicketDetails.removeAssignees.push(member);
+  $scope.viewTicketDetails.alreadyAssigned =
+   $scope.viewTicketDetails.alreadyAssigned.filter(function (m) {
+    return m._id !== member._id;
+   });
+ };
+
+ //edit ticket
+
+ $scope.editTicketToggle = function (modalId) {
+  if ($scope.isEditing) {
+   $scope.viewTicket(modalId, $scope.currentEditingTicket);
+  }
+  $scope.isEditing = $scope.isEditing ? false : true;
+ };
+
+ $scope.editTicketSubmit = function (modalId, editTicketForm) {
+  console.log("Editing ticket: ", $scope.viewTicketDetails);
+
+  TicketService.updateTicket(
+   $scope.viewTicketDetails._id,
+   $scope.viewTicketDetails
+  )
+   .then(function (response) {
+    console.log("Ticket updated successfully: ", response);
+
+    $scope.viewTicketDetails = {};
+    editTicketForm.$setPristine();
+    editTicketForm.$setUntouched();
+
+    SnackbarService.showAlert("Ticket updated successfully", 2000, "success");
+    ModalService.hideModal(modalId);
+    getAllTickets();
+   })
+   .catch(function (error) {
+    editTicketForm.errorMessage = error.message;
+    editTicketForm.$invalid = true;
+    console.error("Error updating ticket: ", error);
+   });
  };
 }
 

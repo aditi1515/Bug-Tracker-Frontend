@@ -12,7 +12,7 @@ function formDataFactory() {
   formData.append("country", companyFormData.country);
   formData.append("logo", companyFormData.logo);
 
-  if (companyFormData.isEnabled) {
+  if (companyFormData.isEnabled !== undefined) {
    formData.append("isEnabled", companyFormData.isEnabled);
   }
 
@@ -65,7 +65,7 @@ function formDataFactory() {
   formdata.append("status", ticketData.status);
   formdata.append("ticketType", ticketData.ticketType);
   formdata.append("priority", ticketData.priority);
-  formdata.append("projectDetails", JSON.stringify(ticketData.project));
+  formdata.append("projectDetails", JSON.stringify(ticketData.projectDetails));
 
   var files = ticketData.attachments;
   for (var i = 0; i < files?.length; i++) {
@@ -81,6 +81,27 @@ function formDataFactory() {
   if (ticketData.assignees) {
    formdata.append("assignees", JSON.stringify(ticketData.assignees));
   }
+
+  if(ticketData.alreadyAssigned){
+    formdata.append("alreadyAssigned", JSON.stringify(ticketData.alreadyAssigned));
+  }
+
+  if (ticketData.reporterClient) {
+    formdata.append("reporterClient", ticketData.reporterClient);
+  }
+
+  if(ticketData.removeAssignees){
+    formdata.append("removeAssignees", JSON.stringify(ticketData.removeAssignees));
+  }
+
+  if(ticketData.removedAttachments){
+    formdata.append("previousAttachments", JSON.stringify(ticketData.previousAttachments));
+  }
+
+  if(ticketData.removedAttachments){
+    formdata.append("removedAttachments", JSON.stringify(ticketData.removedAttachments));
+  }
+
 
   return formdata;
  };

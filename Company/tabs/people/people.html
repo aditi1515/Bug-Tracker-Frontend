@@ -53,12 +53,14 @@
      <div class="form-group">
       <label for="employeeEmail">Email*</label>
       <input
+       
        type="email"
        class="form-control"
        id="employeeEmail"
        name="employeeEmail"
        ng-model="addEmployeeFormData.email"
        ng-required="true"
+       ng-disabled="isEditing"
       />
       <div
        class="error"

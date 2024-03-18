@@ -6,7 +6,8 @@ function dashboardCompanyController(
  ModalService,
  SnackbarService
 ) {
- $scope.addCompanyFormData = {
+ 
+  $scope.addCompanyFormData = {
   name: "Acme Corporation",
   domain: "acme",
   city: "New York",
@@ -25,12 +26,11 @@ function dashboardCompanyController(
  $scope.currentEditingCompanyId = null;
 
  $scope.$on("fileSelected", function (event, files) {
-  console.log("Files: ", typeof files[0]);
 
   var objectUrls = Object.keys(files).map(function (key) {
    return URL.createObjectURL(files[key]);
   });
-
+  
   $scope.addCompanyFormData.previewLogo = objectUrls;
  });
 
@@ -139,7 +139,6 @@ function dashboardCompanyController(
 
  //edit company form submit
  $scope.editCompanyFormSubmit = function (modalId, editCompanyForm) {
-  console.log("Form data: ", $scope.addCompanyFormData);
   CompanyService.editCompany(
    $scope.currentEditingCompanyId,
    $scope.addCompanyFormData
@@ -163,24 +162,10 @@ function dashboardCompanyController(
 
  //change company status
  $scope.changeCompanyStatus = function (companyId, company) {
-  var editCompanyData = {
-   name: company.name,
-   domain: company.domain,
-   city: company.city,
-   state: company.state,
-   country: company.country,
-   logo: company.logo,
-   isEnabled: !company.isEnabled,
-   admin: {
-    firstname: company.admin.firstname,
-    lastname: company.admin.lastname,
-    email: company.admin.email,
-    phoneNumber: company.admin.phoneNumber,
-   },
-  };
+  company.isEnabled = !company.isEnabled;
 
   console.log(companyId);
-  CompanyService.editCompany(companyId, editCompanyData)
+  CompanyService.editCompany(companyId, company)
    .then(function (response) {
     console.log("Company status changed", response);
     getCompanies(

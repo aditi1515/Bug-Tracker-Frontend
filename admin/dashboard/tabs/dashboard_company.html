@@ -23,12 +23,13 @@
          form-model="formModel"
          modal-id="exampleModal"
         ></form-builder> -->
-    <h4>Company</h4>
+
     <form
      ng-submit="isEditing ?editCompanyFormSubmit('addCompanyModal' , addCompanyForm):addCompanyFormSubmit('addCompanyModal',addCompanyForm)"
      name="addCompanyForm"
      novalidate
     >
+     <h4>Company</h4>
      <div class="form-group">
       <label for="companyName">Company Name*</label>
       <input
@@ -38,6 +39,7 @@
        name="companyName"
        ng-model="addCompanyFormData.name"
        required
+       ng-disabled="isEditing"
       />
 
       <div
@@ -59,6 +61,7 @@
        ng-model="addCompanyFormData.domain"
        required
        ng-pattern="/^[a-z]+$/"
+       ng-disabled="isEditing"
       />
       <div
        class="error"
@@ -201,6 +204,7 @@
         name="adminEmail"
         ng-model="addCompanyFormData.admin.email"
         ng-required="true"
+        ng-disabled="isEditing"
        />
        <div
         class="error"
@@ -308,7 +312,7 @@
        <td>{{ company.city }}</td>
        <td>{{ company.state }}</td>
        <td>{{ company.country }}</td>
-       <td>{{ company.createdAt }}</td>
+       <td>{{ company.createdAt | date : 'dd/MM/yyyy' }}</td>
        <td>
         <span
          class="badge"

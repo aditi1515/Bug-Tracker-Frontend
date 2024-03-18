@@ -154,6 +154,17 @@ function companyProjectsManageController(
    searchProject($scope.projectData.query);
   }, 1000);
  };
+
+ $scope.launchModal = function (modalId, addProjectForm) {
+  if ($scope.isEditingProject) {
+   $scope.isEditingProject = false;
+   $scope.addProjectFormData = {};
+   $scope.currentEditingProjectId = null;
+   addProjectForm.$setPristine();
+   addProjectForm.$setUntouched();
+  }
+  ModalService.showModal(modalId);
+ };
 }
 
 trackflow.controller("companyProjectsManageController", [

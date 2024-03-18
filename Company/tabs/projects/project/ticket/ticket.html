@@ -11,6 +11,7 @@
  </div>
  <my-modal modal-size="lg" modal-id="addTicketModal" title="Add Ticket">
   <form
+   class="addticketForm"
    name="addTicketForm"
    ng-submit="addTicketFormSubmit('addTicketModal',addTicketForm)"
    novalidate
@@ -22,9 +23,9 @@
      class="form-control"
      id="project"
      name="project"
-     ng-model="addTicketFormData.project"
+     ng-model="addTicketFormData.projectDetails"
      disabled="{{projectDetails._id !== undefined}}"
-     ng-init="{{addTicketFormData.project = projectDetails._id}}"
+     ng-init="{{addTicketFormData.projectDetails = projectDetails._id}}"
      ng-required="true"
     >
      <option ng-value="project._id" value="" ng-repeat="project in projects">
@@ -142,7 +143,7 @@
       <option
        ng-value="{'_id': person._id, 'firstname': person.firstname, 'lastname' : person.lastname , 'email': person.email , 'image': person.image}"
        data-image="{{person.image}}"
-       ng-repeat="person in allEmployees"
+       ng-repeat="person in allEmployeesInCompany"
       >
        {{person.firstname}}
       </option>
@@ -202,6 +203,7 @@
       ng-model="addTicketFormData.attachments"
       file-model="addTicketFormData.attachments"
      />
+
      <div id="file-preview-container">
       <div ng-repeat="preview in addTicketFormData.attachmentsPreview">
        <div ng-if="isImage(preview)">
@@ -354,152 +356,321 @@
   modal-id="viewTicketModal"
   title="{{viewTicketDetails.name}}"
  >
-  <div class="ticket-view-wrapper">
-   <div class="header">
-    <div class="title">{{viewTicketDetails.title}}</div>
-    <div class="badges">
-     <div
-      class="badge"
-      ng-class="{ 'status-open': viewTicketDetails.status ===
-       'OPEN', 'status-in-progress': viewTicketDetails.status === 'IN PROGRESS',
-       'status-in-review': viewTicketDetails.status === 'IN REVIEW', 'status-closed':
-       viewTicketDetails.status === 'CLOSED'}"
-     >
-      <span class="status" ng-class="ticket.status"
-       >{{viewTicketDetails.status}}</span
-      >
+  <form
+   name="editTicketForm"
+   ng-submit="editTicketSubmit('viewTicketModal',editTicketForm)"
+   novalidate
+  >
+   <div class="ticket-view-wrapper">
+    <div class="header">
+     <div class="title" ng-if="!isEditing">{{viewTicketDetails.title}}</div>
+     <input type="text" ng-model="viewTicketDetails.title" ng-if="isEditing"
+     class="form-control" id="ticketTitle" name="ticketTitle" ng-required="true"
+     / >
+     <div class="error">
+      <div class="error" ng-show="editTicketForm.ticketTitle.$error.required">
+       Ticket Title is required
+      </div>
      </div>
-     <div
-      class="badge"
-      ng-class="{'priority-low': viewTicketDetails.priority === 'LOW', 'priority-medium': viewTicketDetails.priority === 'MEDIUM', 'priority-high': viewTicketDetails.priority === 'HIGH'}"
-     >
-      {{viewTicketDetails.priority + " " + "Priority" }}
-     </div>
-     <div
-      class="badge"
-      ng-class="{'type-bug': viewTicketDetails.ticketType === 'BUG', 'type-fr': viewTicketDetails.ticketType === 'FR'}"
-     >
-      <span>{{viewTicketDetails.ticketType}}</span>
-     </div>
-    </div>
-   </div>
-   <div class="tv-body">
-    <div class="select-row">
-     <div class="select-col">
-      <label for="ticketType"> Ticket Type </label>
-
-      <select
-       class="form-select"
-       id="ticketType"
-       name="ticketType"
-       ng-model="viewTicketDetails.ticketType"
-       ng-required="true"
-      >
-       <option
-        data-icon='<i class="bi bi-funnel"></i> '
-        ng-value="type.name"
-        ng-repeat="type in [{name:'BUG',icon:'&#128030;'}, {name:'FR',icon:'&#128293;'}]"
+     <div class="header-bottom">
+      <div class="badges">
+       <div
+        class="badge"
+        ng-class="{ 'status-open': viewTicketDetails.status ===
+                   'OPEN', 'status-in-progress': viewTicketDetails.status === 'IN PROGRESS',
+                   'status-in-review': viewTicketDetails.status === 'IN REVIEW', 'status-closed':
+                   viewTicketDetails.status === 'CLOSED'}"
        >
-        <div>{{type.icon}}</div>
-        {{ type.name }}
-       </option>
-      </select>
-     </div>
-     <div class="select-col">
-      <label for="ticketType"> Status </label>
-
-      <select
-       class="form-select"
-       id="ticketType"
-       name="ticketType"
-       ng-model="viewTicketDetails.status"
-       ng-required="true"
-       ng-class="
-         {
-          'status-open': viewTicketDetails.status === 'OPEN',
-          'status-in-progress': viewTicketDetails.status === 'IN PROGRESS',
-          'status-review': viewTicketDetails.status === 'IN REVIEW',
-          'status-closed': viewTicketDetails.status === 'CLOSED'
-         }"
-      >
-       <option
-        data-icon='<i class="bi bi-funnel"></i> '
-        ng-value="status"
-        ng-repeat="status in ['OPEN', 'IN PROGRESS', 'IN REVIEW' ,'CLOSED']"
-       >
-        &nbsp; &#x25cf; &#8197;{{ status }}
-       </option>
-      </select>
-     </div>
-     <div class="select-col">
-      <label for="ticketType"> Priority </label>
-
-      <select
-       class="form-select"
-       id="priority"
-       name="priority"
-       ng-model="viewTicketDetails.priority"
-       ng-required="true"
-       ng-class="
-           {
-            'priority-low': viewTicketDetails.priority === 'LOW',
-            'priority-medium': viewTicketDetails.priority === 'MEDIUM',
-            'priority-high': viewTicketDetails.priority === 'HIGH'
-           }"
-      >
-       <option
-        data-icon='<i class="bi bi-funnel"></i> '
-        ng-value="priority"
-        ng-repeat="priority in ['LOW', 'MEDIUM', 'HIGH']"
-       >
-        &nbsp; &#x25cf; &#8197;{{ priority }}
-       </option>
-      </select>
-     </div>
-    </div>
-
-    <div class="select-row">
-     <div class="select-col">
-      <label for="ticketType"> Due Date </label>
-      <input
-       type="date"
-       class="form-control"
-       id="dueDate"
-       name="dueDate"
-       ng-model="viewTicketDetails.dueDate"
-       ng-required="true"
-       min="{{currentDate | date:'yyyy-MM-dd'}}"
-      />
-     </div>
-     <div class="select-col">
-      <div class="created-by">
-       <span>Created By</span>
-
-       <div>
-        <img
-         class="user-img"
-         ng-src="{{viewTicketDetails.assignedBy.image}}"
-         alt=""
-        />
-        <span
-         >{{viewTicketDetails.assignedBy.firstname + " " +
-         viewTicketDetails.assignedBy.lastname }}</span
+        <span class="status" ng-class="ticket.status"
+         >{{viewTicketDetails.status}}</span
         >
+       </div>
+       <div
+        class="badge"
+        ng-class="{'priority-low': viewTicketDetails.priority === 'LOW', 'priority-medium': viewTicketDetails.priority === 'MEDIUM', 'priority-high': viewTicketDetails.priority === 'HIGH'}"
+       >
+        {{viewTicketDetails.priority + " " + "Priority" }}
+       </div>
+       <div
+        class="badge"
+        ng-class="{'type-bug': viewTicketDetails.ticketType === 'BUG', 'type-fr': viewTicketDetails.ticketType === 'FR'}"
+       >
+        <span>{{viewTicketDetails.ticketType}}</span>
+       </div>
+      </div>
+
+      <!-- <div class="assignees-imgs"> -->
+      <!-- <img
+                 ng-src="{{assignee.image}}"
+                 ng-repeat="assignee in viewTicketDetails.assignees"
+                 alt=""
+                /> -->
+      <!-- </div> -->
+      <i
+       class=""
+       ng-class="{'active-edit bi-eraser-fill': isEditing , 
+         'bi-pencil-square': !isEditing
+     }"
+       ng-click="editTicketToggle('viewTicketModal')"
+      ></i>
+     </div>
+    </div>
+    <div class="tv-body">
+     <div class="select-row">
+      <div class="select-col">
+       <label for="ticketType"> Ticket Type </label>
+
+       <select
+        class="form-select"
+        id="ticketType"
+        name="ticketType"
+        ng-model="viewTicketDetails.ticketType"
+        ng-required="true"
+        ng-change="setReporterClient()"
+        ng-class="{
+               'type-bug': viewTicketDetails.ticketType === 'BUG',
+               'type-fr': viewTicketDetails.ticketType === 'FR',
+               'disabled': !isEditing
+              }"
+       >
+        <option
+         data-icon='<i class="bi bi-funnel"></i> '
+         ng-value="type.name"
+         ng-repeat="type in [{name:'BUG',icon:'&#128030;'}, {name:'FR',icon:'&#128293;'}]"
+        >
+         <div>{{type.icon}}</div>
+         {{ type.name }}
+        </option>
+       </select>
+      </div>
+      <div class="select-col">
+       <label for="ticketType"> Status </label>
+
+       <select
+        class="form-select"
+        id="ticketType"
+        name="ticketType"
+        ng-model="viewTicketDetails.status"
+        ng-required="true"
+        ng-class="
+              {
+               'status-open': viewTicketDetails.status === 'OPEN',
+               'status-in-progress': viewTicketDetails.status === 'IN PROGRESS',
+               'status-in-review': viewTicketDetails.status === 'IN REVIEW',
+               'status-closed': viewTicketDetails.status === 'CLOSED',
+               'disabled': !isEditing
+              }"
+       >
+        <option
+         data-icon='<i class="bi bi-funnel"></i> '
+         ng-value="status"
+         ng-repeat="status in ['OPEN', 'IN PROGRESS', 'IN REVIEW' ,'CLOSED']"
+        >
+         &nbsp; &#x25cf; &#8197;{{ status }}
+        </option>
+       </select>
+      </div>
+      <div class="select-col">
+       <label for="ticketType"> Priority </label>
+
+       <select
+        class="form-select"
+        id="priority"
+        name="priority"
+        ng-model="viewTicketDetails.priority"
+        ng-required="true"
+        ng-class="
+                {
+                 'priority-low': viewTicketDetails.priority === 'LOW',
+                 'priority-medium': viewTicketDetails.priority === 'MEDIUM',
+                 'priority-high': viewTicketDetails.priority === 'HIGH',
+                 'disabled': !isEditing
+                }"
+       >
+        <option
+         data-icon='<i class="bi bi-funnel"></i> '
+         ng-value="priority"
+         ng-repeat="priority in ['LOW', 'MEDIUM', 'HIGH']"
+        >
+         &nbsp; &#x25cf; &#8197;{{ priority }}
+        </option>
+       </select>
+      </div>
+     </div>
+
+     <div class="select-row">
+      <div class="select-col">
+       <label for="ticketType"> Due Date </label>
+       <input
+        type="date"
+        class="form-control"
+        id="dueDate"
+        name="dueDate"
+        ng-model="viewTicketDetails.dueDate"
+        ng-required="true"
+        min="{{currentDate | date:'yyyy-MM-dd'}}"
+        ng-disabled="!isEditing"
+       />
+      </div>
+      <div
+       class="select-col"
+       ng-class="{
+             'fr-type' : viewTicketDetails.ticketType === 'FR'
+          }"
+      >
+       <div class="created-by">
+        <span>Created By : </span>
+
+        <div>
+         <img
+          class="user-img"
+          ng-src="{{viewTicketDetails.assignedBy.image}}"
+          alt=""
+         />
+         <span
+          >{{viewTicketDetails.assignedBy.firstname + " " +
+          viewTicketDetails.assignedBy.lastname }}</span
+         >
+        </div>
+       </div>
+       <div class="created-by" ng-if="viewTicketDetails.ticketType==='FR'">
+        <span>Reporter Client : </span>
+
+        <div>
+         <span>{{viewTicketDetails.reporterClient }}</span>
+        </div>
        </div>
       </div>
      </div>
-    </div>
 
-    <div class="description">
-     <label for="ticketDescription">Description</label>
-     <textarea
-      class="form-control"
-      id="ticketDescription"
-      name="ticketDescription"
-      ng-model="viewTicketDetails.description"
-     ></textarea>
+     <div class="description">
+      <label for="ticketDescription">Description</label>
+      <textarea
+       class="form-control description-content"
+       id="ticketDescription"
+       name="ticketDescription"
+       ng-model="viewTicketDetails.description"
+       ng-if="isEditing"
+      ></textarea>
+      <div class="description-content" ng-if="!isEditing">
+       <p>{{viewTicketDetails.description}}</p>
+      </div>
+     </div>
+
+     <div class="attachments">
+      <label for="attachments">Attachments</label>
+      <input
+       multiple
+       type="file"
+       class="form-control"
+       id="attachments"
+       name="attachments"
+       ng-model="viewTicketDetails.attachments"
+       file-model="viewTicketDetails.attachments"
+       ng-if="isEditing"
+      />
+      <div id="file-preview-container">
+       <div
+        class="preview-wrap"
+        ng-repeat="preview in viewTicketDetails.previousAttachments"
+       >
+        <div ng-if="isImageUrl(preview)">
+         <img ng-src="{{preview}}" alt="attachments-preview" />
+        </div>
+        <div ng-if="!isImageUrl(preview)">
+         <a class="file-link" ng-href="{{preview}}" target="_blank">
+          <i class="bi-file-earmark-check"></i>
+         </a>
+        </div>
+        <!-- remove btn -->
+
+        <div
+         class="remove-btn"
+         ng-if="isEditing"
+         ng-click="removeAttachment(preview)"
+        >
+         <i class="bi bi-x"></i>
+        </div>
+       </div>
+       <div
+        class="preview-wrap"
+        ng-repeat="preview in viewTicketDetails.attachmentsPreview"
+       >
+        <div ng-if="isImage(preview)">
+         <img ng-src="{{preview.url}}" alt="attachments-preview" />
+        </div>
+        <div ng-if="!isImage(preview)">
+         <a class="file-link" ng-href="{{preview.url}}" target="_blank">
+          <i class="bi-file-earmark-check"></i>
+         </a>
+        </div>
+       </div>
+      </div>
+     </div>
+
+     <!-- add new assignees -->
+     <div class="new-assignees" ng-if="isEditing">
+      <div class="form-group select-multiple-wrapper">
+       <label for="members">Add New Assignees</label>
+       <select
+        class="form-control"
+        id="assigneesEdit"
+        name="assignees"
+        ng-model="viewTicketDetails.assignees"
+        multiple
+        select2-init
+        style="width: 100%"
+        placeholder="Select Assignees"
+       >
+        <option
+         ng-value="{'_id': person._id, 'firstname': person.firstname, 'lastname' : person.lastname , 'email': person.email , 'image': person.image}"
+         data-image="{{person.image}}"
+         ng-repeat="person in allEmployeesInCompany"
+         ng-if="!isAssigneeSelected(person)"
+        >
+         {{person.firstname + " " + person.lastname}}
+        </option>
+       </select>
+      </div>
+     </div>
+
+     <div class="assignees-preview">
+      <label for="assignees">Assignees</label>
+      <div class="assignees-preview-wrapper">
+       <div
+        class="assignee"
+        ng-repeat="assignee in viewTicketDetails.alreadyAssigned"
+       >
+        <img ng-src="{{assignee.image}}" alt="" />
+        <span>{{assignee.firstname + " " + assignee.lastname}}</span>
+
+        <!-- reomove -->
+        <div
+         class="remove-btn"
+         ng-if="isEditing"
+         ng-click="removeAssignee(assignee)"
+        >
+         <i class="bi bi-x"></i>
+        </div>
+       </div>
+      </div>
+     </div>
+
+     <div ng-if="isEditing" class="formerror">
+      <div
+       class="error"
+       ng-show="viewTicketForm.$invalid && viewTicketForm.$submitted"
+      >
+       {{viewTicketForm.errorMessage}}
+      </div>
+     </div>
+     <div ng-if="isEditing" class="footer">
+      <button class="btn btn-primary" ng-disabled="editTicketForm.$invalid">
+       Update
+      </button>
+     </div>
     </div>
    </div>
-  </div>
+  </form>
  </my-modal>
 </section>
