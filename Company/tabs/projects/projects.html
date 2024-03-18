@@ -4,7 +4,7 @@
   <h2>Projects</h2>
 
   <div
-   ng-show="profile.role==='COMPANY_ADMIN'"
+   ng-show="profile.role==='COMPANY_ADMIN' || profile.role==='PROJECT_MANAGER' "
    ui-sref="company.projects.manage"
    ui-sref-active="active"
    class="project-sidebar-option"

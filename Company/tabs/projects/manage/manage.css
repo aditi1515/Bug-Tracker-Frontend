@@ -206,6 +206,7 @@ button {
 }
 
 .select2-container--classic .select2-search--inline .select2-search__field {
+ font-size: 12px;
  display: flex;
 }
 

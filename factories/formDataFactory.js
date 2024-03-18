@@ -10,7 +10,11 @@ function formDataFactory() {
     formData.append("state", companyFormData.state);
     formData.append("domain", companyFormData.domain);
     formData.append("country", companyFormData.country);
-    formData.append("logo", companyFormData.logo);
+  
+
+    if(companyFormData.logo){
+      formData.append("logo", companyFormData.logo);
+    }
 
     if (companyFormData.isEnabled !== undefined) {
       formData.append("isEnabled", companyFormData.isEnabled);
@@ -19,6 +23,9 @@ function formDataFactory() {
     if (companyFormData.previousLogo) {
       formData.append("previousLogo", companyFormData.previousLogo);
     }
+
+ 
+
 
     // Append admin details
     formData.append("admin[firstname]", companyFormData.admin.firstname);

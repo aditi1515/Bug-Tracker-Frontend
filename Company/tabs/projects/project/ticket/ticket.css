@@ -59,6 +59,7 @@
 
 .select2-container--classic .select2-search--inline .select2-search__field {
  display: flex;
+ font-size: 12px;
 }
 
 .select2-container .select2-selection--multiple .select2-selection__rendered {
@@ -253,6 +254,7 @@ select.form-control:not([size]):not([multiple]) {
 .reporterClient {
  width: 100%;
  margin-left: 4px;
+ margin-bottom: 0.6rem;
 }
 
 .select2-selection__rendered span {

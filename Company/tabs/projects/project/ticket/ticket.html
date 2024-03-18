@@ -106,7 +106,7 @@
     </div>
    </div>
 
-   <div class="form-row" ng-if="addTicketFormData.ticketType === 'FR'">
+   <div class="form-row"">
     <div class="form-group reporterClient">
      <label for="reporterClient">Reporter Client</label>
      <input
@@ -513,10 +513,8 @@
        />
       </div>
       <div
-       class="select-col"
-       ng-class="{
-             'fr-type' : viewTicketDetails.ticketType === 'FR'
-          }"
+       class="select-col fr-type"
+       
       >
        <div class="created-by">
         <span>Created By : </span>
@@ -533,7 +531,7 @@
          >
         </div>
        </div>
-       <div class="created-by" ng-if="viewTicketDetails.ticketType==='FR'">
+       <div class="created-by">
         <span>Reporter Client : </span>
 
         <div>
