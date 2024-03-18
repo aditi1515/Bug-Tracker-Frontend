@@ -19,7 +19,6 @@ function companyPeopleController(
 
  //submit add employee form
  $scope.addEmployeeFormSubmit = function (modalId, addEmployeeForm) {
-  console.log("Form submitted: ", addEmployeeForm);
   UserService.createUser({ user: $scope.addEmployeeFormData })
    .then(function (response) {
     console.log("Employee added successfully: ", response);

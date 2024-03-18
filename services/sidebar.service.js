@@ -7,11 +7,11 @@ function sideBarService() {
      state: "superAdminDashboard.company",
      icon: "bi-building",
     },
-    {
-     label: "Settings",
-     state: "admin.settings",
-     icon: "bi-gear",
-    },
+    // {
+    //  label: "Settings",
+    //  state: "admin.settings",
+    //  icon: "bi-gear",
+    // },
    ];
   } else if (role === "COMPANY_ADMIN") {
    return [

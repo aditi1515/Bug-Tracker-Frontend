@@ -12,6 +12,8 @@ function ProjectService($http, BASE_URL, FormDataFactory) {
   console.log("Query string: ", queryString);
   return $http.get(BASE_URL + "project/all?" + queryString);
  };
+
+ 
  this.updateProject = function (projectId, project) {
   var projectFormData = FormDataFactory.getProjectFormData(project);
   return $http.patch(BASE_URL + "project/" + projectId, projectFormData, {
