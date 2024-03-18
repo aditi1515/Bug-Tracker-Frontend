@@ -14,7 +14,7 @@ function companyProjectsManageController(
    dueDate: new Date(),
   };
 
-  $scope.currentDate = new Date();
+  $scope.minDueDate = new Date();
   $scope.isEditingProject = false;
   $scope.currentEditingProjectId = null;
  }
@@ -78,6 +78,7 @@ function companyProjectsManageController(
    key: project.key,
   };
 
+  $scope.minDueDate = new Date(project.createdAt);
   $scope.addProjectFormData = editProjectFormData;
   ModalService.showModal(modalId);
  };
@@ -180,8 +181,10 @@ function companyProjectsManageController(
  $scope.launchModal = function (modalId, addProjectForm) {
   if ($scope.isEditingProject) {
    init();
-   addProjectForm?.$setPristine();
-   addProjectForm?.$setUntouched();
+   if (addProjectForm) {
+    addProjectForm.$setPristine();
+    addProjectForm.$setUntouched();
+   }
   }
   ModalService.showModal(modalId);
  };

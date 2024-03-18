@@ -16,7 +16,9 @@ trackflow.constant("BASE_URL", "http://localhost:3000/api/");
 
 trackflow.service("BaseUrlInterceptor", [
  "subdomainService",
- function (subdomainService) {
+ "$state",
+ "$q",
+ function (subdomainService, $state, $q) {
   this.request = function (config) {
    // Extract subdomain using subdomainService
    var subdomain = subdomainService.extractSubdomain();
@@ -41,10 +43,20 @@ trackflow.service("BaseUrlInterceptor", [
   };
 
   this.response = function (response) {
-   if (response.status === 510) {
-    $state.go("login");
-   }
    return response;
+  };
+
+  this.responseError = function (rejection) {
+   // Handle errors
+   console.log("Response Error: ", rejection);
+   if (rejection.status === 510) {
+    $state.go("login");
+   } else if (rejection.status === 403) {
+    console.log("Forbidden");
+    $state.go("company");
+   }
+   // It is important to reject the response error to keep the promise chain
+   return $q.reject(rejection);
   };
  },
 ]);

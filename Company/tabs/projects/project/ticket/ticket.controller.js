@@ -5,18 +5,22 @@ function ticketController(
  $stateParams,
  ModalService,
  SnackbarService,
- TicketService
+ TicketService,
+ UserService
 ) {
  var currentState = $state.current;
  console.log("Active state:", currentState);
+ $scope.addTicketFormData = {};
+ function init() {
+  ($scope.addTicketFormData.dueDate = new Date()),
+   ($scope.minDueDate = new Date());
 
- $scope.addTicketFormData = {
-  dueDate: new Date(),
- };
+  $scope.currentDate = new Date();
+  $scope.isEditing = false;
+  $scope.currentEditingTicket = null;
+ }
 
- $scope.currentDate = new Date();
- $scope.isEditing = false;
- $scope.currentEditingTicket = null;
+ init();
 
  //add ticket
  $scope.addTicketFormSubmit = function (modalId, addTicketForm) {
@@ -84,12 +88,25 @@ function ticketController(
    pageNo: pageNo,
    pageSize: pageSize,
    query: query,
-   project_id: $state.params.projectId,
+   projectId: $state.params.projectId,
   }).then(function (response) {
    console.log("All tickets: ", response);
    $scope.ticketsData = response.data;
   });
  }
+
+ //get all members ni project
+
+ function getAllMembersInProject() {
+  UserService.getAllUsersByProjectId({
+   projectId: $state.params.projectId,
+  }).then(function (response) {
+   console.log("All members: ", response);
+   $scope.membersInProject = response.data.users;
+  });
+ }
+
+ getAllMembersInProject();
 
  $scope.basicFilterSelected = function (basicFilter) {
   $scope.selectedBasicFilter = basicFilter;
@@ -151,6 +168,8 @@ function ticketController(
   $scope.viewTicketDetails.removeAssignees = [];
   $scope.viewTicketDetails.dueDate = new Date(ticket.dueDate);
 
+  $scope.minDueDate = new Date(ticket.CreatedAt);
+
   ModalService.showModal(modalId);
  };
 
@@ -191,6 +210,7 @@ function ticketController(
  //edit ticket
  $scope.editTicketToggle = function (modalId) {
   if ($scope.isEditing) {
+   init();
    $scope.viewTicket(modalId, $scope.currentEditingTicket);
   } else {
    $scope.isEditing = true;
@@ -233,5 +253,6 @@ trackflow.controller("ticketController", [
  "ModalService",
  "SnackbarService",
  "TicketService",
+ "UserService",
  ticketController,
 ]);

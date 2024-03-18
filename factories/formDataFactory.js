@@ -52,6 +52,7 @@ function formDataFactory() {
       formdata.append("removedMembers", JSON.stringify(project.removedMembers));
     }
 
+
     if (project.logo) {
       formdata.append("logo", project.logo);
     }

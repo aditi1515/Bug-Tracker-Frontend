@@ -6,6 +6,7 @@
  <div class="wrapper">
   <div class="head">
    <h2>Manage Projects</h2>
+
    <button class="btn" ng-click="launchModal('addProjectModal',addProjectForm)">
     Create Project
    </button>
@@ -98,6 +99,7 @@
       ng-model="addProjectFormData.logo"
       file-model="addProjectFormData.logo"
       ng-required="!isEditingProject"
+      accept="image/*"
      />
      <div
       class="error"
@@ -121,7 +123,7 @@
        name="dueDate"
        ng-model="addProjectFormData.dueDate"
        ng-required="true"
-       min="{{currentDate | date:'yyyy-MM-dd'}}"
+       min="{{minDueDate | date:'yyyy-MM-dd'}}"
       />
       <div
        class="error"
@@ -214,8 +216,8 @@
     <button
      type="submit"
      class="btn"
-     ng-disabled="addProjectForm.$invalid || addProjectForm.$submitted"
-     ng-class="{'disabled': addProjectForm.$invalid || addProjectForm.$submitted}"
+     ng-disabled="addProjectForm.$invalid"
+     ng-class="{'disabled': addProjectForm.$invalid}"
     >
      submit
     </button>

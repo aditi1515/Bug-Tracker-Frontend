@@ -129,6 +129,7 @@
    <div class="form-row">
     <div class="form-group col select-multiple-wrapper">
      <label for="members">Assignees *</label>
+
      <select
       class="form-control"
       id="assignees"
@@ -143,7 +144,7 @@
       <option
        ng-value="{'_id': person._id, 'firstname': person.firstname, 'lastname' : person.lastname , 'email': person.email , 'image': person.image}"
        data-image="{{person.image}}"
-       ng-repeat="person in allEmployeesInCompany"
+       ng-repeat="person in membersInProject"
       >
        {{person.firstname}}
       </option>
@@ -179,7 +180,7 @@
       name="dueDate"
       ng-model="addTicketFormData.dueDate"
       ng-required="true"
-      min="{{currentDate | date:'yyyy-MM-dd'}}"
+      min="{{minDueDate | date:'yyyy-MM-dd'}}"
      />
      <div
       class="error"
@@ -508,7 +509,7 @@
         name="dueDate"
         ng-model="viewTicketDetails.dueDate"
         ng-required="true"
-        min="{{currentDate | date:'yyyy-MM-dd'}}"
+        min="{{minDueDate | date:'yyyy-MM-dd'}}"
         ng-disabled="!isEditing"
        />
       </div>
@@ -623,7 +624,7 @@
         <option
          ng-value="{'_id': person._id, 'firstname': person.firstname, 'lastname' : person.lastname , 'email': person.email , 'image': person.image}"
          data-image="{{person.image}}"
-         ng-repeat="person in allEmployeesInCompany"
+         ng-repeat="person in membersInProject"
          ng-if="!isAssigneeSelected(person)"
         >
          {{person.firstname + " " + person.lastname}}

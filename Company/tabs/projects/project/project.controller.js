@@ -1,6 +1,6 @@
 function projectController($scope, $state, ProjectService, UserService) {
  $scope.projectDetails = {};
- $scope.allEmployees = [];
+
 
  function getProjectById() {
   var projectId = $state.params.projectId;
@@ -11,16 +11,10 @@ function projectController($scope, $state, ProjectService, UserService) {
   });
  }
 
- function getAllEmployees() {
-  var projectId = $state.params.projectId;
-  UserService.getAllUsersByProjectId({ onlyEnabled: true , projectId:projectId }).then(function (response) {
-   console.log("All people: ", response.data.users);
-   $scope.allEmployees = response.data.users;
-  });
- }
+
 
  getProjectById();
- getAllEmployees();
+
 }
 
 trackflow.controller("ProjectController", [
