@@ -64,7 +64,6 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
     return $http.get(BASE_URL + `user/all?${queryString}`);
   };
 
-
   //get all users of a project
   this.getAllUsersByProjectId = function (queryObject) {
     var queryString = QueryGenerator(queryObject);
@@ -81,6 +80,19 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
     }
 
     $state.go("login");
+  };
+
+  //to send reset password link to user
+  this.forgotPassword = function (userEmail) {
+    return $http.post(BASE_URL + "user/forgotPassword", userEmail);
+  };
+
+  //to reset password
+
+  this.resetPassword = function (password, token) {
+    return $http.post(BASE_URL + `user/resetPassword/${token.token}`, {
+      password: password.newPassword,
+    });
   };
 }
 
