@@ -232,6 +232,9 @@ select {
 form .btn {
  width: 100%;
  margin-top: 1rem;
+ background-color: var(--dark-pink);
+ outline: none;
+ border: none;
 }
 
 .addGlobalTicketForm {

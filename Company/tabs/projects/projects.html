@@ -186,7 +186,6 @@
       </div>
      </div>
     </div>
- 
     <div class="form-row"">
      <div class="form-group reporterClient">
       <label for="reporterClient">Reporter Client</label>
@@ -197,7 +196,7 @@
        name="reporterClient"
        ng-model="addGlobalTicketFormData.reporterClient"
        ng-required="true"
-       ng-init="addGlobalTicketFormData.reporterClient = profile.firstname + ' ' + profile.lastname"
+       ng-init="{{addGlobalTicketFormData.reporterClient = profile.firstname + ' ' + profile.lastname}}"
       />
       <div
        class="error"
@@ -310,7 +309,7 @@
     </div>
    </div>
 
-   <button type="submit" class="btn btn-primary">Submit</button>
+   <button type="submit" class="btn">Submit</button>
   </form >
  </my-modal >
 
