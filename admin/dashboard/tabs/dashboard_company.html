@@ -159,6 +159,7 @@
         name="adminFirstName"
         ng-model="addCompanyFormData.admin.firstname"
         ng-required="true"
+        ng-disabled="isEditing"
        />
        <div
         class="error"
@@ -175,6 +176,7 @@
         id="adminLastName"
         name="adminLastName"
         ng-model="addCompanyFormData.admin.lastname"
+        ng-disabled="isEditing"
        />
        <!-- <div
                 class="error"
@@ -227,6 +229,7 @@
          ng-model="addCompanyFormData.admin.phoneNumber"
          ng-pattern="/^\d{10}$/" 
          ng-required="true"
+         ng-disabled="isEditing"
         />
         <div
          class="error"
