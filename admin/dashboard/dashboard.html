@@ -2,9 +2,12 @@
  <link rel="stylesheet" href="../../admin/dashboard/dashboard.css" />
  <div class="dashboard_wrapper">
   <!-- <div ng-include="'../admin/dashboard/sidebar.html'"></div> -->
-  <sidebar profile="profile" options="options"></sidebar>
-  
+  <sidebar
+   profile="profile"
+   company-name="trackFlow"
+   options="options"
+  ></sidebar>
+
   <div class="dashboard_content" ui-view></div>
  </div>
-
 </section>

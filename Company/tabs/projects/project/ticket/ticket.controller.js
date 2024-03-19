@@ -16,7 +16,6 @@ function ticketController(
   $scope.addTicketFormData.dueDate = new Date();
   $scope.minDueDate = new Date();
   $scope.isEditing = false;
-  $scope.currentEditingTicket = null;
  }
 
  init();
@@ -165,8 +164,6 @@ function ticketController(
   $scope.isEditing = false;
 
   $scope.viewTicketDetails = angular.copy(ticket);
-
-  
 
   $scope.viewTicketDetails.removedAttachments = [];
   $scope.viewTicketDetails.previousAttachments = ticket.attachments;

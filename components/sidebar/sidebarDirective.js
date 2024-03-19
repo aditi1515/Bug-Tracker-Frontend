@@ -6,6 +6,8 @@ trackflow.directive("sidebar", [
    scope: {
     profile: "=",
     options: "=",
+    companyLogo: "@",
+    companyName: "@",
    },
    templateUrl: "../components/sidebar/sidebar.html",
    controller: function ($scope, $location) {
@@ -16,12 +18,14 @@ trackflow.directive("sidebar", [
     };
 
     $scope.logout = function () {
-     UserService.logout().then(function () {
-         console.log("Logged out successfully");
-     }).catch(function (error) {
-         console.error('Logout error:', error);
-     });
- };
+     UserService.logout()
+      .then(function () {
+       console.log("Logged out successfully");
+      })
+      .catch(function (error) {
+       console.error("Logout error:", error);
+      });
+    };
    },
   };
  },

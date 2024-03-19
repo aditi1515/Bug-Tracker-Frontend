@@ -84,7 +84,7 @@
         id="employeePhoneNo"
         name="employeePhoneNo"
         ng-model="addEmployeeFormData.phoneNumber"
-        ng-pattern="/^\d{10,15}$/"
+        ng-pattern="/^\d{10}$/"
         required
        />
        <div
@@ -164,7 +164,7 @@
        <th scope="col">Email</th>
        <th scope="col">Phone Number</th>
        <th scope="col">Role</th>
-       <th scope="col">Status</th>
+       <!-- <th scope="col">Status</th> -->
        <th scope="col">Join Date</th>
        <!-- edit-btn -->
        <th scope="col"></th>
@@ -185,13 +185,13 @@
        <td>
         <span class="badge">{{person.role}}</span>
        </td>
-       <td>
+       <!-- <td>
         <span
          class="badge"
          ng-class="{'badge-success': person.isCurrentMember, 'badge-danger': !person.isCurrentMember}"
          >{{person.isCurrentMember}}</span
         >
-       </td>
+       </td> -->
        <td>{{person.createdAt | date : 'MM/dd/yyyy'}}</td>
        <!-- <td>{{ company.admin.firstname + " " + company.admin.lastname }}</td>
   <td>{{ company.admin.email }}</td>

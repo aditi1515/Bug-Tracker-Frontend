@@ -40,7 +40,7 @@ function sideBarService() {
    return [
     {
      label: "Projects",
-     state: "company.projects.base",
+     state: "company.projects",
      icon: "bi-clipboard",
     },
     {

@@ -8,19 +8,20 @@ function dashboardCompanyController(
  FilePreviewFactory
 ) {
  $scope.addCompanyFormData = {
-  name: "Acme Corporation",
-  domain: "acme",
-  city: "New York",
-  state: "NY",
+  name: "VibeCo",
+  domain: "vibeco",
+  city: "Miami",
+  state: "FL",
   country: "USA",
 
   admin: {
-   firstname: "John",
-   lastname: "Doe",
-   email: "john.doe@example.com",
-   phoneNumber: 9891329808,
+   firstname: "Aiden",
+   lastname: "Blake",
+   email: "aiden.blake@example.com",
+   phoneNumber: 9876543210,
   },
  };
+
  $scope.companiesData = {};
  $scope.isEditing = false;
  $scope.currentEditingCompanyId = null;

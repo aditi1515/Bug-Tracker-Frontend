@@ -226,10 +226,11 @@ select {
  cursor: not-allowed;
 }
 
-form .btn {
+form button {
  width: 100%;
- margin-top: 1rem;
  background-color: var(--dark-pink);
+ padding: 0.4rem;
+ border-radius: 4px;
  outline: none;
  border: none;
  color: white;
@@ -252,4 +253,24 @@ form .btn {
 
 .select2 select2-container {
  background: red;
+}
+
+#file-preview-container {
+ margin-top: 0.4rem;
+ margin-left: 0.5rem;
+ display: flex;
+ gap: 1rem;
+ align-items: center;
+ position: relative;
+ flex-wrap: wrap;
+}
+
+#file-preview-container img {
+ width: 50px;
+ height: 50px;
+ object-fit: cover;
+}
+
+.file-link i {
+ font-size: 2rem;
 }

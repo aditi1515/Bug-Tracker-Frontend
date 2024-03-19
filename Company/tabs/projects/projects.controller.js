@@ -56,6 +56,7 @@ function companyProjectsController(
    .then(function (response) {
     console.log("Ticket created successfully: ", response);
     ModalService.hideModal(modalId);
+    $scope.previewAttachments = [];
     SnackbarService.showAlert("Ticket created successfully", 2000, "success");
    })
    .catch(function (error) {

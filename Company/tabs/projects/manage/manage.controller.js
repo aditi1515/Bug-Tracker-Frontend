@@ -46,7 +46,7 @@ function companyProjectsManageController(
     });
    }
   }
-
+  console.log("Form data: ", $scope.addProjectFormData);
   ProjectService.addProject($scope.addProjectFormData)
    .then(function (response) {
     SnackbarService.showAlert("Project created successfully", 2000, "success");

@@ -22,7 +22,8 @@
     <select
      class="form-control"
      id="project"
-     name="project"
+     name="projectInTicket"
+     
      ng-model="addTicketFormData.projectDetails"
      disabled="true"
      ng-init="{{addTicketFormData.projectDetails = projectDetails._id}}"
@@ -674,7 +675,7 @@
       </div>
      </div>
      <div ng-if="isEditing" class="footer">
-      <button class="btn btn-primary" ng-disabled="editTicketForm.$invalid">
+      <button ng-disabled="editTicketForm.$invalid">
        Update
       </button>
      </div>

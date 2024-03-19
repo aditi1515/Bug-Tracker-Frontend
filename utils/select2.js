@@ -4,6 +4,7 @@ trackflow.directive("select2Init", function () {
   scope: {
    placeholder: "@",
    closeOnSelect: "@",
+   defaultSelected: "=",
   },
   link: function (scope, element, attrs) {
    // Initialize Select2 when the element is ready
@@ -26,15 +27,17 @@ trackflow.directive("select2Init", function () {
      return optionWithImage;
     }
    }
-
-   $(element).select2({
-    width: "100%",
-    templateResult: formatOption,
-    templateSelection: formatOption,
-    theme: "classic",
-    closeOnSelect: scope.closeOnSelect === "true" ? true : false,
-    placeholder: scope.placeholder,
-   });
+   console.log("defaultSelected", scope.defaultSelected);
+   $(element)
+    .select2({
+     width: "100%",
+     templateResult: formatOption,
+     templateSelection: formatOption,
+     theme: "classic",
+     closeOnSelect: scope.closeOnSelect === "true" ? true : false,
+     placeholder: scope.placeholder,
+    })
+    .val(scope.defaultSelected);
   },
  };
 });

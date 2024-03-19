@@ -38,6 +38,7 @@ trackflow.config([
         redirectTo: "company.projects",
         resolve: {
           auth: isAuthenticated,
+          company : isCompanyExists,
         },
       })
       .state("superAdminDashboard", {

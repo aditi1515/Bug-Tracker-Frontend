@@ -24,6 +24,7 @@ function companyPeopleController(
     console.log("Employee added successfully: ", response);
     SnackbarService.showAlert("Employee added successfully", 2000, "success");
     getAllPeople();
+    $scope.addEmployeeFormData = {};
     ModalService.hideModal(modalId);
    })
    .catch(function (error) {
@@ -118,8 +119,6 @@ function companyPeopleController(
     addEmployeeForm.errorMessage = error.data.message;
    });
  };
-
-
 }
 
 trackflow.controller("companyPeopleController", [

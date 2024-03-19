@@ -1,6 +1,12 @@
-function companyController($scope, auth, SideBarService, ModalService) {
+function companyController(
+ $scope,
+ auth,
+ company,
+ SideBarService,
+ ModalService
+) {
  $scope.profile = auth;
- console.log("auth", auth);
+ $scope.company = company;
  $scope.sideBarOptions = SideBarService.getSideBarOptions(auth.role);
 
  $scope.launchModal = function (modalId) {
@@ -16,6 +22,7 @@ function companyController($scope, auth, SideBarService, ModalService) {
 trackflow.controller("companyController", [
  "$scope",
  "auth",
+ "company",
  "SideBarService",
  "ModalService",
  companyController,

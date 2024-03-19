@@ -657,6 +657,11 @@ option {
  border-left: 1px solid var(--smoke-grey);
 }
 
+.select-col.fr-type {
+ border-right: none;
+ border-left: 1px solid var(--smoke-grey);
+}
+
 .select-col .created-by {
  display: flex;
  flex-direction: column;
@@ -776,11 +781,12 @@ option {
  flex-direction: column;
  gap: 0.4rem;
  padding: 0.5rem;
- margin-top: -1rem;
+ margin-bottom: 1rem;
 }
 
 .assignees-preview label {
  font-weight: 600;
+ margin-bottom: 0;
 }
 
 .assignees-preview-wrapper {
@@ -844,7 +850,7 @@ option {
  padding: 0.5rem;
 }
 
-.footer .btn {
+.footer button {
  padding: 0.4rem 0.7rem;
  width: 30%;
 }
