@@ -124,8 +124,15 @@ function ticketController(
   );
  };
 
+ $scope.clearFilter = function () {
+  $scope.selectedBasicFilter = null;
+  getAllTickets();
+  $scope.searchTicket = "";
+ };
+
  $scope.pageChange = function (pageNo, pageSize) {
   console.log("Page changed: ", pageNo, pageSize);
+  $scope.searchTicket = "";
   getAllTickets(pageNo, pageSize);
  };
 
@@ -158,6 +165,9 @@ function ticketController(
   $scope.isEditing = false;
 
   $scope.viewTicketDetails = angular.copy(ticket);
+
+  
+
   $scope.viewTicketDetails.removedAttachments = [];
   $scope.viewTicketDetails.previousAttachments = ticket.attachments;
   $scope.viewTicketDetails.alreadyAssigned = ticket.assignees;

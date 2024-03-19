@@ -13,7 +13,7 @@ function companyProjectsController(
   console.log("Files here: ", filesUrls[0].url);
   $scope.previewAttachments = filesUrls;
  }
-
+ $scope.addGlobalTicketFormData = {};
  FilePreviewFactory.initFileSelectionListener($scope, filePreviewCallback);
 
  $scope.isImage = function (preview) {
@@ -21,7 +21,6 @@ function companyProjectsController(
   return preview.type && preview.type.startsWith("image/");
  };
 
- $scope.addGlobalTicketFormData = {};
  function getAllProjects() {
   ProjectService.getAllProjects().then(function (response) {
    console.log("All projects: ", response);
@@ -81,9 +80,7 @@ function companyProjectsController(
   $scope.addGlobalTicketFormData = {};
   $scope.formHolder.addGlobalTicketForm.$setPristine();
   $scope.formHolder.addGlobalTicketForm.$setUntouched();
- }
-
-
+ };
 }
 trackflow.controller("companyProjectsController", [
  "$scope",

@@ -100,7 +100,6 @@
    novalidate
   >
    <!-- select for project -->
- 
    <div class="form-group">
     <label for="project">Project*</label>
     <select
@@ -110,17 +109,20 @@
      ng-model="addGlobalTicketFormData.projectDetails"
      ng-change="setCurrentProject(addGlobalTicketFormData.projectDetails._id)"
      ng-required="true"
+     select2-init
+     placeholder = "Select Project"
+     close-on-select="true"
     >
 
-     <option value="" disabled>Select Project</option>
-     <option ng-value="{ _id: project._id, name: project.name, key: project.key }" ng-repeat="project in projects">
+
+     <option ng-value="{ _id: project._id, name: project.name, key: project.key }" data-image="{{project.logo}}" ng-repeat="project in projects">
       {{ project.name }}
      </option>
     </select>
     
    </div>
 
-   <div ng-show="addGlobalTicketFormData.projectDetails">
+   <div ng-if="addGlobalTicketFormData.projectDetails">
     <div class="form-group">
      <label for="ticketTitle">Title*</label>
      <input
@@ -217,6 +219,7 @@
        ng-required="true"
        multiple
        select2-init
+        close-on-select="false"
        style="width: 100%"
        placeholder="Select Assignees"
       >

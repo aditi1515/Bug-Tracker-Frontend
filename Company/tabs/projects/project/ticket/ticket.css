@@ -49,12 +49,10 @@
 .select2-container--classic
  .select2-selection--multiple
  .select2-selection__choice {
- border-radius: 10px;
  background-color: white;
  display: flex;
  align-items: center;
  width: fit-content;
- padding: 0.2rem 0.3rem;
 }
 
 .select2-container--classic .select2-search--inline .select2-search__field {
@@ -324,6 +322,22 @@ select.form-control:not([size]):not([multiple]) {
 .basic-filter.active {
  color: var(--dark-pink);
  border: 1px solid var(--dark-pink);
+}
+
+.clear-filter {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 0.5rem;
+ font-size: 12px;
+ font-weight: 600;
+ color: var(--dark-pink);
+ cursor: pointer;
+}
+
+.clear-filter i {
+ font-size: 1.5rem;
+ cursor: pointer;
 }
 
 .tickets-wrapper {

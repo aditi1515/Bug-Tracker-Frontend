@@ -138,6 +138,7 @@
       ng-required="true"
       multiple
       select2-init
+      close-on-select="false"
       style="width: 100%"
       placeholder="Select Assignees"
      >
@@ -261,6 +262,14 @@
     >
      {{filterOption.displayValue}}
     </div>
+    <!-- clear filter -->
+    <div
+     class="clear-filter"
+     ng-click="clearFilter()"
+     ng-show="selectedBasicFilter.filterValue"
+    >
+        <i class="bi-x"></i>
+    </div>
    </div>
   </div>
 
@@ -293,7 +302,7 @@
       <span class="status" ng-class="ticket.status">{{ticket.status}}</span>
      </div>
     </div>
-    <div class="ticket-body">{{ ticket.description | limitTo:80 }}</div>
+    <div class="ticket-body">{{ ticket.title | limitTo:80 }}</div>
     <div class="ticket-footer">
      <div class="footer-left">
       <div
@@ -618,6 +627,7 @@
         ng-model="viewTicketDetails.assignees"
         multiple
         select2-init
+        close-on-select="false"
         style="width: 100%"
         placeholder="Select Assignees"
        >

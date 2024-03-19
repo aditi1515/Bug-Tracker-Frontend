@@ -93,3 +93,15 @@ form {
  height: 2rem;
  object-fit: cover;
 }
+
+.select2-option {
+ display: flex;
+ align-items: center;
+ gap: 0.3rem;
+ cursor: pointer;
+ font-size: 12px;
+}
+
+.select2-selection__choice {
+ padding: 0;
+}

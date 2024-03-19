@@ -10,7 +10,7 @@ function TicketService($http, BASE_URL, FormDataFactory) {
  };
  this.updateTicket = function (ticketId , ticketData) {
   // have to put form data creation in factory
-
+console.log("ticketData",ticketData);
   var formdata = FormDataFactory.getTicketFormData(ticketData);
 
   return $http.patch(BASE_URL + "ticket/" + ticketId, formdata, {

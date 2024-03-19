@@ -50,7 +50,7 @@ function companyProjectsManageController(
   ProjectService.addProject($scope.addProjectFormData)
    .then(function (response) {
     SnackbarService.showAlert("Project created successfully", 2000, "success");
-    $state.reload('company.manage');
+    $state.reload("company.projects");
     ModalService.hideModal(modalId);
    })
    .catch(function (error) {

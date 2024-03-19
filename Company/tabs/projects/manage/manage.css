@@ -197,12 +197,11 @@ button {
 .select2-container--classic
  .select2-selection--multiple
  .select2-selection__choice {
- border-radius: 10px;
+
  background-color: white;
  display: flex;
  align-items: center;
  width: fit-content;
- padding: 0.2rem 0.3rem;
 }
 
 .select2-container--classic .select2-search--inline .select2-search__field {
@@ -218,7 +217,6 @@ button {
  width: 20px;
  height: 20px;
  border-radius: 50%;
- margin-right: 5px;
 }
 
 .badge {

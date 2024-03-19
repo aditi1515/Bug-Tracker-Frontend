@@ -3,22 +3,21 @@ trackflow.directive("select2Init", function () {
   restrict: "A",
   scope: {
    placeholder: "@",
+   closeOnSelect: "@",
   },
   link: function (scope, element, attrs) {
    // Initialize Select2 when the element is ready
 
    function formatOption(option) {
-    console.log("Option here : ", option);
     if (!option.id) {
      return option.text;
     }
 
     var optimage = $(option.element).attr("data-image");
-    console.log("Option: ", optimage);
     var imageUrl = optimage;
     if (imageUrl) {
      var optionWithImage = $(
-      '<span><img src="' +
+      '<span class="select2-option"><img src="' +
        imageUrl +
        '" class="select-option-image" /> ' +
        option.text +
@@ -33,7 +32,7 @@ trackflow.directive("select2Init", function () {
     templateResult: formatOption,
     templateSelection: formatOption,
     theme: "classic",
-    closeOnSelect: false,
+    closeOnSelect: scope.closeOnSelect === "true" ? true : false,
     placeholder: scope.placeholder,
    });
   },

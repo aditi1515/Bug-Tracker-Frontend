@@ -167,6 +167,7 @@
        ng-model="addProjectFormData.members"
        multiple
        select2-init
+       close-on-select="false"
        style="width: 100%"
        placeholder="Select Members"
       >
@@ -192,7 +193,11 @@
         >
          <img ng-src="{{member.image}}" class="avatar" alt="" />
          <span>{{member.firstname + " " + member.lastname}}</span>
-         <i class="bi-x-circle-fill" ng-click="removeMember(member)"></i>
+         <i
+          class="bi-x-circle-fill"
+          ng-click="removeMember(member)"
+          ng-if="member._id !== profile._id"
+         ></i>
         </span>
        </div>
       </div>
