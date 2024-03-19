@@ -233,3 +233,13 @@ form .btn {
  width: 100%;
  margin-top: 1rem;
 }
+
+.addGlobalTicketForm {
+ padding: 1rem;
+}
+
+.reporterClient {
+ width: 100%;
+ margin-left: 4px;
+ margin-bottom: 0.6rem;
+}

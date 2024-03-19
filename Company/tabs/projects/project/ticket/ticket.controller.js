@@ -6,21 +6,25 @@ function ticketController(
  ModalService,
  SnackbarService,
  TicketService,
- UserService
+ UserService,
+ FilePreviewFactory
 ) {
  var currentState = $state.current;
  console.log("Active state:", currentState);
  $scope.addTicketFormData = {};
  function init() {
-  ($scope.addTicketFormData.dueDate = new Date()),
-   ($scope.minDueDate = new Date());
-
-  $scope.currentDate = new Date();
+  $scope.addTicketFormData.dueDate = new Date();
+  $scope.minDueDate = new Date();
   $scope.isEditing = false;
   $scope.currentEditingTicket = null;
  }
 
  init();
+
+ $scope.launchModal = function (modalId) {
+  ModalService.showModal(modalId);
+  init();
+ };
 
  //add ticket
  $scope.addTicketFormSubmit = function (modalId, addTicketForm) {
@@ -45,21 +49,15 @@ function ticketController(
    });
  };
 
- //to preview attachments of tickets
- $scope.$on("fileSelected", function (event, files) {
-  console.log("Files: ", typeof files[0]);
-
-  var objectUrls = Object.keys(files).map(function (key) {
-   var blobUrl = URL.createObjectURL(files[key]);
-   return { url: blobUrl, type: files[key].type };
-  });
-
+ function filePreviewCallback(filesUrls) {
   if ($scope.isEditing) {
-   $scope.viewTicketDetails.attachmentsPreview = objectUrls;
+   $scope.viewTicketDetails.attachmentsPreview = filesUrls;
   } else {
-   $scope.addTicketFormData.attachmentsPreview = objectUrls;
+   $scope.addTicketFormData.attachmentsPreview = filesUrls;
   }
- });
+ }
+
+ FilePreviewFactory.initFileSelectionListener($scope, filePreviewCallback);
 
  $scope.isImage = function (preview) {
   // Check if the fileType starts with "image/"
@@ -168,7 +166,7 @@ function ticketController(
   $scope.viewTicketDetails.removeAssignees = [];
   $scope.viewTicketDetails.dueDate = new Date(ticket.dueDate);
 
-  $scope.minDueDate = new Date(ticket.CreatedAt);
+  $scope.minDueDate = new Date(ticket.createdAt);
 
   ModalService.showModal(modalId);
  };
@@ -238,7 +236,7 @@ function ticketController(
     getAllTickets();
    })
    .catch(function (error) {
-    editTicketForm.errorMessage = error.message;
+    editTicketForm.errorMessage = error.data.message;
     editTicketForm.$invalid = true;
     console.error("Error updating ticket: ", error);
    });
@@ -254,5 +252,6 @@ trackflow.controller("ticketController", [
  "SnackbarService",
  "TicketService",
  "UserService",
+ "FilePreviewFactory",
  ticketController,
 ]);

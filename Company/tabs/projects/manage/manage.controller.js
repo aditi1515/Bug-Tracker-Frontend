@@ -5,7 +5,8 @@ function companyProjectsManageController(
  ModalService,
  SnackbarService,
  UserService,
- ProjectService
+ ProjectService,
+ FilePreviewFactory
 ) {
  //add project form data
  function init() {
@@ -49,7 +50,7 @@ function companyProjectsManageController(
   ProjectService.addProject($scope.addProjectFormData)
    .then(function (response) {
     SnackbarService.showAlert("Project created successfully", 2000, "success");
-    $state.reload();
+    $state.reload('company.manage');
     ModalService.hideModal(modalId);
    })
    .catch(function (error) {
@@ -70,7 +71,7 @@ function companyProjectsManageController(
    inProgress: project.inProgress,
    dueDate: new Date(project.dueDate),
    people: project.people,
-   previewLogo: [project.logo],
+   previewLogo: [{ url: project.logo }],
    previousLogo: project.logo,
    membersAlreadySelected: project.members,
    removedMembers: [],
@@ -91,7 +92,7 @@ function companyProjectsManageController(
   )
    .then(function (response) {
     SnackbarService.showAlert("Project updated successfully", 2000, "success");
-    $state.reload();
+    $state.reload("company.projects");
     ModalService.hideModal(modalId);
    })
    .catch(function (error) {
@@ -122,19 +123,12 @@ function companyProjectsManageController(
    });
  };
 
- $scope.$on("fileSelected", function (event, files) {
-  console.log("Files here: ", files);
-  if (files.length === 0) {
-   console.log("No files selected");
-   $scope.addProjectFormData.previewLogo = null;
-   return;
-  }
-  var objectUrls = Object.keys(files).map(function (key) {
-   return URL.createObjectURL(files[key]);
-  });
+ function filePreviewCallback(filesUrls) {
+  console.log("Files here: ", filesUrls[0].url);
+  $scope.addProjectFormData.previewLogo = filesUrls;
+ }
 
-  $scope.addProjectFormData.previewLogo = objectUrls;
- });
+ FilePreviewFactory.initFileSelectionListener($scope, filePreviewCallback);
 
  //get all projects
  function getAllProjects(
@@ -198,5 +192,6 @@ trackflow.controller("companyProjectsManageController", [
  "SnackbarService",
  "UserService",
  "ProjectService",
+ "FilePreviewFactory",
  companyProjectsManageController,
 ]);

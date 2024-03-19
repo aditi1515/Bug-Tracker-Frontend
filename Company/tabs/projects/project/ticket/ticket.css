@@ -815,6 +815,7 @@ option {
  display: flex;
  gap: 1rem;
  padding: 0.5rem;
+ margin-top: 0.5rem;
 }
 
 .new-assignees label {
@@ -832,4 +833,8 @@ option {
 .footer .btn {
  padding: 0.4rem 0.7rem;
  width: 30%;
+}
+
+.formerror {
+ padding: 0.5rem;
 }

@@ -12,6 +12,14 @@
    <div class="bi-toggles2"></div>
    <span>Manage</span>
   </div>
+  <div
+   ng-show="profile.role==='COMPANY_ADMIN' || profile.role==='PROJECT_MANAGER' "
+   class="project-sidebar-option"
+   ng-click="launchModal('addTicketModalGlobal')"
+  >
+   <div class="bi-node-plus"></div>
+   <span>Create Ticket</span>
+  </div>
 
   <hr />
   <div
@@ -83,5 +91,228 @@
    </div>
   </div>
  </div>
- <div class="subview" ui-view></div>
+
+ <my-modal modal-size="lg"  on-close="onModalClose()" modal-id="addTicketModalGlobal" title="Add Ticket">
+  <form
+   class="addGlobalTicketForm"
+   name="formHolder.addGlobalTicketForm"
+   ng-submit="addTicketFormSubmit('addTicketModalGlobal',formHolder.addGlobalTicketForm)"
+   novalidate
+  >
+   <!-- select for project -->
+ 
+   <div class="form-group">
+    <label for="project">Project*</label>
+    <select
+     class="form-control"
+     id="project"
+     name="project"
+     ng-model="addGlobalTicketFormData.projectDetails"
+     ng-change="setCurrentProject(addGlobalTicketFormData.projectDetails._id)"
+     ng-required="true"
+    >
+
+     <option value="" disabled>Select Project</option>
+     <option ng-value="{ _id: project._id, name: project.name, key: project.key }" ng-repeat="project in projects">
+      {{ project.name }}
+     </option>
+    </select>
+    
+   </div>
+
+   <div ng-show="addGlobalTicketFormData.projectDetails">
+    <div class="form-group">
+     <label for="ticketTitle">Title*</label>
+     <input
+      type="text"
+      class="form-control"
+      id="ticketTitle"
+      name="ticketTitle"
+      ng-model="addGlobalTicketFormData.title"
+      ng-required="true"
+     />
+     <div
+      class="error"
+      ng-show="formHolder.addGlobalTicketForm.ticketTitle.$error.required && formHolder.addGlobalTicketForm.ticketTitle.$touched"
+     >
+      Ticket Title is required
+     </div>
+    </div>
+    <div class="form-group">
+     <label for="ticketDescription">Description</label>
+     <textarea
+      class="form-control"
+      id="ticketDescription"
+      name="ticketDescription"
+      ng-model="addGlobalTicketFormData.description"
+     ></textarea>
+    </div>
+    <div class="form-row">
+     <div class="form-group col">
+      <label for="ticketType">Ticket Type*</label>
+      <select
+       class="form-control"
+       id="ticketType"
+       name="ticketType"
+       ng-model="addGlobalTicketFormData.ticketType"
+       ng-options="type for type in ['BUG', 'FR']"
+       ng-required="true"
+       ng-init="addGlobalTicketFormData.ticketType = 'BUG'"
+      ></select>
+      <div
+       class="error"
+       ng-show="formHolder.addGlobalTicketForm.ticketType.$error.required && formHolder.addGlobalTicketForm.ticketType.$touched"
+      >
+       Ticket Type is required
+      </div>
+     </div>
+     <div class="form-group col">
+      <label for="ticketStatus">Status*</label>
+      <select
+       type="text"
+       class="form-control"
+       id="ticketStatus"
+       name="ticketStatus"
+       ng-options="status for status in ['OPEN', 'IN PROGRESS', 'IN REVIEW' ,'CLOSED']"
+       ng-model="addGlobalTicketFormData.status"
+       ng-required="true"
+       ng-init="addGlobalTicketFormData.status = 'OPEN'"
+      />
+      <div
+       class="error"
+       ng-show="formHolder.addGlobalTicketForm.ticketStatus.$error.required && formHolder.addGlobalTicketForm.ticketStatus.$touched"
+      >
+       Ticket Status is required
+      </div>
+     </div>
+    </div>
+ 
+    <div class="form-row"">
+     <div class="form-group reporterClient">
+      <label for="reporterClient">Reporter Client</label>
+      <input
+       type="text"
+       class="form-control"
+       id="reporterClient"
+       name="reporterClient"
+       ng-model="addGlobalTicketFormData.reporterClient"
+       ng-required="true"
+       ng-init="addGlobalTicketFormData.reporterClient = profile.firstname + ' ' + profile.lastname"
+      />
+      <div
+       class="error"
+       ng-show="formHolder.addGlobalTicketForm.reporterClient.$error.required && formHolder.addGlobalTicketForm.reporterClient.$touched"
+      >
+       Reporter Client is required
+      </div>
+     </div>
+    </div>
+    <div class="form-row">
+     <div class="form-group col select-multiple-wrapper">
+      <label for="members">Assignees *</label>
+      <select
+       class="form-control"
+       id="assigneesGlobalTicket"
+       name="assignees"
+       ng-model="addGlobalTicketFormData.assignees"
+       ng-required="true"
+       multiple
+       select2-init
+       style="width: 100%"
+       placeholder="Select Assignees"
+      >
+       <option
+        ng-value="{'_id': person._id, 'firstname': person.firstname, 'lastname' : person.lastname , 'email': person.email , 'image': person.image}"
+        data-image="{{person.image}}"
+        ng-repeat="person in currentlySelectedProject.members"
+       >
+        {{person.firstname}}
+       </option>
+      </select>
+     </div>
+    </div>
+    <div class="form-row">
+     <!-- priority and dueDate -->
+     <div class="form-group col">
+      <label for="ticketPriority">Priority*</label>
+      <select
+       class="form-control"
+       id="ticketPriority"
+       name="ticketPriority"
+       ng-model="addGlobalTicketFormData.priority"
+       ng-options="priority for priority in ['LOW', 'MEDIUM', 'HIGH']"
+       ng-required="true"
+       ng-init="addGlobalTicketFormData.priority = 'LOW'"
+      ></select>
+      <div
+       class="error"
+       ng-show="formHolder.addGlobalTicketForm.ticketPriority.$error.required && formHolder.addGlobalTicketForm.ticketPriority.$touched"
+      >
+       Ticket Priority is required
+      </div>
+     </div>
+     <div class="form-group col">
+      <label for="dueDate">Due Date*</label>
+      <input
+       type="date"
+       class="form-control"
+       id="dueDate"
+       name="dueDate"
+       ng-model="addGlobalTicketFormData.dueDate"
+       ng-required="true"
+       min="{{minDueDate | date:'yyyy-MM-dd'}}"
+      />
+      <div
+       class="error"
+       ng-show="formHolder.addGlobalTicketForm.dueDate.$error.required && formHolder.addGlobalTicketForm.dueDate.$touched"
+      >
+       Ticket due date is required
+      </div>
+     </div>
+    </div>
+ 
+    <div class="form-row">
+     <!-- attachments -->
+     <div class="form-group col">
+      <label for="attachments">Attachments</label>
+      <input
+       multiple
+       type="file"
+       class="form-control"
+       id="attachments"
+       name="attachments"
+       ng-model="addGlobalTicketFormData.attachments"
+       file-model="addGlobalTicketFormData.attachments"
+      />
+ 
+      <div id="file-preview-container">
+       <div ng-repeat="preview in previewAttachments">
+        <div ng-if="isImage(preview)">
+         <img ng-src="{{preview.url}}" alt="attachments-preview" />
+        </div>
+        <div ng-if="!isImage(preview)">
+         <a class="file-link" ng-href="{{preview.url}}" target="_blank">
+          <i class="bi-file-earmark-check"></i>
+         </a>
+        </div>
+        <!-- Handle other file types -->
+       </div>
+      </div>
+     </div>
+   </div>
+   </div>
+   <div class="formerror">
+    <div
+     class="error"
+     ng-show="formHolder.addGlobalTicketForm.$invalid && formHolder.addGlobalTicketForm.$submitted"
+    >
+     {{formHolder.addGlobalTicketForm.errorMessage}}
+    </div>
+   </div>
+
+   <button type="submit" class="btn btn-primary">Submit</button>
+  </form >
+ </my-modal >
+
+ <div ng-init="setForm(formHolder.addGlobalTicketForm)" class="subview" ui-view></div>
 </section>

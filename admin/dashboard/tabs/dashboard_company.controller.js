@@ -4,7 +4,8 @@ function dashboardCompanyController(
  $element,
  CompanyService,
  ModalService,
- SnackbarService
+ SnackbarService,
+ FilePreviewFactory
 ) {
  $scope.addCompanyFormData = {
   name: "Acme Corporation",
@@ -24,14 +25,12 @@ function dashboardCompanyController(
  $scope.isEditing = false;
  $scope.currentEditingCompanyId = null;
 
- //to generate blob url
- $scope.$on("fileSelected", function (event, files) {
-  var objectUrls = Object.keys(files).map(function (key) {
-   return URL.createObjectURL(files[key]);
-  });
+ function filePreviewCallback(filesUrls) {
+  console.log("Files here: ", filesUrls[0].url);
+  $scope.addCompanyFormData.previewLogo = filesUrls;
+ }
 
-  $scope.addCompanyFormData.previewLogo = objectUrls;
- });
+ FilePreviewFactory.initFileSelectionListener($scope, filePreviewCallback);
 
  //add company form data
  $scope.addCompanyFormSubmit = function (modalId, addCompanyForm) {
@@ -68,7 +67,7 @@ function dashboardCompanyController(
    city: company.city,
    state: company.state,
    country: company.country,
-   previewLogo: [company.logo],
+   previewLogo: [{ url: company.logo }],
    previousLogo: company.logo,
    isEnabled: company.isEnabled,
    admin: {
@@ -187,6 +186,6 @@ trackflow.controller("dashboardCompanyController", [
  "CompanyService",
  "ModalService",
  "SnackbarService",
- "FormDataFactory",
+ "FilePreviewFactory",
  dashboardCompanyController,
 ]);

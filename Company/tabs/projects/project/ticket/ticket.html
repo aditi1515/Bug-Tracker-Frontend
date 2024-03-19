@@ -5,7 +5,7 @@
  />
  <div class="header">
   <h3>Tickets</h3>
-  <button class="btn" ng-click="launchModal('addTicketModal')">
+  <button class="btn" ng-click="launchModal('addTicketModal')" ng-show="['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role)">
    Create Ticket
   </button>
  </div>
@@ -24,7 +24,7 @@
      id="project"
      name="project"
      ng-model="addTicketFormData.projectDetails"
-     disabled="{{projectDetails._id !== undefined}}"
+     disabled="true"
      ng-init="{{addTicketFormData.projectDetails = projectDetails._id}}"
      ng-required="true"
     >
@@ -364,8 +364,8 @@
   >
    <div class="ticket-view-wrapper">
     <div class="header">
-     <div class="title" ng-if="!isEditing">{{viewTicketDetails.title}}</div>
-     <input type="text" ng-model="viewTicketDetails.title" ng-if="isEditing"
+     <div class="title">{{viewTicketDetails.title}}</div>
+     <input type="text" ng-model="viewTicketDetails.title" ng-if="isEditing && ['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role) "
      class="form-control" id="ticketTitle" name="ticketTitle" ng-required="true"
      / >
      <div class="error">
@@ -431,7 +431,7 @@
         ng-class="{
                'type-bug': viewTicketDetails.ticketType === 'BUG',
                'type-fr': viewTicketDetails.ticketType === 'FR',
-               'disabled': !isEditing
+               'disabled': !isEditing || !['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role)
               }"
        >
         <option
@@ -449,8 +449,8 @@
 
        <select
         class="form-select"
-        id="ticketType"
-        name="ticketType"
+        id="ticketStatus"
+        name="ticketStatus"
         ng-model="viewTicketDetails.status"
         ng-required="true"
         ng-class="
@@ -485,7 +485,7 @@
                  'priority-low': viewTicketDetails.priority === 'LOW',
                  'priority-medium': viewTicketDetails.priority === 'MEDIUM',
                  'priority-high': viewTicketDetails.priority === 'HIGH',
-                 'disabled': !isEditing
+                 'disabled': !isEditing || !['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role)
                 }"
        >
         <option
@@ -510,7 +510,7 @@
         ng-model="viewTicketDetails.dueDate"
         ng-required="true"
         min="{{minDueDate | date:'yyyy-MM-dd'}}"
-        ng-disabled="!isEditing"
+        ng-disabled="!isEditing || !['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role)"
        />
       </div>
       <div
@@ -608,7 +608,7 @@
      </div>
 
      <!-- add new assignees -->
-     <div class="new-assignees" ng-if="isEditing">
+     <div class="new-assignees" ng-if="isEditing && ['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role)">
       <div class="form-group select-multiple-wrapper">
        <label for="members">Add New Assignees</label>
        <select
@@ -646,7 +646,7 @@
         <!-- reomove -->
         <div
          class="remove-btn"
-         ng-if="isEditing"
+         ng-if="isEditing && ['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role)"
          ng-click="removeAssignee(assignee)"
         >
          <i class="bi bi-x"></i>
@@ -658,9 +658,9 @@
      <div ng-if="isEditing" class="formerror">
       <div
        class="error"
-       ng-show="viewTicketForm.$invalid && viewTicketForm.$submitted"
+       ng-show="editTicketForm.$invalid && editTicketForm.$submitted"
       >
-       {{viewTicketForm.errorMessage}}
+       {{editTicketForm.errorMessage}}
       </div>
      </div>
      <div ng-if="isEditing" class="footer">
