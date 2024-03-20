@@ -7,7 +7,7 @@ function CompanyService($http, BASE_URL, FormDataFactory) {
   };
 
   this.saveCompany = function (company) {
-    var formData = FormDataFactory.getCompanyFormData(company);
+    var formData = FormDataFactory.getCompanyFormData(company); //get data from factory
     console.log("Company data: ", ...formData);
     return $http.post(BASE_URL + "company", formData, {
       headers: { "Content-Type": undefined },
@@ -25,7 +25,6 @@ function CompanyService($http, BASE_URL, FormDataFactory) {
   // };
 
   this.editCompany = function (companyId, companyData) {
-    console.log(companyId , companyData);
     var formData = FormDataFactory.getCompanyFormData(companyData);
     return $http.patch(BASE_URL + "company/" + companyId, formData, {
       headers: { "Content-Type": undefined },

@@ -1,25 +1,25 @@
 <section class="project-wrapper">
- <link
-  rel="stylesheet"
-  href="../../../../Company/tabs/projects/project/project.css"
- />
- <div class="project-header">
-  <div class="top">
-   <img ng-src="{{projectDetails.logo}}" alt="" />
-   <span>{{projectDetails.name }}</span>
+  <link
+    rel="stylesheet"
+    href="../../../../Company/tabs/projects/project/project.css"
+  />
+  <div class="project-header">
+    <div class="top">
+      <img ng-src="{{projectDetails.logo}}" alt="" />
+      <span>{{projectDetails.name }}</span>
+    </div>
+    <div class="bottom">
+      <div class="project-detail">
+        <span>{{projectDetails.members.length}} members</span>
+      </div>
+      <div class="profile-imgs" ng-if="projectDetails.members.length<=20">
+        <img
+          ng-src="{{person.image}}"
+          ng-repeat="person in projectDetails.members"
+          alt=""
+        />
+      </div>
+    </div>
   </div>
-  <div class="bottom">
-   <div class="project-detail">
-    <span>{{projectDetails.members.length}} members</span>
-   </div>
-   <div class="profile-imgs">
-    <img
-     ng-src="{{person.image}}"
-     ng-repeat="person in projectDetails.members"
-     alt=""
-    />
-   </div>
-  </div>
- </div>
- <div ui-view></div>
+  <div ui-view></div>
 </section>
