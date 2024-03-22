@@ -21,13 +21,12 @@ function UserService($q, $http, $state, BASE_URL, subdomainService) {
 
       //check subdomain value and store token in localstorage
       var companyDomain = subdomainService.extractSubdomain();
-      if (companyDomain && companyDomain !== "localhost") {
+      if (companyDomain && companyDomain !== "localhost") { //if company domain is not localhost
         localStorage.setItem(companyDomain + "_authToken", response.data.token);
       } else {
         localStorage.setItem("superadmin_authToken", response.data.token);
       }
 
-      //store user in localStorage
       var user = response.data.user;
 
       if (user.role === "SUPER_ADMIN") {

@@ -9,9 +9,8 @@ function ticketController(
  UserService,
  FilePreviewFactory
 ) {
- var currentState = $state.current;
- console.log("Active state:", currentState);
  $scope.addTicketFormData = {};
+
  function init() {
   $scope.addTicketFormData.dueDate = new Date();
   $scope.minDueDate = new Date();
@@ -194,7 +193,7 @@ function ticketController(
   $scope.viewTicketDetails.removedAttachments.push(url);
 
   $scope.viewTicketDetails.previousAttachments =
-   $scope.viewTicketDetails.previousAttachments.filter(function (preview) {
+   $scope.viewTicketDetails.previousAttachments?.filter(function (preview) {
     return preview !== url;
    });
 
@@ -206,7 +205,7 @@ function ticketController(
 
  //check if the employee is already assigned ticket or not
  $scope.isAssigneeSelected = function (member) {
-  return $scope.viewTicketDetails.alreadyAssigned.some(function (m) {
+  return $scope.viewTicketDetails.alreadyAssigned?.some(function (m) {
    return m._id === member._id;
   });
  };
@@ -216,7 +215,7 @@ function ticketController(
   console.log("Removing member: ", member);
   $scope.viewTicketDetails.removeAssignees.push(member);
   $scope.viewTicketDetails.alreadyAssigned =
-   $scope.viewTicketDetails.alreadyAssigned.filter(function (m) {
+   $scope.viewTicketDetails.alreadyAssigned?.filter(function (m) {
     return m._id !== member._id;
    });
  };
@@ -235,35 +234,36 @@ function ticketController(
 
  $scope.editTicketSubmit = function (modalId, editTicketForm) {
   console.log("Editing ticket: ", $scope.viewTicketDetails);
+  $scope.editTicketSubmit = function (modalId, editTicketForm) {
+   console.log("Editing ticket: ", $scope.viewTicketDetails);
 
-  $scope.viewTicketDetails.metaData = {
+   $scope.viewTicketDetails.metaData = {
     companyDetails: $scope.company,
     projectDetails: $scope.projectDetails,
     user: $scope.profile,
    };
- 
 
+   TicketService.updateTicket(
+    $scope.viewTicketDetails._id,
+    $scope.viewTicketDetails
+   )
+    .then(function (response) {
+     console.log("Ticket updated successfully: ", response);
 
-  TicketService.updateTicket(
-   $scope.viewTicketDetails._id,
-   $scope.viewTicketDetails
-  )
-   .then(function (response) {
-    console.log("Ticket updated successfully: ", response);
+     $scope.viewTicketDetails = {};
+     editTicketForm.$setPristine();
+     editTicketForm.$setUntouched();
 
-    $scope.viewTicketDetails = {};
-    editTicketForm.$setPristine();
-    editTicketForm.$setUntouched();
-
-    SnackbarService.showAlert("Ticket updated successfully", 2000, "success");
-    ModalService.hideModal(modalId);
-    getAllTickets();
-   })
-   .catch(function (error) {
-    editTicketForm.errorMessage = error.data.message;
-    editTicketForm.$invalid = true;
-    console.error("Error updating ticket: ", error);
-   });
+     SnackbarService.showAlert("Ticket updated successfully", 2000, "success");
+     ModalService.hideModal(modalId);
+     getAllTickets();
+    })
+    .catch(function (error) {
+     editTicketForm.errorMessage = error.data.message;
+     editTicketForm.$invalid = true;
+     console.error("Error updating ticket: ", error);
+    });
+  };
  };
 }
 

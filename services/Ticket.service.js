@@ -3,7 +3,7 @@ function TicketService($http, BASE_URL, FormDataFactory) {
   // have to put form data creation in factory
 
   var formdata = FormDataFactory.getTicketFormData(ticketData);
-  console.log("formdata", formdata);
+  console.log("formdata", ...formdata);
   return $http.post(BASE_URL + "ticket", formdata, {
    headers: { "Content-Type": undefined },
   });

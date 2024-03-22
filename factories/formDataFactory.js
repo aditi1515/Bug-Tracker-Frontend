@@ -143,26 +143,7 @@ function formDataFactory() {
 
  };
 
- factory.getTicketFormData2 = function (ticketData) {
-  var formData = {
-   title: ticketData.title,
-   description: ticketData.description,
-   dueDate: ticketData.dueDate,
-   status: ticketData.status,
-   ticketType: ticketData.ticketType,
-   priority: ticketData.priority,
-   projectDetails: ticketData.projectDetails,
-   assignees: ticketData.assignees,
-   alreadyAssigned: ticketData.alreadyAssigned,
-   reporterClient: ticketData.reporterClient,
-   removeAssignees: ticketData.removeAssignees,
-   previousAttachments: ticketData.previousAttachments,
-   removedAttachments: ticketData.removedAttachments,
-   attachments: ticketData.attachments,
-  };
 
-  return formData;
- };
 
  return factory;
 }

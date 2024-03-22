@@ -9,10 +9,14 @@ function companyProjectsController(
 ) {
  $scope.allEmployeesInCompany = [];
  $scope.formHolder = {};
+
+ //blob url
  function filePreviewCallback(filesUrls) {
   console.log("Files here: ", filesUrls[0].url);
   $scope.previewAttachments = filesUrls;
  }
+
+
  $scope.addGlobalTicketFormData = {};
  FilePreviewFactory.initFileSelectionListener($scope, filePreviewCallback);
 
@@ -21,6 +25,8 @@ function companyProjectsController(
   return preview.type && preview.type.startsWith("image/");
  };
 
+
+ //get all projects 
  function getAllProjects() {
   ProjectService.getAllProjects().then(function (response) {
    console.log("All projects: ", response);
@@ -30,6 +36,8 @@ function companyProjectsController(
 
  getAllProjects();
 
+
+ //get all employees
  function getAllEmployeesInCompany() {
   UserService.getAllUsers({
    onlyEnabled: true,
@@ -41,6 +49,8 @@ function companyProjectsController(
 
  getAllEmployeesInCompany();
 
+
+ 
  $scope.setCurrentProject = function (projectId) {
   $scope.currentlySelectedProject = $scope.projects.find(function (project) {
    return project._id === projectId;

@@ -9,6 +9,7 @@ trackflow.config([
         url: "/",
       })
       .state("login", {
+        //login
         url: "/login",
         templateUrl: "./login/login.html",
         controller: "loginController",
@@ -38,7 +39,7 @@ trackflow.config([
         redirectTo: "company.projects",
         resolve: {
           auth: isAuthenticated,
-          company : isCompanyExists,
+          company: isCompanyExists,
         },
       })
       .state("superAdminDashboard", {
@@ -113,7 +114,7 @@ function isSuperAdminAuthenticated($q, UserService, $state) {
     .then(function (user) {
       // User is authenticated, allow access to the dashboard
       console.log("User is authenticated: ", user);
-      if (user.role !== "SUPER_ADMIN") {
+      if (user.role !== "SUPER_ADMIN") { //is user is not superadmin
         $state.go("login");
         return $q.reject();
       }
@@ -127,11 +128,13 @@ function isSuperAdminAuthenticated($q, UserService, $state) {
     });
 }
 
+// to check whether the scompany exists in systenm or not
 function isCompanyExists($q, CompanyService, subdomainService, $state) {
   var companyDomain = subdomainService.extractSubdomain();
 
   return CompanyService.getCompanyByDomain(companyDomain)
     .then(function (companyRespone) {
+      
       return companyRespone.data.company;
     })
     .catch(function (err) {

@@ -278,13 +278,21 @@
       <span>{{ticket.name}}</span>
       <!-- ticket assignees -->
 
-      <div class="assignees">
+      <div class="assignees" ng-if="ticket.assignees.length<4">
        <img
         ng-src="{{assignee.image}}"
         ng-repeat="assignee in ticket.assignees"
         alt=""
        />
-      </div>
+      </div> 
+
+      <div class="assignees" ng-if="ticket.assignees.length>=4">
+        <img
+         ng-src="{{ticket.assignees[0].image}}"
+         alt=""
+        />
+        <span>+{{ticket.assignees.length - 1}}</span>
+       </div>
      </div>
      <div
       class="ticket-status"
@@ -511,7 +519,7 @@
         id="dueDate"
         name="dueDate"
         ng-model="viewTicketDetails.dueDate"
-        ng-required="true"
+
         min="{{minDueDate | date:'yyyy-MM-dd'}}"
         ng-disabled="!isEditing || !['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role)"
        />
@@ -667,8 +675,9 @@
        {{editTicketForm.errorMessage}}
       </div>
      </div>
+
      <div ng-if="isEditing" class="footer">
-      <button ng-disabled="editTicketForm.$invalid">
+      <button ng-disabled="editTicketForm.$invalid" type="submit">
        Update
       </button>
      </div>
