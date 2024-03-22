@@ -232,8 +232,7 @@ function ticketController(
   console.log("Editing ticket: ", $scope.isEditing);
  };
 
- $scope.editTicketSubmit = function (modalId, editTicketForm) {
-  console.log("Editing ticket: ", $scope.viewTicketDetails);
+
   $scope.editTicketSubmit = function (modalId, editTicketForm) {
    console.log("Editing ticket: ", $scope.viewTicketDetails);
 
@@ -264,7 +263,7 @@ function ticketController(
      console.error("Error updating ticket: ", error);
     });
   };
- };
+
 }
 
 trackflow.controller("ticketController", [

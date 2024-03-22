@@ -10,13 +10,16 @@ function convertDataToFormData(
    const newKey = parentKey ? `${parentKey}[${key}]` : key;
 
    if (Array.isArray(value)) {
-    value.forEach((item, index) => {
-     if (typeof item === "object" && item !== null) {
-      convertDataToFormData(item, formData, `${newKey}[${index}]`);
-     } else {
-      formData.append(`${newKey}[]`, item);
-     }
-    });
+    console.log("Array: ", value);
+  
+     value.forEach((item, index) => {
+      if (typeof item === "object" && item !== null) {
+       convertDataToFormData(item, formData, `${newKey}[${index}]`);
+      } else {
+       formData.append(`${newKey}[]`, item);
+      }
+     });
+    
    } else if (value instanceof Date) {
     formData.append(newKey, value.toISOString()); // Convert Date to ISO string before appending
    } else if (

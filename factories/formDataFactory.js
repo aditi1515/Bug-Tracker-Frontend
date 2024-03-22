@@ -64,6 +64,8 @@ function formDataFactory() {
 
  //ticket
  factory.getTicketFormData = function (ticketData) {
+  console.log("Ticket data: in getTicketFormData", ticketData);
+
   // Validate title
   if (typeof ticketData.title !== "string") {
    return new Error("Title must be a string.");
@@ -116,34 +118,39 @@ function formDataFactory() {
    previousAttachments: ticketData.previousAttachments,
    removedAttachments: ticketData.removedAttachments,
    attachments: ticketData.attachments,
+  };
 
-   projectDetails: {
+  if (ticketData.metaData.projectDetails !== null) {
+   data.projectDetails = {
     _id: ticketData.metaData.projectDetails._id,
     name: ticketData.metaData.projectDetails.name,
     key: ticketData.metaData.projectDetails.key,
-   },
-   companyDetails: {
+   };
+  }
+
+  // Check if ticketData.metaData.companyDetails is not null before populating companyDetails
+  if (ticketData.metaData.companyDetails !== null) {
+   data.companyDetails = {
     _id: ticketData.metaData.companyDetails._id,
     name: ticketData.metaData.companyDetails.name,
     domain: ticketData.metaData.companyDetails.domain,
-   },
-   assignedBy: {
+   };
+  }
+  if (ticketData.metaData.user !== null) {
+   data.assignedBy = {
     _id: ticketData.metaData.user._id,
     firstname: ticketData.metaData.user.firstname,
     lastname: ticketData.metaData.user.lastname,
     email: ticketData.metaData.user.email,
     image: ticketData.metaData.user.image,
-   },
-  };
+   };
+  }
 
   var formData = convertDataToFormData(data);
 
   console.log("FormData: by generalised ", ...formData);
   return formData;
-
  };
-
-
 
  return factory;
 }

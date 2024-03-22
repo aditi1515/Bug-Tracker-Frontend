@@ -12,7 +12,7 @@ function TicketService($http, BASE_URL, FormDataFactory) {
   // have to put form data creation in factory
   console.log("ticketData", ticketData);
   var formdata = FormDataFactory.getTicketFormData(ticketData);
-
+  console.log("formdata", ...formdata);
   return $http.patch(BASE_URL + "ticket/" + ticketId, formdata, {
    headers: { "Content-Type": undefined },
   });
