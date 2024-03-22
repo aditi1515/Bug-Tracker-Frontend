@@ -3,14 +3,14 @@ function TicketService($http, BASE_URL, FormDataFactory) {
   // have to put form data creation in factory
 
   var formdata = FormDataFactory.getTicketFormData(ticketData);
-
+  console.log("formdata", formdata);
   return $http.post(BASE_URL + "ticket", formdata, {
    headers: { "Content-Type": undefined },
   });
  };
- this.updateTicket = function (ticketId , ticketData) {
+ this.updateTicket = function (ticketId, ticketData) {
   // have to put form data creation in factory
-console.log("ticketData",ticketData);
+  console.log("ticketData", ticketData);
   var formdata = FormDataFactory.getTicketFormData(ticketData);
 
   return $http.patch(BASE_URL + "ticket/" + ticketId, formdata, {

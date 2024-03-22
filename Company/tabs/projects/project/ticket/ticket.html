@@ -19,20 +19,13 @@
    <!-- select for project -->
    <div class="form-group">
     <label for="project">Project*</label>
-    <select
+    <div
      class="form-control"
-     id="project"
-     name="projectInTicket"
-     
-     ng-model="addTicketFormData.projectDetails"
-     disabled="true"
-     ng-init="{{addTicketFormData.projectDetails = projectDetails._id}}"
-     ng-required="true"
+     id="project-selected"
     >
-     <option ng-value="project._id" value="" ng-repeat="project in projects">
-      {{ project.name }}
-     </option>
-    </select>
+    <img ng-src="{{projectDetails.logo}}" alt="">
+    <span>{{projectDetails.name}}</span>
+   </div>
     <div
      class="error"
      ng-show="addTicketForm.project.$error.required && addTicketForm.project.$touched"

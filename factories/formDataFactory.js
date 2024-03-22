@@ -64,66 +64,104 @@ function formDataFactory() {
 
  //ticket
  factory.getTicketFormData = function (ticketData) {
-  var formdata = new FormData();
-  console.log("Ticket data: ", ticketData.attachments);
-  formdata.append("title", ticketData.title);
-  if (ticketData.description) {
-   formdata.append("description", ticketData.description);
-  }
-  formdata.append("dueDate", ticketData.dueDate);
-  formdata.append("status", ticketData.status);
-  formdata.append("ticketType", ticketData.ticketType);
-  formdata.append("priority", ticketData.priority);
-  formdata.append("projectDetails", JSON.stringify(ticketData.projectDetails));
-
-  var files = ticketData.attachments;
-  for (var i = 0; i < files?.length; i++) {
-   formdata.append("attachments[]", files[i]);
+  // Validate title
+  if (typeof ticketData.title !== "string") {
+   return new Error("Title must be a string.");
   }
 
-  // if attarchments is just 1 file of type file then append it as a single file
-  //  check type file
-  if (files instanceof File) {
-   formdata.append("attachments[]", files);
+  // Validate description
+  if (ticketData.description && typeof ticketData.description !== "string") {
+   return new Error("Description must be a string.");
   }
 
-  if (ticketData.assignees) {
-   formdata.append("assignees", JSON.stringify(ticketData.assignees));
+  // Validate dueDate
+  if (!(ticketData.dueDate instanceof Date)) {
+   return new Error("Due date must be a Date object.");
   }
 
-  if (ticketData.alreadyAssigned) {
-   formdata.append(
-    "alreadyAssigned",
-    JSON.stringify(ticketData.alreadyAssigned)
-   );
+  // Validate status
+  if (typeof ticketData.status !== "string") {
+   return new Error("Status must be a string.");
   }
 
-  if (ticketData.reporterClient) {
-   formdata.append("reporterClient", ticketData.reporterClient);
+  // Validate ticketType
+  if (typeof ticketData.ticketType !== "string") {
+   return new Error("Ticket type must be a string.");
   }
 
-  if (ticketData.removeAssignees) {
-   formdata.append(
-    "removeAssignees",
-    JSON.stringify(ticketData.removeAssignees)
-   );
+  // Validate priority
+  if (typeof ticketData.priority !== "string") {
+   return new Error("Priority must be a string.");
   }
 
-  if (ticketData.removedAttachments) {
-   formdata.append(
-    "previousAttachments",
-    JSON.stringify(ticketData.previousAttachments)
-   );
+  // Validate projectDetails
+  if (
+   ticketData.projectDetails &&
+   typeof ticketData.projectDetails !== "object"
+  ) {
+   return new Error("Project details must be an object.");
   }
 
-  if (ticketData.removedAttachments) {
-   formdata.append(
-    "removedAttachments",
-    JSON.stringify(ticketData.removedAttachments)
-   );
-  }
+  var data = {
+   title: ticketData.title,
+   description: ticketData.description,
+   dueDate: ticketData.dueDate,
+   status: ticketData.status,
+   ticketType: ticketData.ticketType,
+   priority: ticketData.priority,
+   assignees: ticketData.assignees,
+   alreadyAssigned: ticketData.alreadyAssigned,
+   reporterClient: ticketData.reporterClient,
+   removeAssignees: ticketData.removeAssignees,
+   previousAttachments: ticketData.previousAttachments,
+   removedAttachments: ticketData.removedAttachments,
+   attachments: ticketData.attachments,
 
-  return formdata;
+   projectDetails: {
+    _id: ticketData.metaData.projectDetails._id,
+    name: ticketData.metaData.projectDetails.name,
+    key: ticketData.metaData.projectDetails.key,
+   },
+   companyDetails: {
+    _id: ticketData.metaData.companyDetails._id,
+    name: ticketData.metaData.companyDetails.name,
+    domain: ticketData.metaData.companyDetails.domain,
+   },
+   assignedBy: {
+    _id: ticketData.metaData.user._id,
+    firstname: ticketData.metaData.user.firstname,
+    lastname: ticketData.metaData.user.lastname,
+    email: ticketData.metaData.user.email,
+    image: ticketData.metaData.user.image,
+   },
+  };
+
+  var formData = convertDataToFormData(data);
+
+  console.log("FormData: by generalised ", ...formData);
+  return formData;
+
+ };
+
+ factory.getTicketFormData2 = function (ticketData) {
+  var formData = {
+   title: ticketData.title,
+   description: ticketData.description,
+   dueDate: ticketData.dueDate,
+   status: ticketData.status,
+   ticketType: ticketData.ticketType,
+   priority: ticketData.priority,
+   projectDetails: ticketData.projectDetails,
+   assignees: ticketData.assignees,
+   alreadyAssigned: ticketData.alreadyAssigned,
+   reporterClient: ticketData.reporterClient,
+   removeAssignees: ticketData.removeAssignees,
+   previousAttachments: ticketData.previousAttachments,
+   removedAttachments: ticketData.removedAttachments,
+   attachments: ticketData.attachments,
+  };
+
+  return formData;
  };
 
  return factory;

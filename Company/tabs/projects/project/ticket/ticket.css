@@ -858,3 +858,20 @@ option {
 .formerror {
  padding: 0.5rem;
 }
+
+#project-selected {
+ display: flex;
+ gap: 0.6rem;
+ align-items: center;
+}
+
+#project-selected img {
+ width: 30px;
+ height: 30px;
+ border-radius: 50%;
+}
+
+#project-selected span {
+ font-size: 14px;
+ font-weight: 600;
+}

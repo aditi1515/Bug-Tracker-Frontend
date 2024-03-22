@@ -27,8 +27,13 @@ function ticketController(
 
  //add ticket
  $scope.addTicketFormSubmit = function (modalId, addTicketForm) {
+  $scope.addTicketFormData.metaData = {
+   companyDetails: $scope.company,
+   projectDetails: $scope.projectDetails,
+   user: $scope.profile,
+  };
+
   console.log("Add ticket form data: ", $scope.addTicketFormData);
-  $scope.addTicketFormData.projectDetails = $scope.projectDetails;
 
   TicketService.createTicket($scope.addTicketFormData)
    .then(function (response) {
@@ -172,7 +177,11 @@ function ticketController(
   $scope.viewTicketDetails.attachments = [];
   $scope.viewTicketDetails.removeAssignees = [];
   $scope.viewTicketDetails.dueDate = new Date(ticket.dueDate);
-
+  $scope.viewTicketDetails.metaData = {
+   company: $scope.company,
+   project: $scope.projectDetails,
+   assignedBy: $scope.profile,
+  };
   $scope.minDueDate = new Date(ticket.createdAt);
 
   ModalService.showModal(modalId);
@@ -226,6 +235,14 @@ function ticketController(
 
  $scope.editTicketSubmit = function (modalId, editTicketForm) {
   console.log("Editing ticket: ", $scope.viewTicketDetails);
+
+  $scope.viewTicketDetails.metaData = {
+    companyDetails: $scope.company,
+    projectDetails: $scope.projectDetails,
+    user: $scope.profile,
+   };
+ 
+
 
   TicketService.updateTicket(
    $scope.viewTicketDetails._id,
