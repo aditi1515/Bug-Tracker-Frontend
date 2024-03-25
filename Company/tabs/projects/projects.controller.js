@@ -1,5 +1,6 @@
 function companyProjectsController(
  $scope,
+ $state,
  ProjectService,
  UserService,
  TicketService,
@@ -16,7 +17,6 @@ function companyProjectsController(
   $scope.previewAttachments = filesUrls;
  }
 
-
  $scope.addGlobalTicketFormData = {};
  FilePreviewFactory.initFileSelectionListener($scope, filePreviewCallback);
 
@@ -25,8 +25,7 @@ function companyProjectsController(
   return preview.type && preview.type.startsWith("image/");
  };
 
-
- //get all projects 
+ //get all projects
  function getAllProjects() {
   ProjectService.getAllProjects().then(function (response) {
    console.log("All projects: ", response);
@@ -35,7 +34,6 @@ function companyProjectsController(
  }
 
  getAllProjects();
-
 
  //get all employees
  function getAllEmployeesInCompany() {
@@ -49,8 +47,6 @@ function companyProjectsController(
 
  getAllEmployeesInCompany();
 
-
- 
  $scope.setCurrentProject = function (projectId) {
   $scope.currentlySelectedProject = $scope.projects.find(function (project) {
    return project._id === projectId;
@@ -62,12 +58,19 @@ function companyProjectsController(
  $scope.addTicketFormSubmit = function (modalId, addGlobalTicketForm) {
   console.log("Add ticket form data: ", $scope.addGlobalTicketFormData);
 
+  $scope.addGlobalTicketFormData.metaData = {
+   companyDetails: $scope.company,
+   projectDetails: $scope.currentlySelectedProject,
+   user: $scope.profile,
+  };
+
   TicketService.createTicket($scope.addGlobalTicketFormData)
    .then(function (response) {
     console.log("Ticket created successfully: ", response);
     ModalService.hideModal(modalId);
     $scope.previewAttachments = [];
     SnackbarService.showAlert("Ticket created successfully", 2000, "success");
+    $state.go("company.projects.project.ticket",{"projectId":$scope.currentlySelectedProject._id});
    })
    .catch(function (error) {
     addTicketForm.errorMessage = error.message;
@@ -95,6 +98,7 @@ function companyProjectsController(
 }
 trackflow.controller("companyProjectsController", [
  "$scope",
+ "$state",
  "ProjectService",
  "UserService",
  "TicketService",

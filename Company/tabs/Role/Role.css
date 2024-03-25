@@ -1,0 +1,224 @@
+.role-management {
+ padding: 20px;
+}
+
+.role-management .role-management-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding-top: 2rem;
+}
+
+.role-management-header h2 {
+ font-size: 2rem;
+ font-weight: 500;
+}
+
+.role-management-header button {
+ background-color: var(--dark-pink);
+ color: white;
+ border: none;
+ font-size: 12px;
+ padding: 0.5rem 1rem;
+ border-radius: 5px;
+}
+
+label {
+ font-size: 16px;
+ font-weight: 500;
+}
+
+.permissionTemplate {
+ width: 100%;
+ max-height: 60vh;
+ overflow-y: scroll;
+}
+
+.permissionTemplate::-webkit-scrollbar {
+ width: 15px;
+}
+
+.permissionTemplate::-webkit-scrollbar-track {
+ background-color: transparent;
+}
+
+.permissionTemplate::-webkit-scrollbar-thumb {
+ background-color: #d6dee1;
+ border-radius: 20px;
+ border: 6px solid transparent;
+ background-clip: content-box;
+}
+
+.permissionTemplatet::-webkit-scrollbar-thumb:hover {
+ background-color: #a8bbbf;
+}
+
+.permission-template-wrapper {
+ display: flex;
+ width: 100%;
+ flex-wrap: wrap;
+}
+
+.permission-category {
+ display: flex;
+ flex-direction: column;
+ gap: 0.4rem;
+ padding: 0.3rem 0.5rem;
+ width: 100%;
+}
+
+.pc-header {
+ font-size: 14px;
+ background: var(--shadow-purple);
+ width: 100%;
+ padding: 0.3rem;
+ font-weight: 500;
+ font-size: 12px;
+}
+
+.pc-body {
+ font-size: 12px;
+
+ width: 100%;
+}
+
+.nested-permissions {
+ display: flex;
+ flex-direction: column;
+ flex-wrap: wrap;
+ width: 100%;
+}
+
+.nested-permissions-sub {
+ display: flex;
+ flex-wrap: wrap;
+}
+
+.permission-option {
+ display: flex;
+ gap: 0.5rem;
+ margin: 0.3rem;
+ align-items: center;
+}
+
+.pv {
+ display: flex;
+ align-items: center;
+}
+
+.permission-option.sub {
+ margin-left: 1rem;
+}
+
+.ps-form {
+ display: flex;
+ gap: 1rem;
+ align-items: center;
+}
+
+.ps-form select {
+ width: 90%;
+ padding: 0.5rem;
+}
+
+.ps-form button {
+ width: 10%;
+ padding: 0.4rem;
+ background-color: var(--dark-pink);
+ color: white;
+ border: none;
+ border-radius: 5px;
+ outline: none;
+ cursor: pointer;
+}
+
+button[type="submit"] {
+ background-color: var(--dark-pink);
+ color: white;
+ font-weight: 300;
+ padding: 0.4rem 1rem;
+ font-size: 14px;
+ width: 10rem;
+}
+
+button[type="submit"].disabled {
+ color: var(--dark-grey);
+ cursor: not-allowed;
+ pointer-events: none;
+}
+.footer {
+ width: 100%;
+ display: flex;
+ justify-content: flex-end;
+ gap: 1rem;
+}
+
+button.st {
+ background-color: var(--pastel-cyan-dark);
+ color: white;
+ font-weight: 300;
+ padding: 0.4rem 1rem;
+ font-size: 14px;
+ width: 10rem;
+}
+
+.error {
+ color: red;
+ font-size: 12px;
+}
+
+.table {
+ /* border: 1px solid #000000; */
+ border-spacing: 0;
+}
+
+.table th {
+ border: none;
+ font-size: 14px;
+ font-weight: 600;
+ color: var(--dark-purple);
+ background: var(--light-purple);
+ /* display: flex; */
+}
+
+.table tr {
+ border: none;
+ /* display: flex; */
+ justify-content: space-evenly;
+}
+
+.table td {
+ border: none;
+ font-size: 12px;
+ /* display: flex; */
+ vertical-align: middle;
+ align-items: center;
+ /* border: 1px solid var(--dark-purple); */
+
+ /* white-space: nowrap; */
+}
+
+td.action {
+ display: flex;
+ justify-content: flex-end;
+ padding-right: 1rem;
+ cursor: pointer;
+}
+
+.table-wrapper {
+ display: flex;
+ flex-direction: column;
+ gap: 1rem;
+ background: white;
+ padding: 0.7rem;
+ border-radius: 10px;
+}
+
+.tip {
+ font-size: 10px;
+ color: var(--dark-grey);
+}
+
+.form-control {
+ font-size: 12px;
+}

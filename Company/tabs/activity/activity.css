@@ -1,0 +1,35 @@
+.activity-log-wrapper {
+ padding: 0 20px;
+}
+
+.activity-log-wrapper .header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 20px 0;
+}
+
+.activity-log-wrapper .header h2 {
+ font-size: 2rem;
+ font-weight: 600;
+}
+
+.activity-log-wrapper .body {
+ border: 1px solid rgb(222, 222, 222);
+ border-radius: 8px;
+ background: white;
+ padding: 10px;
+}
+
+.body table{
+ width: 100%;
+
+}
+.body thead{
+ background: var(--light-purple);
+ 
+}
+
+.body thead tr th{
+ padding: 6px;
+}

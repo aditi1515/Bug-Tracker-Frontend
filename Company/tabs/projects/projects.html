@@ -2,9 +2,8 @@
  <link rel="stylesheet" href="../../../Company/tabs/projects/projects.css" />
  <div class="project-sidebar">
   <h2>Projects</h2>
-
   <div
-   ng-show="profile.role==='COMPANY_ADMIN' || profile.role==='PROJECT_MANAGER' "
+   ng-show="profile.role.permissionSet.permissions.PROJECT.CREATE"
    ui-sref="company.projects.manage"
    ui-sref-active="active"
    class="project-sidebar-option"
@@ -13,7 +12,7 @@
    <span>Manage</span>
   </div>
   <div
-   ng-show="profile.role==='COMPANY_ADMIN' || profile.role==='PROJECT_MANAGER' "
+   ng-show="profile.role.permissionSet.permissions.PROJECT.CREATE' "
    class="project-sidebar-option"
    ng-click="launchModal('addTicketModalGlobal')"
   >

@@ -168,6 +168,7 @@ function ticketController(
   $scope.isEditing = false;
 
   $scope.viewTicketDetails = angular.copy(ticket);
+  $scope.viewTicketDetails.previousTicket = angular.copy(ticket);
 
   $scope.viewTicketDetails.removedAttachments = [];
   $scope.viewTicketDetails.previousAttachments = ticket.attachments;
@@ -232,38 +233,90 @@ function ticketController(
   console.log("Editing ticket: ", $scope.isEditing);
  };
 
+ $scope.editTicketSubmit = function (modalId, editTicketForm) {
+  console.log("Editing ticket: ", $scope.viewTicketDetails);
 
-  $scope.editTicketSubmit = function (modalId, editTicketForm) {
-   console.log("Editing ticket: ", $scope.viewTicketDetails);
-
-   $scope.viewTicketDetails.metaData = {
-    companyDetails: $scope.company,
-    projectDetails: $scope.projectDetails,
-    user: $scope.profile,
-   };
-
-   TicketService.updateTicket(
-    $scope.viewTicketDetails._id,
-    $scope.viewTicketDetails
-   )
-    .then(function (response) {
-     console.log("Ticket updated successfully: ", response);
-
-     $scope.viewTicketDetails = {};
-     editTicketForm.$setPristine();
-     editTicketForm.$setUntouched();
-
-     SnackbarService.showAlert("Ticket updated successfully", 2000, "success");
-     ModalService.hideModal(modalId);
-     getAllTickets();
-    })
-    .catch(function (error) {
-     editTicketForm.errorMessage = error.data.message;
-     editTicketForm.$invalid = true;
-     console.error("Error updating ticket: ", error);
-    });
+  $scope.viewTicketDetails.metaData = {
+   companyDetails: $scope.company,
+   projectDetails: $scope.projectDetails,
+   user: $scope.profile,
   };
 
+  TicketService.updateTicket(
+   $scope.viewTicketDetails._id,
+   $scope.viewTicketDetails
+  )
+   .then(function (response) {
+    console.log("Ticket updated successfully: ", response);
+
+    $scope.viewTicketDetails = {};
+    editTicketForm.$setPristine();
+    editTicketForm.$setUntouched();
+
+    SnackbarService.showAlert("Ticket updated successfully", 2000, "success");
+    ModalService.hideModal(modalId);
+    getAllTickets();
+   })
+   .catch(function (error) {
+    editTicketForm.errorMessage = error.data.message;
+    editTicketForm.$invalid = true;
+    console.error("Error updating ticket: ", error);
+   });
+ };
+
+ $scope.checkTicketEditAccess = function (isMetaInfo) {
+  console.log("Profile: ", $scope.profile);
+
+  var updateAccess =
+   $scope.profile.role.permissionSet.permissions.TICKET.UPDATE;
+
+  console.log("Update access: ", updateAccess);
+
+  if (
+   updateAccess.FULL_ACCESS &&
+   !updateAccess.ONLY_ENROLLED &&
+   !updateAccess.MANAGE_ACCESS
+  ) {
+   console.log("return access: ", updateAccess.FULL_ACCESS);
+   return true;
+  }
+
+  if (updateAccess.MANAGE_ACESS) {
+   console.log("Project details: ", $scope.projectDetails);
+   var isUserExistsInProject = $scope.projectDetails.members.some(function (
+    member
+   ) {
+    return member._id === $scope.profile._id;
+   });
+
+   if (isUserExistsInProject) {
+    if (isMetaInfo) {
+     return updateAccess.FULL_ACCESS || updateAccess.ONLY_META_INFO;
+    } else {
+     console.log("return access: ", updateAccess.FULL_ACCESS);
+     return updateAccess.FULL_ACCESS;
+    }
+   }
+  }
+
+  if (updateAccess.ONLY_ENROLLED) {
+   var isUserExistsInTicket = $scope.currentEditingTicket.members.some(
+    function (member) {
+     return member._id === $scope.profile._id;
+    }
+   );
+
+   if (isUserExistsInTicket) {
+    if (isMetaInfo) {
+     return updateAccess.FULL_ACCESS || updateAccess.ONLY_META_INFO;
+    } else {
+     return updateAccess.FULL_ACCESS;
+    }
+   }
+  }
+
+  return false;
+ };
 }
 
 trackflow.controller("ticketController", [

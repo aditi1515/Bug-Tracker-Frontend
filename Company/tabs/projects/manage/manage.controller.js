@@ -10,6 +10,14 @@ function companyProjectsManageController(
 ) {
  //add project form data
  function init() {
+  function checkRole() {
+   if (!$scope?.profile?.role?.permissionSet?.permissions?.PROJECT?.CREATE) {
+    $state.go("company");
+   }
+  }
+
+  checkRole();
+
   $scope.addProjectFormData = {
    inProgress: true,
    dueDate: new Date(),
@@ -46,7 +54,12 @@ function companyProjectsManageController(
     });
    }
   }
-  console.log("Form data: ", $scope.addProjectFormData);
+
+  ($scope.addProjectFormData.metaData = {
+   company: $scope.company,
+   user: $scope.profile,
+  }),
+   console.log("Form data: ", $scope.addProjectFormData);
   ProjectService.addProject($scope.addProjectFormData)
    .then(function (response) {
     SnackbarService.showAlert("Project created successfully", 2000, "success");
@@ -63,6 +76,7 @@ function companyProjectsManageController(
  $scope.editProject = function (project, modalId) {
   $scope.isEditingProject = true;
   $scope.currentEditingProjectId = project._id;
+
   console.log("Editing project: ", project);
 
   var editProjectFormData = {
@@ -77,6 +91,11 @@ function companyProjectsManageController(
    removedMembers: [],
    members: [],
    key: project.key,
+   previousData: angular.copy(project),
+   metaData: {
+    company: $scope.company,
+    user: $scope.profile,
+   },
   };
 
   $scope.minDueDate = new Date(project.createdAt);
@@ -98,6 +117,7 @@ function companyProjectsManageController(
    .catch(function (error) {
     console.log("Error updating project: ", error);
     editProjectForm.errorMessage = error.data.message;
+    editProjectForm.$invalid = true;
    });
  };
 

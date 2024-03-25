@@ -5,7 +5,7 @@
  />
  <div class="header">
   <h3>Tickets</h3>
-  <button class="btn" ng-click="launchModal('addTicketModal')" ng-show="['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role)">
+  <button class="btn" ng-click="launchModal('addTicketModal')" ng-show="profile.role.permissionSet.permissions.PROJECT.CREATE">
    Create Ticket
   </button>
  </div>
@@ -376,7 +376,7 @@
    <div class="ticket-view-wrapper">
     <div class="header">
      <div class="title">{{viewTicketDetails.title}}</div>
-     <input type="text" ng-model="viewTicketDetails.title" ng-if="isEditing && ['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role) "
+     <input type="text" ng-model="viewTicketDetails.title" ng-if="isEditing && checkTicketEditAccess(false)"
      class="form-control" id="ticketTitle" name="ticketTitle" ng-required="true"
      / >
      <div class="error">
@@ -442,7 +442,7 @@
         ng-class="{
                'type-bug': viewTicketDetails.ticketType === 'BUG',
                'type-fr': viewTicketDetails.ticketType === 'FR',
-               'disabled': !isEditing || !['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role)
+               'disabled': !isEditing || !checkTicketEditAccess(false)
               }"
        >
         <option
@@ -496,7 +496,7 @@
                  'priority-low': viewTicketDetails.priority === 'LOW',
                  'priority-medium': viewTicketDetails.priority === 'MEDIUM',
                  'priority-high': viewTicketDetails.priority === 'HIGH',
-                 'disabled': !isEditing || !['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role)
+                 'disabled': !isEditing || !checkTicketEditAccess(false)
                 }"
        >
         <option
@@ -521,7 +521,7 @@
         ng-model="viewTicketDetails.dueDate"
 
         min="{{minDueDate | date:'yyyy-MM-dd'}}"
-        ng-disabled="!isEditing || !['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role)"
+        ng-disabled="!isEditing || !checkTicketEditAccess(false)"
        />
       </div>
       <div
@@ -619,7 +619,7 @@
      </div>
 
      <!-- add new assignees -->
-     <div class="new-assignees" ng-if="isEditing && ['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role)">
+     <div class="new-assignees" ng-if="isEditing && checkTicketEditAccess(false)">
       <div class="form-group select-multiple-wrapper">
        <label for="members">Add New Assignees</label>
        <select
@@ -658,7 +658,7 @@
         <!-- reomove -->
         <div
          class="remove-btn"
-         ng-if="isEditing && ['COMPANY_ADMIN','PROJECT_MANAGER'].includes(profile.role)"
+         ng-if="isEditing && checkTicketEditAccess(false)"
          ng-click="removeAssignee(assignee)"
         >
          <i class="bi bi-x"></i>

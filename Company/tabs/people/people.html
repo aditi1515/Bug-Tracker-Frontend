@@ -1,244 +1,250 @@
 <section>
-  <link rel="stylesheet" href="../../../Company/tabs/people/people.css" />
+ <link rel="stylesheet" href="../../../Company/tabs/people/people.css" />
 
-  <div class="wrapper">
-    <div class="head">
-      <h2>Manage People</h2>
-      <button
-        class="btn"
-        ng-click="launchModal('addEmployeeModal',addEmployeeForm)"
+ <div class="wrapper">
+  <div class="head">
+   <h2>Manage People</h2>
+   <button
+    class="btn"
+    ng-click="launchModal('addEmployeeModal',addEmployeeForm)"
+   >
+    Add Employee
+   </button>
+  </div>
+  <my-modal
+   modal-size="lg"
+   modal-id="addEmployeeModal"
+   title="{{isEditing ? 'Edit Employee' : 'Add Employee' }}"
+  >
+   <form
+    name="addEmployeeForm"
+    ng-submit="isEditing ? editEmployeeFormSubmit('addEmployeeModal',addEmployeeForm) :  addEmployeeFormSubmit('addEmployeeModal',addEmployeeForm) "
+    novalidate
+   >
+    <div class="form-row">
+     <div class="form-group col">
+      <label for="employeeFirstName">First Name*</label>
+      <input
+       type="text"
+       class="form-control"
+       id="employeeFirstName"
+       name="employeeFirstName"
+       ng-model="addEmployeeFormData.firstname"
+       ng-required="true"
+       ng-disabled="isEditing"
+      />
+
+      <div
+       class="error"
+       ng-show="addEmployeeForm.employeeFirstName.$error.required && addEmployeeForm.employeeFirstName.$touched"
       >
-        Add Employee
-      </button>
-    </div>
-    <my-modal modal-size="lg" modal-id="addEmployeeModal" title="Add Employee">
-      <form
-        name="addEmployeeForm"
-        ng-submit="isEditing ? editEmployeeFormSubmit('addEmployeeModal',addEmployeeForm) :  addEmployeeFormSubmit('addEmployeeModal',addEmployeeForm) "
-        novalidate
-      >
-        <div class="form-row">
-          <div class="form-group col">
-            <label for="employeeFirstName">First Name*</label>
-            <input
-              type="text"
-              class="form-control"
-              id="employeeFirstName"
-              name="employeeFirstName"
-              ng-model="addEmployeeFormData.firstname"
-              ng-required="true"
-              ng-disabled="isEditing"
-            />
-
-            <div
-              class="error"
-              ng-show="addEmployeeForm.employeeFirstName.$error.required && addEmployeeForm.employeeFirstName.$touched"
-            >
-              First Name is required
-            </div>
-          </div>
-          <div class="form-group col">
-            <label for="employeeLastName">Last Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="employeeLastName"
-              name="employeeLastName"
-              ng-model="addEmployeeFormData.lastname"
-              ng-disabled="isEditing"
-            />
-            <!-- Optional last name validation could be added here if needed -->
-          </div>
-        </div>
-
-        <div>
-          <div class="form-group">
-            <label for="employeeEmail">Email*</label>
-            <input
-              type="email"
-              class="form-control"
-              id="employeeEmail"
-              name="employeeEmail"
-              ng-model="addEmployeeFormData.email"
-              ng-required="true"
-              ng-disabled="isEditing"
-            />
-            <div
-              class="error"
-              ng-show="addEmployeeForm.employeeEmail.$error.required && addEmployeeForm.employeeEmail.$touched"
-            >
-              Email is required
-            </div>
-            <div
-              class="error"
-              ng-show="addEmployeeForm.employeeEmail.$error.email && addEmployeeForm.employeeEmail.$touched"
-            >
-              Invalid email format
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="employeePhoneNo">Phone No*</label>
-              <input
-                type="text"
-                class="form-control"
-                id="employeePhoneNo"
-                name="employeePhoneNo"
-                ng-model="addEmployeeFormData.phoneNumber"
-                ng-pattern="/^\d{10}$/"
-                required
-              />
-              <div
-                class="error"
-                ng-show="addEmployeeForm.employeePhoneNo.$required && addEmployeeForm.employeePhoneNo.$touched"
-              >
-                Phone No is required
-              </div>
-              <div
-                class="error"
-                ng-show="addEmployeeForm.employeePhoneNo.$error.pattern && addEmployeeForm.employeePhoneNo.$touched"
-              >
-                Invalid phone number
-              </div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="employeeRole">Role*</label>
-              <select
-                class="form-control"
-                id="employeeRole"
-                name="employeeRole"
-                ng-model="addEmployeeFormData.role"
-                ng-required="true"
-              >
-                <option value="COMPANY_ADMIN">Company Admin</option>
-                <option value="PROJECT_MANAGER">Project Manager</option>
-                <option value="EMPLOYEE">Employee</option>
-              </select>
-
-              <div
-                class="error"
-                ng-show="addEmployeeForm.employeeRole.$error.required && addEmployeeForm.employeeRole.$touched"
-              >
-                Role is required
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="formerror">
-          <div
-            class="error"
-            ng-show="addEmployeeForm.$invalid && addEmployeeForm.$submitted"
-          >
-            {{addEmployeeForm.errorMessage}}
-          </div>
-        </div>
-        <button
-          type="submit"
-          class="btn"
-          ng-disabled="addEmployeeForm.$invalid"
-          ng-class="{'disabled': addEmployeeForm.$invalid}"
-        >
-          submit
-        </button>
-      </form>
-    </my-modal>
-
-    <div class="content">
-      <div class="searchBox">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Search By Name"
-          ng-model="peopleData.query"
-          ng-change="debounceSearch()"
-        />
+       First Name is required
       </div>
-      <div class="table-wrapper">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Phone Number</th>
-              <th scope="col">Role</th>
-              <!-- <th scope="col">Status</th> -->
-              <th scope="col">Join Date</th>
-              <!-- edit-btn -->
-              <th scope="col">Edit </th>
-              <!-- admin details -->
-              <!-- <th scope="col">Admin Name</th>
+     </div>
+     <div class="form-group col">
+      <label for="employeeLastName">Last Name</label>
+      <input
+       type="text"
+       class="form-control"
+       id="employeeLastName"
+       name="employeeLastName"
+       ng-model="addEmployeeFormData.lastname"
+       ng-disabled="isEditing"
+      />
+      <!-- Optional last name validation could be added here if needed -->
+     </div>
+    </div>
+
+    <div>
+     <div class="form-group">
+      <label for="employeeEmail">Email*</label>
+      <input
+       type="email"
+       class="form-control"
+       id="employeeEmail"
+       name="employeeEmail"
+       ng-model="addEmployeeFormData.email"
+       ng-required="true"
+       ng-disabled="isEditing"
+      />
+      <div
+       class="error"
+       ng-show="addEmployeeForm.employeeEmail.$error.required && addEmployeeForm.employeeEmail.$touched"
+      >
+       Email is required
+      </div>
+      <div
+       class="error"
+       ng-show="addEmployeeForm.employeeEmail.$error.email && addEmployeeForm.employeeEmail.$touched"
+      >
+       Invalid email format
+      </div>
+     </div>
+
+     <div class="form-row">
+      <div class="form-group col">
+       <label for="employeePhoneNo">Phone No*</label>
+       <input
+        type="text"
+        class="form-control"
+        id="employeePhoneNo"
+        name="employeePhoneNo"
+        ng-model="addEmployeeFormData.phoneNumber"
+        ng-pattern="/^\d{10}$/"
+        required
+       />
+       <div
+        class="error"
+        ng-show="addEmployeeForm.employeePhoneNo.$required && addEmployeeForm.employeePhoneNo.$touched"
+       >
+        Phone No is required
+       </div>
+       <div
+        class="error"
+        ng-show="addEmployeeForm.employeePhoneNo.$error.pattern && addEmployeeForm.employeePhoneNo.$touched"
+       >
+        Invalid phone number
+       </div>
+      </div>
+     </div>
+
+     <div ng-if="isEditing" class="form-row cur-role">
+      <span>Current Role : </span>
+      <span class="p">{{currentEditingEmployee.role.name}}</span>
+     </div>
+
+     <div class="form-row">
+      <div class="form-group col">
+       <label for="employeeRole">{{isEditing ? 'New Role*' : 'Role*'}}</label>
+       <select
+        class="form-control"
+        id="employeeRole"
+        name="employeeRole"
+        ng-model="addEmployeeFormData.role"
+        ng-required="true"
+        ng-options="role.name for role in roles"
+       ></select>
+
+       <div
+        class="error"
+        ng-show="addEmployeeForm.employeeRole.$error.required && addEmployeeForm.employeeRole.$touched"
+       >
+        Role is required
+       </div>
+      </div>
+     </div>
+    </div>
+
+    <div class="formerror">
+     <div
+      class="error"
+      ng-show="addEmployeeForm.$invalid && addEmployeeForm.$submitted"
+     >
+      {{addEmployeeForm.errorMessage}}
+     </div>
+    </div>
+    <button
+     type="submit"
+     class="btn"
+     ng-disabled="addEmployeeForm.$invalid"
+     ng-class="{'disabled': addEmployeeForm.$invalid}"
+    >
+     submit
+    </button>
+   </form>
+  </my-modal>
+
+  <div class="content">
+   <div class="searchBox">
+    <input
+     type="text"
+     class="form-control"
+     placeholder="Search By Name"
+     ng-model="peopleData.query"
+     ng-change="debounceSearch()"
+    />
+   </div>
+   <div class="table-wrapper">
+    <table class="table table-hover">
+     <thead>
+      <tr>
+       <th scope="col">Name</th>
+       <th scope="col">Email</th>
+       <th scope="col">Phone Number</th>
+       <th scope="col">Role</th>
+       <!-- <th scope="col">Status</th> -->
+       <th scope="col">Join Date</th>
+       <!-- edit-btn -->
+       <th scope="col">Edit</th>
+       <!-- admin details -->
+       <!-- <th scope="col">Admin Name</th>
   <th scope="col">Admin Email</th>
   <th scope="col">Admin Phone No</th> -->
 
-              <!-- <th scope="col"></th>   -->
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="person in peopleData.users">
-              <td>{{ person.firstname + " " + person.lastname }}</td>
-              <td>{{ person.email }}</td>
+       <!-- <th scope="col"></th>   -->
+      </tr>
+     </thead>
+     <tbody>
+      <tr ng-repeat="person in peopleData.users">
+       <td>{{ person.firstname + " " + person.lastname }}</td>
+       <td>{{ person.email }}</td>
 
-              <td>{{person.phoneNumber}}</td>
-              <td>
-                <span class="badge">{{person.role}}</span>
-              </td>
-              <!-- <td>
+       <td>{{person.phoneNumber}}</td>
+       <td>
+        <span class="badge">{{person.role.name}}</span>
+       </td>
+       <!-- <td>
         <span
          class="badge"
          ng-class="{'badge-success': person.isCurrentMember, 'badge-danger': !person.isCurrentMember}"
          >{{person.isCurrentMember}}</span
         >
        </td> -->
-              <td>{{person.createdAt | date : 'MM/dd/yyyy'}}</td>
-              <!-- <td>{{ company.admin.firstname + " " + company.admin.lastname }}</td>
+       <td>{{person.createdAt | date : 'MM/dd/yyyy'}}</td>
+       <!-- <td>{{ company.admin.firstname + " " + company.admin.lastname }}</td>
   <td>{{ company.admin.email }}</td>
   <td>{{ company.admin.phoneNumber }}</td> -->
 
-              <td class="action">
-                <i
-                  class="bi-pencil-fill"
-                  ng-click="editEmployee('addEmployeeModal',person)"
-                >
-                </i>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- pagination -->
-        <div class="pagination-wrapper">
-          <div class="row-count-wrapper">
-            <span>Rows per page:</span>
-            <select
-              ng-model="peopleData.pageSize"
-              ng-options="size for size in [5,10,15,20]"
-              ng-change="pageChange(1,peopleData.pageSize)"
-            ></select>
-          </div>
-          <ul class="pagination">
-            <li
-              class="page-item"
-              ng-class="{'disabled':peopleData.pageNo === 1}"
-              ng-click="pageChange(peopleData.pageNo - 1,peopleData.pageSize)"
-            >
-              <a class="page-link"> <i class="bi-caret-left-fill"></i></a>
-            </li>
-            <span>{{peopleData.pageNo}}/{{peopleData.totalPages}}</span>
+       <td class="action">
+        <i
+         class="bi-pencil-fill"
+         ng-click="editEmployee('addEmployeeModal',person)"
+        >
+        </i>
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <!-- pagination -->
+    <div class="pagination-wrapper">
+     <div class="row-count-wrapper">
+      <span>Rows per page:</span>
+      <select
+       ng-model="peopleData.pageSize"
+       ng-options="size for size in [5,10,15,20]"
+       ng-change="pageChange(1,peopleData.pageSize)"
+      ></select>
+     </div>
+     <ul class="pagination">
+      <li
+       class="page-item"
+       ng-class="{'disabled':peopleData.pageNo === 1}"
+       ng-click="pageChange(peopleData.pageNo - 1,peopleData.pageSize)"
+      >
+       <a class="page-link"> <i class="bi-caret-left-fill"></i></a>
+      </li>
+      <span>{{peopleData.pageNo}}/{{peopleData.totalPages}}</span>
 
-            <li
-              class="page-item"
-              ng-class="{'disabled':peopleData.pageNo === peopleData.totalPages}"
-              ng-click="pageChange(peopleData.pageNo + 1,peopleData.pageSize)"
-            >
-              <a class="page-link"><i class="bi-caret-right-fill"></i></a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <li
+       class="page-item"
+       ng-class="{'disabled':peopleData.pageNo === peopleData.totalPages}"
+       ng-click="pageChange(peopleData.pageNo + 1,peopleData.pageSize)"
+      >
+       <a class="page-link"><i class="bi-caret-right-fill"></i></a>
+      </li>
+     </ul>
     </div>
+   </div>
   </div>
+ </div>
 </section>

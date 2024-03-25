@@ -1,0 +1,263 @@
+<section>
+ <link rel="stylesheet" href="../../../Company/tabs/Role/Role.css" />
+ <div class="role-management">
+  <div class="role-management-header">
+   <h2>Role Management</h2>
+   <button class="btn" ng-click="launchModal('addRoleModal')">Add Role</button>
+  </div>
+
+  <my-modal modal-size="lg" modal-id="addRoleModal" title="Add Role">
+   <form
+    name="formHolder.addRoleForm"
+    ng-submit=" saveRole('addRoleModal');"
+    novalidate
+   >
+    <div class="form-row">
+     <div class="form-group col">
+      <label for="roleName">Role Name*</label>
+      <input
+       type="text"
+       class="form-control"
+       id="roleName"
+       name="roleName"
+       ng-model="addRoleFormData.roleName"
+       ng-required="true"
+      />
+      <div class="error" ng-show="formHolder.addRoleForm.$error.required &&
+      formHolder.addRoleForm.$submitted">
+      "Role Name is required</div>
+     </div>
+     <div class="form-group col">
+      <label for="roleName">Preset Name</label>
+      <input
+       type="text"
+       class="form-control"
+       id="roleName"
+       name="roleName"
+       ng-model="presetName"
+      />
+      <div class="tip">Add Your Preset</div>
+     </div>
+    </div>
+
+
+
+    <div class="form-row">
+     <!-- permission preset -->
+
+     <div class="form-group col">
+      <label for="permissionPreset">Permission Preset</label>
+      <div class="ps-form">
+       <select
+        class="form-control"
+        id="permissionPreset"
+        name="permissionPreset"
+        ng-model="addRoleFormData.permissions"
+        ng-change="changePermissionSet(addRoleFormData.permissions)"
+       >
+        <option
+         ng-value="permissionSet"
+         ng-repeat="permissionSet in permissionSets"
+         ng-if="permissionSet.name !== 'Base Permission Set'"
+        >
+         {{permissionSet.name}}
+        </option>
+       </select>
+       <button
+        type="button"
+        ng-click="addRoleFormData.permissionPreset = ''; setBasePreset()"
+       >
+        Clear
+       </button>
+      </div>
+     </div>
+    </div>
+
+    <div class="form-row">
+     <label>Permission Template</label>
+     <div class="permissionTemplate">
+
+      <div class="permission-template-wrapper">
+       <div
+        class="permission-category"
+        ng-repeat="(category, permissions) in currentPermissionSet.permissions"
+       >
+        <div class="pc-header">{{category}}</div>
+        <div class="pc-body">
+         <div class="nested-permissions">
+          <div ng-repeat="(permissionType, permissionValue) in permissions">
+           <div class="permission-option">
+            <div class="pt">&#x2022; {{ permissionType }}</div>
+            <div class="pv">
+             <input
+              type="checkbox"
+              ng-if="!isObject(permissionValue)"
+              ng-checked="permissionValue"
+              ng-model="permissions[permissionType]"
+             />
+            </div>
+           </div>
+           <div ng-if="isObject(permissionValue)">
+            <div class="nested-permissions-sub">
+             <div
+              ng-repeat="(subPermissionType, subPermissionValue) in permissionValue"
+             >
+              <div class="permission-option sub">
+               <div class="pt">&#x2022; {{ subPermissionType }}</div>
+               <div class="pv">
+                <input
+                 type="checkbox"
+                 ng-checked="subPermissionValue"
+                 ng-model="permissions[permissionType][subPermissionType]"
+                />
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="formerror">
+     <div
+      class="error"
+      ng-show="addRoleForm.$invalid && addRoleForm.$submitted"
+     >
+      {{addRoleForm.errorMessage}}
+     </div>
+    </div>
+
+    <div class="footer">
+     <button type="button"
+      class="btn st"
+      ng-click="saveTemplate(presetName)">Save Template</button>
+     </button>
+     <button
+      type="submit"
+      class="btn"
+      ng-disabled="addRoleForm.$invalid"
+      ng-class="{'disabled': addRoleForm.$invalid}"
+     >
+      submit
+     </button>
+    </div>
+   </form>
+  </my-modal>
+
+  <div class="role-list">
+   <div class="table-wrapper">
+    <table class="table table-hover">
+     <thead>
+      <tr>
+       <th scope="col">Role Name</th>
+       <th scope="col"></th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr ng-repeat="role in roles">
+       <td>{{role.name}}</td>
+       <td class="action" ng-click="editRole(role,'role-edit-modal')">
+        <i class="bi-pencil-fill"></i>
+       </td>
+      </tr>
+     </tbody>
+    </table>
+
+    <my-modal modal-size="lg" modal-id="role-edit-modal" title="Edit Role">
+     <form
+      name="formHolder.editRoleForm"
+      ng-submit="editRoleSubmit('role-edit-modal')"
+      novalidate>
+      <div class="form-row">
+       <div class="form-group">
+        <label for="roleName">Role Name*</label>
+        <input
+         type="text"
+         class="form-control"
+         id="roleName"
+         name="roleName"
+         ng-model="editRoleFormData.name"
+         ng-required="true"
+        />
+        <div class="error" ng-show="formHolder.editRoleForm.$error.required &&
+        formHolder.editRoleForm.$submitted">
+        *Role Name is required</div>
+       </div>
+      </div>
+      <div class="form-row">
+       <label>Permission Template</label>
+       <div class="permissionTemplate">
+  
+        <div class="permission-template-wrapper">
+         <div
+          class="permission-category"
+          ng-repeat="(category, permissions) in editRoleFormData.permissionSet.permissions"
+         >
+          <div class="pc-header">{{category}}</div>
+          <div class="pc-body">
+           <div class="nested-permissions">
+            <div ng-repeat="(permissionType, permissionValue) in permissions">
+             <div class="permission-option">
+              <div class="pt">&#x2022; {{ permissionType }}</div>
+              <div class="pv">
+               <input
+                type="checkbox"
+                ng-if="!isObject(permissionValue)"
+                ng-checked="permissionValue"
+                ng-model="permissions[permissionType]"
+               />
+              </div>
+             </div>
+             <div ng-if="isObject(permissionValue)">
+              <div class="nested-permissions-sub">
+               <div
+                ng-repeat="(subPermissionType, subPermissionValue) in permissionValue"
+               >
+                <div class="permission-option sub">
+                 <div class="pt">&#x2022; {{ subPermissionType }}</div>
+                 <div class="pv">
+                  <input
+                   type="checkbox"
+                   ng-checked="subPermissionValue"
+                   ng-model="permissions[permissionType][subPermissionType]"
+                  />
+                 </div>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="formerror">
+       <div
+        class="error"
+        ng-show="editRoleForm.$invalid && editRoleForm.$submitted"
+       >
+        {{editRoleForm.errorMessage}}
+       </div>
+      </div>
+      <div class="footer">
+       <button
+        type="submit"
+        class="btn"
+        ng-disabled="editRoleForm.$invalid"
+        ng-class="{'disabled': editRoleForm.$invalid}"
+       >
+        submit
+       </button>
+      </div>
+     </form>
+     </my-modal>
+   </div>
+  </div>
+ </div>
+</section>
