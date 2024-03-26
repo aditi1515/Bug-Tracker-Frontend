@@ -21,15 +21,189 @@
  padding: 10px;
 }
 
-.body table{
+.body table {
  width: 100%;
-
 }
-.body thead{
+.body thead {
  background: var(--light-purple);
- 
 }
 
-.body thead tr th{
+.body thead tr th {
  padding: 6px;
+}
+
+.doneBy {
+ display: flex;
+ gap: 0.3rem;
+ align-items: center;
+}
+
+.doneBy img {
+ width: 30px;
+ height: 30px;
+ border-radius: 50%;
+}
+
+tbody tr {
+ border-bottom: 1px solid rgb(222, 222, 222);
+ font-size: 12px;
+}
+
+td {
+ padding: 0.5rem;
+}
+
+.inspect {
+ cursor: pointer;
+}
+
+.create-log {
+ padding: 10px;
+ font-size: 12px;
+}
+
+.log-info-item {
+ display: flex;
+ gap: 0.4rem;
+ align-items: center;
+}
+
+.bold {
+ font-weight: 600;
+}
+
+.log-header {
+ display: flex;
+ flex-direction: column;
+ gap: 0.5rem;
+ padding: 0.5rem;
+}
+
+.log-body .log-info {
+ display: flex;
+ flex-direction: column;
+ gap: 0.3rem;
+}
+
+.log-body img {
+ width: 30px;
+ height: 30px;
+ border-radius: 50%;
+}
+
+.log-time {
+ background-color: var(--nice-blue-text);
+ width: fit-content;
+ padding: 0.2rem 0.7rem;
+ border-radius: 10px;
+ font-size: 11px;
+}
+
+.log-changes-body {
+ display: flex;
+ flex-direction: column;
+ gap: 0.3rem;
+}
+
+h5 {
+ font-size: 1.2rem;
+}
+
+.log-changes {
+ border-top: 1px solid rgb(213, 211, 211);
+ padding-top: 0.5rem;
+}
+
+.permission-template-wrapper {
+ display: flex;
+ width: 100%;
+ flex-wrap: wrap;
+}
+
+.permission-category {
+ display: flex;
+ flex-direction: column;
+ gap: 0.4rem;
+ padding: 0.3rem 0.5rem;
+ width: 100%;
+}
+
+.pc-header {
+ font-size: 12px;
+ background: var(--shadow-purple);
+ width: 100%;
+ padding: 0.3rem;
+ font-weight: 500;
+}
+
+.pc-body {
+ font-size: 10px;
+
+ width: 100%;
+}
+
+.nested-permissions {
+ display: flex;
+ flex-direction: column;
+ flex-wrap: wrap;
+ width: 100%;
+}
+
+.nested-permissions-sub {
+ display: flex;
+ flex-wrap: wrap;
+}
+
+.permission-option {
+ display: flex;
+ gap: 0.5rem;
+ margin: 0.3rem;
+ align-items: center;
+}
+
+.pv {
+ display: flex;
+ align-items: center;
+}
+
+.permission-option.sub {
+ margin-left: 1rem;
+}
+
+.checkout button {
+ background: var(--pastel-green);
+ color: green;
+ padding: 0.2rem 0.7rem;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ outline: none;
+}
+
+.update-log {
+ padding: 0.5rem;
+ font-size: 12px;
+}
+
+.key-update {
+ font-size: 13px;
+ background: var(--nice-blue);
+ padding: 0.3rem;
+}
+
+.ul-wrapper {
+ display: flex;
+ flex-direction: column;
+ gap: 0.4rem;
+}
+
+.log-wrapper-main {
+ padding: 0.5rem;
+}
+
+.log-header .log-info-item {
+ display: flex;
+ gap: 0.5rem;
+ align-items: center;
+ font-size: 12px;
 }

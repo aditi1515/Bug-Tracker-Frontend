@@ -20,11 +20,133 @@
      </tr>
     </thead>
     <tbody>
-     <tr>
-      <td></td>
+     <tr ng-repeat="log in logs">
+      <td>{{log.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</td>
+      <td>
+       <span
+        class="badge p-1"
+        ng-class="{'badge-info': log.action === 'CREATE', 'badge-success': log.action === 'UPDATE', 'badge-danger': log.action === 'DELETE'}"
+       >
+        {{log.action}}
+       </span>
+      </td>
+      <td>{{log.model.name}}</td>
+      <td>
+       <div class="doneBy">
+        <img ng-src="{{log.doneBy.image}}" alt="" />
+        <span>{{log.doneBy.firstname}}</span>
+        <span>{{log.doneBy.lastname}}</span>
+       </div>
+      </td>
+      <td>
+       <span
+        class="bi-eye-fill inspect"
+        ng-click="openLogDetailsModal(log,'logDetailsModal')"
+       ></span>
+      </td>
      </tr>
     </tbody>
    </table>
+   <my-modal
+    modal-size="lg"
+    modal-id="logDetailsModal"
+    title="Activity Details"
+    size="md"
+   >
+    <div class="log-wrapper-main">
+     <div class="log-header">
+      <div class="log-title">
+       <h3>{{selectedLog.model.name}}</h3>
+      </div>
+      <div class="log-time">
+       <span>{{selectedLog.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</span>
+      </div>
+      <div class="log-info-item">
+       <span class="bold">Activity Type</span>
+       <span
+        class="badge p-1"
+        ng-class="{'badge-info': selectedLog.action === 'CREATE', 'badge-success': selectedLog.action === 'UPDATE', 'badge-danger': selectedLog.action === 'DELETE'}"
+       >
+        {{selectedLog.action}}
+       </span>
+      </div>
+      <div class="log-info">
+       <div class="log-info-item">
+        <span class="bold">Done By</span>
+        <div class="doneBy">
+         <img ng-src="{{selectedLog.doneBy.image}}" alt="" />
+         <span>{{selectedLog.doneBy.firstname}}</span>
+         <span>{{selectedLog.doneBy.lastname}}</span>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="create-log" ng-if="selectedLog.action==='CREATE'">
+      <div class="log-body">
+       <div class="log-changes">
+        <div class="log-changes-header">
+         <h5>Details</h5>
+        </div>
+        <div class="log-changes-body">
+         <div
+          class="log-change"
+          ng-repeat="(key,value) in selectedLog.changes[0].next"
+          ng-if="!['_id','__v','createdAt','updatedAt','password'].includes(key) && ['users','companies'].includes(selectedLog.model.name)"
+         >
+          <span ng-if="!isObject(value) && !isArray(value)">
+           <span class="bold">{{key}}</span>
+           :
+
+           <img ng-src="{{value}}" ng-if="isLink(value)" alt="" />
+           <span ng-if="!isLink(value)">{{value}}</span>
+
+           <span ng-if="key === 'isEnabled' || key === 'isCurrentMember'">
+            <span ng-if="value" class="badge badge-success">Enabled</span>
+            <span ng-if="value === false" class="badge badge-danger"
+             >Disabled</span
+            >
+           </span>
+          </span>
+         </div>
+
+         <div
+          class="log-change"
+          ng-repeat="(key,value) in selectedLog.changes[0].next"
+          ng-if="!['_id','__v','createdAt','updatedAt','companyDetails'].includes(key) && ['permissions','roles'].includes(selectedLog.model.name) "
+         >
+          <div class="" ng-if="!isObject(value)">
+           <span class="bold">{{key}} : </span>
+           <span>{{value}}</span>
+          </div>
+         </div>
+         <div
+          class="checkout"
+          ng-if="['permissions','roles'].includes(selectedLog.model.name)"
+         >
+          <button ui-sref="company.roleManagement">More Details</button>
+         </div>
+        </div>
+
+        <div
+         class="log-changes-body"
+         ng-if="!['users','companies'].includes(selectedLog.model.name)"
+        >
+         <pre>{{prettyJson(selectedLog.changes[0].next)}}</pre>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="update-log" ng-if="selectedLog.action==='UPDATE'">
+      <h4>changes</h4>
+      <div class="ul-wrapper" ng-repeat="_change in selectedLog.changes">
+       <span class="bold key-update">{{_change.key}} : </span>
+       <div class="display-change">
+        <pre>{{prettyJson(_change.change)}}</pre>
+       </div>
+      </div>
+     </div>
+    </div>
+   </my-modal>
   </div>
  </div>
 </section>
