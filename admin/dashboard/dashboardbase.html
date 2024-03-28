@@ -1,0 +1,17 @@
+<section class="analytics-wrapper">
+  <link rel="stylesheet" href="../../admin/dashboard/dashboardbase.css" />
+  <div class="analytics-sidebar">
+    <h2>Analytics</h2>
+    <div
+    ng-show="profile.role.permissionSet.permissions.PROJECT.CREATE"
+    ui-sref="company.projects.manage"
+    ui-sref-active="active"
+    class="analytics-sidebar-option"
+   >
+    <div class="bi-building"></div>
+    <span>Companies</span>
+   </div>
+  </div>
+
+  <div class="subview" ui-view></div>
+</section>
