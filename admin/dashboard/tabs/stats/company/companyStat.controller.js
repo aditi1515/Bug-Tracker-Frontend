@@ -3,11 +3,26 @@ function CompanyStatController($scope, AnalyticsService) {
   startDate: new Date("2023-01-01"),
   endDate: new Date("2025-01-01"),
  };
-
+ $scope.currtCWPpage = 1;
+ $scope.totalPagesInCWP = 0;
  $scope.companyCountFormData = {};
  $scope.locationWiseCompanyFormData = {
   locationOption: "country",
  };
+
+ var graphColors = [
+  "#C2DFFF", // Periwinkle
+  "#F5DCE8", // Lavender Rose
+  "#D0F0C0", // Tea Green
+  "#E2CCFF", // Light Pastel Purple
+  "#FFDFD3", // Peach Puff
+  "#C8E6C9", // Tea Green Light
+  "#E1E0FF", // Periwinkle Light
+  "#FFE5F7", // Pink Light
+  "#D8FFCC", // Light Mint
+  "#FFEEDD", // Light Apricot
+ ];
+
  function fetchcountCompanies() {
   var startDate =
    $scope.companyCountFormData.startDate || $scope.formDataInit.startDate;
@@ -137,12 +152,92 @@ function CompanyStatController($scope, AnalyticsService) {
   });
  }
 
-
  $scope.locationWiseCompanyDateChanged = function () {
   fetchlocationWiseCompanyCount();
- }
+ };
 
  fetchlocationWiseCompanyCount();
+
+ function fetchCompanySize() {
+  AnalyticsService.getCompanySize().then(function (response) {
+   console.log("fetchCompanySize", response);
+   $scope.companyWisePeople = response.data;
+   $scope.totalPagesInCWP = Math.ceil($scope.companyWisePeople.length / 20);
+   $scope.companyWisepeoplePageChange(1);
+  });
+ }
+
+ function displayCompanySize(chartData) {
+  console.log("displayCompanySize", chartData);
+  let labels = chartData.map(function (data) {
+   return data._id;
+  });
+  let values = chartData.map(function (data) {
+   return data.totalUsers;
+  });
+
+  var data = {
+   labels: labels,
+   datasets: [
+    {
+     label: "Companies",
+     data: values,
+     backgroundColor: graphColors,
+    },
+   ],
+  };
+
+  var chartDiv = document.getElementById("companyWisePeopleChart");
+    console.log("chartDiv", chartDiv);
+  const existingChart = Chart.getChart(chartDiv);
+  if (existingChart) {
+   existingChart.destroy();
+  }
+
+  new Chart(chartDiv, {
+   type: "bar",
+   data: data,
+   options: {
+    responsive: true,
+    legend: {
+     position: "bottom",
+    },
+    scales: {
+     x: {
+      title: {
+       display: true,
+       text: "Companies",
+      },
+     },
+     y: {
+      title: {
+       display: true,
+       text: "People Count",
+      },
+     },
+    },
+   },
+  });
+ }
+
+ $scope.companyWisepeoplePageChange = function (pageNo) {
+  console.log("Page changed: ", pageNo);
+  var pageSize = 20;
+
+  var data = $scope.companyWisePeople;
+
+  var start = (pageNo - 1) * pageSize;
+  var end = start + pageSize;
+  data = data.slice(start, end);
+
+  $scope.currtCWPpage = pageNo;
+
+  console.log("data", data);
+
+  displayCompanySize(data);
+ };
+
+ fetchCompanySize();
 }
 trackflow.controller("CompanyStatController", [
  "$scope",

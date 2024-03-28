@@ -114,8 +114,24 @@ trackflow.config([
     url: "/tickets",
     templateUrl: "./admin/dashboard/tabs/stats/ticket/ticketStats.html",
     controller: "ticketStatsController",
-   }),
-   $urlRouterProvider.otherwise("/");
+   })
+   .state("company.dashboard", {
+    url: "/dashboard",
+    templateUrl: "./Company/tabs/dashboard/dashboard.html",
+    controller: "CompanyDashboardController",
+   })
+   .state("company.dashboard.people", {
+    url: "/people",
+    templateUrl: "./Company/tabs/dashboard/user/user.html",
+    controller: "CompanyUserDashboardController",
+   })
+   .state("company.dashboard.projects", {
+    url: "/projects",
+    templateUrl: "./Company/tabs/dashboard/projects/projects.dashboard.html",
+    controller: "CompanyProjectsDashboardController",
+   });
+
+  $urlRouterProvider.otherwise("/");
  },
 ]);
 

@@ -1,0 +1,81 @@
+<section class="company-project-dashboard">
+ <link
+  rel="stylesheet"
+  href="../../../../Company/tabs/dashboard/projects/projects.dashboard.css"
+ />
+
+ <div class="project-count-bar">
+  <!-- start end date form -->
+  <div class="form-value-container">
+   <div class="companycount-dateSelector date-range-selector">
+    <form name="companycountForm">
+     <div class="input">
+      <label for="">Start Date</label>
+      <input
+       type="date"
+       name="startDate"
+       ng-model="projectCountFormData.startDate"
+       ng-init="projectCountFormData.startDate = formDataInit.startDate"
+       ng-change="countProjectDateChanged()"
+       max="{{projectCountFormData.endDate |  date:'yyyy-MM-dd'}}"
+      />
+     </div>
+     <div class="input">
+      <label for="">End Date</label>
+      <input
+       type="date"
+       name="endDate"
+       ng-model="projectCountFormData.endDate"
+       ng-init="projectCountFormData.endDate = formDataInit.endDate"
+       ng-change="countProjectDateChanged()"
+       min="{{projectCountFormData.startDate |  date:'yyyy-MM-dd'}}"
+       id=""
+      />
+     </div>
+    </form>
+   </div>
+   <div class="project-counts">
+    <div class="project-count">
+     <span class="project-count-value">{{dashboardProjects.total}}</span>
+     <span class="project-count-title"> Total Projects </span>
+    </div>
+    <div class="project-count">
+     <span class="project-count-value">{{dashboardProjects.inProgress}}</span>
+     <span class="project-count-title"> InProgress </span>
+    </div>
+    <div class="project-count">
+     <span class="project-count-value">{{dashboardProjects.complete}}</span>
+     <span class="project-count-title"> Completed </span>
+    </div>
+   </div>
+  </div>
+
+  <div class="project-count-chart-wrapper">
+   <canvas id="projectsCountChart"></canvas>
+  </div>
+ </div>
+
+<div class="chart-row">
+ <div class="project-wise-users">
+  <h3>Project Wise Users</h3>
+  <div class="project-wise-users-display">
+   <div class="project-wise-users-chart-wrapper">
+     <canvas id="projectWiseUsersChart"></canvas>
+   </div>
+  </div>
+</div>
+
+<div class="tickets-in-project">
+ <h3>Tickets in Projects</h3>
+ <div class="tickets-in-project-display">
+  <div class="tickets-in-project-chart-wrapper">
+   <canvas id="ticketsInProjectChart"></canvas>
+  </div>
+ </div>
+</div>
+</div>
+
+ </div>
+
+
+</section>

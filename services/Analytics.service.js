@@ -91,6 +91,34 @@ function AnalyticsService($http, BASE_URL) {
     return err;
    });
  };
+
+ this.getprojectWiseUsers = function () {
+  return $http
+   .get(BASE_URL + "analytics/projectWiseUsers")
+   .then(function (response) {
+    console.log("getprojectWiseUsers", response);
+    return response;
+   })
+   .catch(function (err) {
+    console.log("Error getting project wise users: ", err);
+    return err;
+   });
+ 
+ }
+
+ this.getprojectWiseTickets = function () {
+  return $http
+   .get(BASE_URL + "analytics/projectWiseTickets")
+   .then(function (response) {
+    console.log("getprojectWiseTickets", response);
+    return response;
+   })
+   .catch(function (err) {
+    console.log("Error getting project wise tickets: ", err);
+    return err;
+   });
+ }
+
 }
 
 trackflow.service("AnalyticsService", ["$http", "BASE_URL", AnalyticsService]);

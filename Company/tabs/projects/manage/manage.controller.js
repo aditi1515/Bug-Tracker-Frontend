@@ -88,6 +88,7 @@ function companyProjectsManageController(
    previewLogo: [{ url: project.logo }],
    previousLogo: project.logo,
    membersAlreadySelected: project.members,
+   companyDetails : project.companyDetails,
    removedMembers: [],
    members: [],
    key: project.key,

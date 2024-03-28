@@ -1,0 +1,110 @@
+.company-project-dashboard {
+ display: flex;
+ flex-direction: column;
+ gap: 1rem;
+ padding: 1rem;
+}
+
+.project-counts {
+ display: flex;
+ gap: 1rem;
+ margin-bottom: 20px;
+}
+
+.project-count {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-end;
+ gap: 5px;
+ border-radius: 10px;
+ padding: 1rem;
+ width: 15rem;
+}
+
+.project-count:nth-of-type(1) {
+ background: var(--nice-purple);
+}
+
+.project-count:nth-of-type(2) {
+ background: var(--pastel-neon-green);
+}
+
+.project-count:nth-of-type(3) {
+ background: var(--nice-red);
+}
+
+.project-count-title {
+ font-size: 14px;
+}
+
+.project-count-value {
+ font-size: 2rem;
+ font-weight: 600;
+}
+
+.project-count-bar {
+ display: flex;
+ gap: 1rem;
+ justify-content: space-between;
+ border: 1px solid #ccc;
+ border-radius: 10px;
+ padding: 1rem;
+ align-items: center;
+}
+
+.project-count-chart-wrapper {
+ height: 100%;
+ width: 20rem;
+}
+
+.project-count-chart-wrapper canvas {
+ margin-right: 4rem;
+}
+
+.date-range-selector .input {
+ display: flex;
+ gap: 1rem;
+ font-size: 14px;
+ align-items: center;
+}
+
+label {
+ margin-bottom: 0;
+ font-weight: 600;
+}
+
+.date-range-selector form {
+ display: flex;
+ gap: 1rem;
+}
+
+.date-range-selector .input input {
+ padding: 0.3rem;
+ border-radius: 5px;
+ border: 1px solid #ccc;
+}
+
+.project-wise-users-chart-wrapper {
+ display: flex;
+ gap: 1rem;
+ height: 100%;
+ width: 100%;
+}
+
+.project-wise-users,
+.tickets-in-project {
+ display: flex;
+ flex-direction: column;
+ gap: 1rem;
+ border: 1px solid #ccc;
+ border-radius: 10px;
+ width: 47%;
+ padding: 10px;
+}
+
+.chart-row {
+ display: flex;
+ gap: 1rem;
+ height: 100%;
+ width: 100%;
+}

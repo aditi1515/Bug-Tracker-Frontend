@@ -6,7 +6,7 @@
    <h2>Manage People</h2>
    <button
     class="btn"
-    ng-click="launchModal('addEmployeeModal',addEmployeeForm)"
+    ng-click="launchModal('addEmployeeModal',formHolder.addEmployeeForm)"
    >
     Add Employee
    </button>
@@ -17,8 +17,8 @@
    title="{{isEditing ? 'Edit Employee' : 'Add Employee' }}"
   >
    <form
-    name="addEmployeeForm"
-    ng-submit="isEditing ? editEmployeeFormSubmit('addEmployeeModal',addEmployeeForm) :  addEmployeeFormSubmit('addEmployeeModal',addEmployeeForm) "
+    name="formHolder.addEmployeeForm"
+    ng-submit="isEditing ? editEmployeeFormSubmit('addEmployeeModal',formHolder.addEmployeeForm) :  addEmployeeFormSubmit('addEmployeeModal',formHolder.addEmployeeForm) "
     novalidate
    >
     <div class="form-row">
@@ -33,10 +33,9 @@
        ng-required="true"
        ng-disabled="isEditing"
       />
-
       <div
        class="error"
-       ng-show="addEmployeeForm.employeeFirstName.$error.required && addEmployeeForm.employeeFirstName.$touched"
+       ng-show="formHolder.addEmployeeForm.employeeFirstName.$error.required && formHolder.addEmployeeForm.employeeFirstName.$touched"
       >
        First Name is required
       </div>
@@ -69,13 +68,13 @@
       />
       <div
        class="error"
-       ng-show="addEmployeeForm.employeeEmail.$error.required && addEmployeeForm.employeeEmail.$touched"
+       ng-show="formHolder.addEmployeeForm.employeeEmail.$error.required && formHolder.addEmployeeForm.employeeEmail.$touched"
       >
        Email is required
       </div>
       <div
        class="error"
-       ng-show="addEmployeeForm.employeeEmail.$error.email && addEmployeeForm.employeeEmail.$touched"
+       ng-show="formHolder.addEmployeeForm.employeeEmail.$error.email && formHolder.addEmployeeForm.employeeEmail.$touched"
       >
        Invalid email format
       </div>
@@ -95,13 +94,13 @@
        />
        <div
         class="error"
-        ng-show="addEmployeeForm.employeePhoneNo.$required && addEmployeeForm.employeePhoneNo.$touched"
+        ng-show="formHolder.addEmployeeForm.employeePhoneNo.$required && formHolder.addEmployeeForm.employeePhoneNo.$touched"
        >
         Phone No is required
        </div>
        <div
         class="error"
-        ng-show="addEmployeeForm.employeePhoneNo.$error.pattern && addEmployeeForm.employeePhoneNo.$touched"
+        ng-show="formHolder.addEmployeeForm.employeePhoneNo.$error.pattern && formHolder.addEmployeeForm.employeePhoneNo.$touched"
        >
         Invalid phone number
        </div>
@@ -127,7 +126,7 @@
 
        <div
         class="error"
-        ng-show="addEmployeeForm.employeeRole.$error.required && addEmployeeForm.employeeRole.$touched"
+        ng-show="formHolder.addEmployeeForm.employeeRole.$error.required && formHolder.addEmployeeForm.employeeRole.$touched"
        >
         Role is required
        </div>
@@ -138,16 +137,16 @@
     <div class="formerror">
      <div
       class="error"
-      ng-show="addEmployeeForm.$invalid && addEmployeeForm.$submitted"
+      ng-show="formHolder.addEmployeeForm.$invalid && formHolder.addEmployeeForm.$submitted"
      >
-      {{addEmployeeForm.errorMessage}}
+      {{formHolder.addEmployeeForm.errorMessage}}
      </div>
     </div>
     <button
      type="submit"
      class="btn"
-     ng-disabled="addEmployeeForm.$invalid"
-     ng-class="{'disabled': addEmployeeForm.$invalid}"
+     ng-disabled="formHolder.addEmployeeForm.$invalid"
+     ng-class="{'disabled': formHolder.addEmployeeForm.$invalid}"
     >
      submit
     </button>

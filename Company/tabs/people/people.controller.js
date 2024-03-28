@@ -13,7 +13,7 @@ function companyPeopleController(
  $scope.peopleData = {};
  $scope.isEditing = false;
  $scope.currentEditingEmployee = null;
-
+ $scope.formHolder = {};
  //submit add employee form
  $scope.addEmployeeFormSubmit = function (modalId, addEmployeeForm) {
   UserService.createUser({ user: $scope.addEmployeeFormData })
@@ -80,14 +80,15 @@ function companyPeopleController(
   }, 1000);
  };
 
- $scope.launchModal = function (modalId, addEmployeeForm) {
+ $scope.launchModal = function (modalId) {
   if ($scope.isEditing) {
    $scope.isEditing = false;
    $scope.addEmployeeFormData = {};
    $scope.currentEditingEmployee = null;
-   addEmployeeForm.$setPristine();
-   addEmployeeForm.$setUntouched();
   }
+
+  $scope.formHolder.addEmployeeForm.$setPristine();
+  $scope.formHolder.addEmployeeForm.$setUntouched();
   ModalService.showModal(modalId);
  };
 

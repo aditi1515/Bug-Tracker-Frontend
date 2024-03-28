@@ -1,0 +1,32 @@
+<section class="company-dashboard">
+ <link rel="stylesheet" href="../../../Company/tabs/dashboard/dashboard.css" />
+
+ <div class="company-dashboard-sidebar">
+  <h4>Analytics</h4>
+  <div class="sidebar-options">
+   <div
+    ui-sref="company.dashboard.people"
+    ui-sref-active="active"
+    class="company-dashboard-sidebar-option"
+   >
+    <div class="bi-building"></div>
+    <span>People </span>
+   </div>
+   <div
+    ui-sref="company.dashboard.projects"
+    ui-sref-active="active"
+    class="company-dashboard-sidebar-option"
+   >
+    <div class="bi-box"></div>
+    <span>Projects</span>
+   </div>
+   </div>
+  </div>
+
+
+
+ </div>
+
+ <div class="sub-view" ui-view></div>
+
+</section>
