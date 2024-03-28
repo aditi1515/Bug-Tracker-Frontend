@@ -2,33 +2,7 @@ function formDataFactory() {
  var factory = {};
 
  factory.getCompanyFormData = function (companyFormData) {
-  // var formData = new FormData();
-  // console.log("Company data: ", companyFormData);
-  // // Append company details
-  // formData.append("name", companyFormData.name);
-  // formData.append("city", companyFormData.city);
-  // formData.append("state", companyFormData.state);
-  // formData.append("domain", companyFormData.domain);
-  // formData.append("country", companyFormData.country);
-
-  // if (companyFormData.logo) {
-  //  formData.append("logo", companyFormData.logo);
-  // }
-
-  // if (companyFormData.isEnabled !== undefined) {
-  //  formData.append("isEnabled", companyFormData.isEnabled);
-  // }
-
-  // if (companyFormData.previousLogo) {
-  //  formData.append("previousLogo", companyFormData.previousLogo);
-  // }
-
-  // // Append admin details
-  // formData.append("admin[firstname]", companyFormData.admin.firstname);
-  // formData.append("admin[lastname]", companyFormData.admin.lastname);
-  // formData.append("admin[email]", companyFormData.admin.email);
-  // formData.append("admin[phoneNumber]", companyFormData.admin.phoneNumber);
-
+  console.log("Company data: ", companyFormData);
   var data = {
    name: companyFormData.name,
    city: companyFormData.city,
@@ -45,7 +19,7 @@ function formDataFactory() {
    previousData: companyFormData.previousData,
   };
 
-  if (companyFormData.isEnabled) {
+  if (companyFormData.isEnabled !== undefined) {
    data.isEnabled = companyFormData.isEnabled;
   }
 
@@ -61,32 +35,6 @@ function formDataFactory() {
  //project
  factory.getProjectFormData = function (project) {
   console.log("Project data: ", project);
-
-  var formdata = new FormData();
-
-  formdata.append("name", project.name);
-  formdata.append("description", project.description);
-  formdata.append("dueDate", project.dueDate);
-  if (project.members) {
-   formdata.append("members", JSON.stringify(project.members));
-  }
-
-  if (project.removedMembers) {
-   formdata.append("removedMembers", JSON.stringify(project.removedMembers));
-  }
-
-  if (project.logo) {
-   formdata.append("logo", project.logo);
-  }
-
-  if (project.previousLogo) {
-   formdata.append("previousLogo", project.previousLogo);
-  }
-
-  formdata.append("inProgress", project.inProgress);
-
-  formdata.append("key", project.key);
-
   var data = {
    name: project.name,
    description: project.description,
@@ -165,12 +113,12 @@ function formDataFactory() {
 
   var data = {
    title: ticketData.title,
-   description: ticketData.description,
+   description: ticketData.description || "",
    dueDate: ticketData.dueDate,
    status: ticketData.status,
    ticketType: ticketData.ticketType,
    priority: ticketData.priority,
-   assignees: ticketData.assignees,
+   assignees: ticketData.assignees ? ticketData.assignees : [],
    alreadyAssigned: ticketData.alreadyAssigned,
    reporterClient: ticketData.reporterClient,
    removeAssignees: ticketData.removeAssignees,

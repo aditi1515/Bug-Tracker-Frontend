@@ -1,17 +1,32 @@
 <section class="analytics-wrapper">
-  <link rel="stylesheet" href="../../admin/dashboard/dashboardbase.css" />
-  <div class="analytics-sidebar">
-    <h2>Analytics</h2>
-    <div
-    ng-show="profile.role.permissionSet.permissions.PROJECT.CREATE"
-    ui-sref="company.projects.manage"
-    ui-sref-active="active"
-    class="analytics-sidebar-option"
-   >
-    <div class="bi-building"></div>
-    <span>Companies</span>
-   </div>
+ <link rel="stylesheet" href="../../admin/dashboard/dashboardbase.css" />
+ <div class="analytics-sidebar">
+  <h2>Analytics</h2>
+  <div
+   ui-sref="superAdminDashboard.base.companyStats"
+   ui-sref-active="active"
+   class="analytics-sidebar-option"
+  >
+   <div class="bi-building"></div>
+   <span>Companies</span>
   </div>
+  <div
+   ui-sref="superAdminDashboard.base.companySize"
+   ui-sref-active="active"
+   class="analytics-sidebar-option"
+  >
+   <div class="bi-box"></div>
+   <span>Companies Size</span>
+  </div>
+  <div
+   ui-sref="superAdminDashboard.base.tickets"
+   ui-sref-active="active"
+   class="analytics-sidebar-option"
+  >
+   <div class="bi-calendar3-event"></div>
+   <span>Tickets</span>
+  </div>
+ </div>
 
-  <div class="subview" ui-view></div>
+ <div class="subview" ui-view></div>
 </section>

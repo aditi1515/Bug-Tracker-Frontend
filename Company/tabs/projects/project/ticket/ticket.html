@@ -375,7 +375,7 @@
   >
    <div class="ticket-view-wrapper">
     <div class="header">
-     <div class="title">{{viewTicketDetails.title}}</div>
+     <div class="title" ng-if="!(isEditing && checkTicketEditAccess(false))" >{{viewTicketDetails.title}}</div>
      <input type="text" ng-model="viewTicketDetails.title" ng-if="isEditing && checkTicketEditAccess(false)"
      class="form-control" id="ticketTitle" name="ticketTitle" ng-required="true"
      / >

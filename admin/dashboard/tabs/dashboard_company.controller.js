@@ -155,6 +155,7 @@ function dashboardCompanyController(
  //change company status
  $scope.changeCompanyStatus = function (companyId, company) {
   var previousData = angular.copy(company);
+  console.log("Company status before changed: ", company);
   company.isEnabled = !company.isEnabled;
   company.previousData = previousData;
 

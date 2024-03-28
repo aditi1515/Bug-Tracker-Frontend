@@ -1,0 +1,90 @@
+.ticket-statstab-wrapper {
+ display: flex;
+ flex-wrap: wrap;
+ padding: 1rem;
+ flex-direction: column;
+ gap: 3rem;
+}
+
+.ticket-count__card {
+ padding: 10px;
+ padding-left: 1rem;
+ width: 15rem;
+ min-height: 5rem;
+ border-radius: 10px;
+}
+
+.ticket-count__card__count {
+ font-size: 2.5rem;
+ font-weight: 800;
+}
+
+.ticket-count__card__title {
+ font-size: 12px;
+ font-weight: 700;
+}
+
+.ticket-count__card:nth-of-type(1) {
+ background: var(--nice-purple);
+}
+
+.ticket-count__card:nth-of-type(2) {
+ background: var(--pastel-neon-green);
+}
+
+.ticket-count__card:nth-of-type(3) {
+ background: var(--nice-red);
+}
+
+.ticket-count {
+ display: flex;
+ gap: 2rem;
+ align-items: center;
+}
+
+.date-range-selector .input {
+ display: flex;
+ gap: 1rem;
+ font-size: 14px;
+ align-items: center;
+}
+
+label {
+ margin-bottom: 0;
+ font-weight: 600;
+}
+
+.date-range-selector form {
+ display: flex;
+ gap: 1rem;
+}
+
+.date-range-selector .input input {
+ padding: 0.3rem;
+ border-radius: 5px;
+ border: 1px solid #ccc;
+}
+
+.pagination {
+ display: flex;
+ justify-content: flex-end;
+ padding-right: 3rem;
+ align-items: center;
+ font-size: 12px;
+ gap: 1rem;
+}
+.pagination i {
+ padding: 0.2rem;
+ color: var(--pastel-pink);
+ font-size: 1rem;
+ cursor: pointer;
+}
+
+.pagination i.disabled {
+ color: grey;
+ pointer-events: none;
+}
+
+.companyWiseTicketCountsChart-wrapper {
+ width: 80%;
+}
