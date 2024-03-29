@@ -5,6 +5,11 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
  };
 
  $scope.projectCountFormData = {};
+ $scope.totalPagesInPWU = 0;
+ $scope.pwuPage = 1;
+
+ $scope.pwtPage = 1;
+ $scope.totalPagesInPWT = 0;
 
  var graphColors = [
   "#C2DFFF", // Periwinkle
@@ -74,6 +79,12 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
 
  function displayprojectWiseUsersChart() {
   var data = $scope.projectWiseUsers;
+
+  var pageSize = 10;
+  $scope.totalPagesInPWU = Math.ceil(data.length / pageSize);
+  var startIndex = ($scope.pwuPage - 1) * pageSize;
+  data = data.slice(startIndex, Math.min(startIndex + pageSize, data.length));
+
   var chartDiv = document.getElementById("projectWiseUsersChart");
   var existsChart = Chart.getChart(chartDiv);
   if (existsChart) {
@@ -134,6 +145,12 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
   var data = $scope.projectWiseTickets;
   var chartDiv = document.getElementById("ticketsInProjectChart");
   var existsChart = Chart.getChart(chartDiv);
+  console.log(data);
+  var pageSize = 10;
+  $scope.totalPagesInPWT = Math.ceil(data.length / pageSize);
+  var startIndex = ($scope.pwtPage - 1) * pageSize;
+  data = data.slice(startIndex, Math.min(startIndex + pageSize, data.length));
+
   if (existsChart) {
    existsChart.destroy();
   }
@@ -195,6 +212,16 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
  }
 
  getprojectWiseTickets();
+
+ $scope.projectWiseUsersPageChange = function (page) {
+  $scope.pwuPage = page;
+  displayprojectWiseUsersChart();
+ };
+
+ $scope.projectWiseTicketsPageChange = function (page) {
+  $scope.pwtPage = page;
+  displayprojectWiseTicketsChart();
+ };
 }
 
 trackflow.controller("CompanyProjectsDashboardController", [

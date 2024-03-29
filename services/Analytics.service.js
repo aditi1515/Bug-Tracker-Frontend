@@ -119,6 +119,22 @@ function AnalyticsService($http, BASE_URL) {
    });
  }
 
+ this.getUsersInProject = function (projectId) {
+  console.log("projectId", projectId);
+  return $http
+   .get(BASE_URL + "analytics/usersInProject/"+projectId)
+   .then(function (response) {
+    console.log("getUsersInAProject", response);
+    return response;
+   })
+   .catch(function (err) {
+    console.log("Error getting users in a project: ", err);
+    return err;
+   });
+ 
+ }
+
+
 }
 
 trackflow.service("AnalyticsService", ["$http", "BASE_URL", AnalyticsService]);

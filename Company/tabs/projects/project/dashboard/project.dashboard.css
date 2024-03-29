@@ -1,0 +1,49 @@
+#project-dashboard {
+ display: flex;
+ width: 100%;
+ height: 100%;
+}
+
+.sidebar-project-dashboard {
+ width: fit-content;
+ border-right: 1px solid #ccc;
+ min-height: 90vh;
+
+}
+
+.sidebaroptions {
+ display: flex;
+ flex-direction: column;
+ gap: 0.6rem;
+ padding: 1rem 1rem;
+ width: 9rem;
+}
+
+.sidebaroption {
+ display: flex;
+ gap: 5px;
+ font-size: 13px;
+ font-weight: 600;
+
+ cursor: pointer;
+ border-radius: 3px;
+}
+
+.sidebaroption.active {
+ background: var(--dark-pink);
+ border-radius: 6px;
+}
+
+.sidebaroption:hover {
+ background: var(--shadow-purple);
+ border-radius: 6px;
+ color: black;
+}
+
+.sidebaroption div {
+ display: flex;
+ align-items: center;
+ gap: 5px;
+ padding: 7px 1rem;
+ border-radius: 6px;
+}

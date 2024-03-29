@@ -1,0 +1,33 @@
+<section id="project-dashboard">
+ <link
+  rel="stylesheet"
+  href="../../../../../Company/tabs/projects/project/dashboard/project.dashboard.css"
+ />
+
+ <div class="sidebar-project-dashboard">
+  <div class="sidebaroptions">
+   <div class="sidebaroption">
+
+    <div
+     ui-sref="company.projects.project.dashboard.people({projectId: projectId})"
+     ui-sref-active="active"
+    >
+     <i class="bi-people-fill"></i>
+     <span>People</span>
+    </div>
+   </div>
+   <div class="sidebaroption">
+    <div
+     ui-sref="company.dashboard.project.dashboard.people({projectId: projectId})"
+     ui-sref-active="active"
+    >
+     <i class="bi-card-checklist"></i>
+     <span>Tickets</span>
+    </>
+   </div>
+  </div>
+ </div>
+ </div>
+
+ <div class="project-dashboard-subview" ui-view></div>
+</section>

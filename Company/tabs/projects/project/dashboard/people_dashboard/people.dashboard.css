@@ -1,0 +1,126 @@
+.project-dashboard-top-stats {
+ display: flex;
+ gap: 4rem;
+ padding: 2rem;
+}
+
+.user-count-wrapper {
+ display: flex;
+ gap: 1rem;
+ align-items: center;
+}
+
+.user-count {
+ display: flex;
+ flex-direction: column;
+ border-radius: 10px;
+ padding: 0.5rem 1rem;
+ width: 8rem;
+}
+
+.user-count:nth-of-type(1) {
+ background: var(--nice-purple);
+}
+
+.user-count:nth-of-type(2) {
+ background: var(--pastel-neon-green);
+}
+
+.user-count:nth-of-type(3) {
+ background: var(--nice-red);
+}
+
+.user-count-title {
+ font-size: 14px;
+ font-weight: 600;
+}
+.user-count-value {
+ font-size: 1.5rem;
+ font-weight: 600;
+}
+
+.project-date-data-wrapper {
+ display: flex;
+ gap: 1rem;
+ align-items: center;
+ flex-wrap: wrap;
+ width: 20rem;
+}
+.project-date-data {
+ display: flex;
+ flex-direction: column;
+ border-radius: 10px;
+ padding: 0.5rem 1rem;
+ width: 8rem;
+}
+
+.project-date-data:nth-of-type(1) {
+ background: var(--nice-blue);
+}
+
+.project-date-data:nth-of-type(2) {
+ background: var(--nice-crimson);
+}
+
+.project-date-data:nth-of-type(3) {
+ background: var(--nice-orange);
+}
+
+.project-date-data:nth-of-type(4) {
+ background: rgb(255, 117, 117);
+}
+
+.project-date-data-title {
+ font-size: 14px;
+ font-weight: 600;
+}
+
+.project-date-data-value {
+ font-size: 1.5rem;
+ font-weight: 600;
+}
+
+.people-table {
+ border: 1px solid #ccc;
+ padding: 2rem;
+ background: white;
+ border-radius: 12px;
+ margin: 2rem;
+ margin-top: 2rem;
+}
+
+table {
+ width: 100%;
+ border-collapse: collapse;
+ border: 1px solid #ccc;
+}
+
+table th,
+table td {
+ padding: 1rem;
+ border-bottom: 1px solid #ccc;
+}
+
+table thead {
+ background: var(--pastel-pink);
+ color: white;
+}
+
+.table-username {
+ display: flex;
+ align-items: center;
+ gap: 1rem;
+}
+
+.table-username img {
+ width: 2rem;
+ height: 2rem;
+ object-fit: cover;
+ border-radius: 50%;
+}
+
+.table-status{
+ padding: 0.2rem 0.8rem;
+ border-radius: 10px;
+font-size: 12px;
+}

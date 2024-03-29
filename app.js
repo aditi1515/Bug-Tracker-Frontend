@@ -129,6 +129,19 @@ trackflow.config([
     url: "/projects",
     templateUrl: "./Company/tabs/dashboard/projects/projects.dashboard.html",
     controller: "CompanyProjectsDashboardController",
+   })
+   .state("company.projects.project.dashboard", {
+    url: "/dashboard",
+    templateUrl:
+     "./Company/tabs/projects/project/dashboard/project.dashboard.html",
+   
+    // redirectTo: "company.projects.project.dashboard.people",
+   })
+   .state("company.projects.project.dashboard.people", {
+    url: "/people",
+    templateUrl:
+     "./Company/tabs/projects/project/dashboard/people_dashboard/people.dashboard.html",
+    controller: "PeopleDashboardInProjectController",
    });
 
   $urlRouterProvider.otherwise("/");

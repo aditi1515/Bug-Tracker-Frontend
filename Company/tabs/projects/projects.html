@@ -22,13 +22,14 @@
 
   <hr />
   <div
-   ui-sref="company.projects.project.ticket({ projectId: project._id })"
+
    class="project-sidebar-option-collapsible"
    ng-repeat="project in projects"
   >
    <div
     class="collapse-btn"
     type="button"
+    ui-sref="company.projects.project.ticket({ projectId: project._id })"
     data-toggle="collapse"
     data-target="{{'#' + project._id}}"
     aria-expanded="false"
@@ -55,7 +56,7 @@
         <span class="bi-grid-fill"></span> <span>Tickets</span>
        </div>
       </div>
-      <div
+      <!-- <div
        class="sub-option"
        ui-sref-active="active"
        ui-sref="company.projects.project.manage({projectId: project._id})"
@@ -64,11 +65,11 @@
        <div class="option-content">
         <span class="bi-grid-fill"></span> <span>Manage</span>
        </div>
-      </div>
+      </div> -->
       <div
        class="sub-option"
        ui-sref-active="active"
-       ui-sref="company.projects.dashboard({projectId: project.id})"
+       ui-sref="company.projects.project.dashboard({projectId: project._id})"
       >
        <div class="bi bi-dash"></div>
        <div class="option-content">
