@@ -134,8 +134,8 @@ trackflow.config([
     url: "/dashboard",
     templateUrl:
      "./Company/tabs/projects/project/dashboard/project.dashboard.html",
-   
-    // redirectTo: "company.projects.project.dashboard.people",
+    controller: "CompanyProjectsBaseDashboardController",
+    redirectTo: "company.projects.project.dashboard.people",
    })
    .state("company.projects.project.dashboard.people", {
     url: "/people",
