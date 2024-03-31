@@ -1,0 +1,46 @@
+.project-dashboard-top-stats {
+  display: flex;
+  gap: 4rem;
+  padding: 2rem;
+}
+
+.ticket-count-wrapper {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.ticket-count {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  width: 8rem;
+}
+
+.ticket-count:nth-of-type(1) {
+  background: var(--nice-purple);
+}
+
+.ticket-count:nth-of-type(2) {
+  background: var(--pastel-neon-green);
+}
+
+.ticket-count:nth-of-type(3) {
+  background: var(--nice-red);
+}
+
+.ticket-count-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+.ticket-count-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+
+.statusPriorityChartContainer{
+    display: flex;
+    
+}
