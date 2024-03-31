@@ -1,84 +1,84 @@
 <section>
- <link
-  rel="stylesheet"
-  href="../../../../../../Company/tabs/projects/project/dashboard/people_dashboard/people.dashboard.css"
- />
+  <link
+    rel="stylesheet"
+    href="../../../../../../Company/tabs/projects/project/dashboard/people_dashboard/people.dashboard.css"
+  />
 
- <div class="project-dashboard-top-stats">
-  <div class="project-user-count-container">
-   <h3>People</h3>
-   <div class="user-count-wrapper">
-    <div class="user-count">
-     <span class="user-count-value">{{usersInProject.count}}</span>
-     <span class="user-count-title"> Total Users </span>
+  <div class="project-dashboard-top-stats">
+    <div class="project-user-count-container">
+      <h3>People</h3>
+      <div class="user-count-wrapper">
+        <div class="user-count">
+          <span class="user-count-value">{{usersInProject.count}}</span>
+          <span class="user-count-title"> Total Users </span>
+        </div>
+        <div class="user-count">
+          <span class="user-count-value">{{usersInProject.active}}</span>
+          <span class="user-count-title"> Active </span>
+        </div>
+        <div class="user-count">
+          <span class="user-count-value">{{usersInProject.inActive}}</span>
+          <span class="user-count-title"> InActive </span>
+        </div>
+      </div>
     </div>
-    <div class="user-count">
-     <span class="user-count-value">{{usersInProject.active}}</span>
-     <span class="user-count-title"> Active </span>
+
+    <div class="date-data-container">
+      <h3>Date</h3>
+      <div class="project-date-data-wrapper">
+        <div class="project-date-data">
+          <span class="project-date-data-value date"
+            >{{projectDetails.createdAt | date : dd-MM-yyyy}}</span
+          >
+          <span class="project-date-data-title"> Started At</span>
+        </div>
+        <div class="project-date-data">
+          <span class="project-date-data-value date"
+            >{{projectDetails.dueDate | date : dd-MM-yyyy}}</span
+          >
+          <span class="project-date-data-title"> Due Date</span>
+        </div>
+        <div class="project-date-data">
+          <span class="project-date-data-value">{{dateData.timePassed}}</span>
+          <span class="project-date-data-title"> Days Passed</span>
+        </div>
+        <div class="project-date-data">
+          <span class="project-date-data-value">{{dateData.timeLeft}}</span>
+          <span class="project-date-data-title"> Days Left</span>
+        </div>
+      </div>
     </div>
-    <div class="user-count">
-     <span class="user-count-value">{{usersInProject.inActive}}</span>
-     <span class="user-count-title"> InActive </span>
-    </div>
-   </div>
   </div>
 
-  <div class="date-data-container">
-   <h3>Date</h3>
-   <div class="project-date-data-wrapper">
-    <div class="project-date-data">
-     <span class="project-date-data-value date"
-      >{{projectDetails.createdAt | date : dd-MM-yyyy}}</span
-     >
-     <span class="project-date-data-title"> Started At</span>
-    </div>
-    <div class="project-date-data">
-     <span class="project-date-data-value date"
-      >{{projectDetails.dueDate | date : dd-MM-yyyy}}</span
-     >
-     <span class="project-date-data-title"> Due Date</span>
-    </div>
-    <div class="project-date-data">
-     <span class="project-date-data-value">{{dateData.timePassed}}</span>
-     <span class="project-date-data-title"> Days Passed</span>
-    </div>
-    <div class="project-date-data">
-     <span class="project-date-data-value">{{dateData.timeLeft}}</span>
-     <span class="project-date-data-title"> Days Left</span>
-    </div>
-   </div>
+  <div class="people-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="userDetail in usersInProject.users">
+          <td class="table-username">
+            <img ng-src="{{userDetail.user.image}}" alt="" />
+            <span
+              >{{ userDetail.user.firstname + (userDetail.user.lastname !==
+              'undefined' ? ' ' + userDetail.user.lastname : '') }}</span
+            >
+          </td>
+          <td>{{userDetail.user.email}}</td>
+          <td>
+            <span
+              class="table-status"
+              ng-class="{'badge-success': userDetail.isUserActiveInProject, 'badge-warning': !userDetail.isUserActiveInProject}"
+            >
+              {{userDetail.isUserActiveInProject ? 'Active' : 'InActive'}}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
- </div>
-
- <div class="people-table">
-  <table>
-   <thead>
-    <tr>
-     <th>Name</th>
-     <th>Email</th>
-     <th>Status</th>
-    </tr>
-   </thead>
-   <tbody>
-    <tr ng-repeat="userDetail in usersInProject.users">
-     <td class="table-username">
-      <img ng-src="{{userDetail.user.image}}" alt="" />
-      <span
-       >{{ userDetail.user.firstname + (userDetail.user.lastname !== 'undefined'
-       ? ' ' + userDetail.user.lastname : '') }}</span
-      >
-     </td>
-     <td>{{userDetail.user.email}}</td>
-     <td >
-      <span
-      class="table-status"
-       ng-class="{'badge-success': userDetail.isUserActiveInProject, 'badge-warning': !userDetail.isUserActiveInProject}"
-      >
-       {{userDetail.isUserActiveInProject ? 'Active' : 'InActive'}}
-      </span>
-     </td>
-    </tr>
-   </tbody>
-  </table>
- </div>
 </section>
