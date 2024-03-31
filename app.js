@@ -59,6 +59,7 @@ trackflow.config([
       .state("superAdminDashboard.base", {
         url: "/base",
         templateUrl: "./admin/dashboard/dashboardbase.html",
+        redirectTo: "superAdminDashboard.base.companyStats",
       })
       .state("company.people", {
         url: "/people",
@@ -122,15 +123,11 @@ trackflow.config([
           "./admin/dashboard/tabs/stats/companyStats/companyStats.html",
         controller: "companyStatsController",
       })
-      .state("superAdminDashboard.base.tickets", {
-        url: "/tickets",
-        templateUrl: "./admin/dashboard/tabs/stats/ticket/ticketStats.html",
-        controller: "ticketStatsController",
-      })
       .state("company.dashboard", {
         url: "/dashboard",
         templateUrl: "./Company/tabs/dashboard/dashboard.html",
         controller: "CompanyDashboardController",
+        redirectTo : "company.dashboard.people"
       })
       .state("company.dashboard.people", {
         url: "/people",

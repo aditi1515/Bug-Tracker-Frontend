@@ -47,3 +47,8 @@
  padding: 7px 1rem;
  border-radius: 6px;
 }
+
+
+.project-dashboard-subview{
+ flex: 1;
+}

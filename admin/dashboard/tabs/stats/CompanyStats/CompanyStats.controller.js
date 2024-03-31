@@ -59,7 +59,7 @@ function companyStatsController($scope, AnalyticsService) {
 
  function displayProjectsInCompany(chartData) {
   var labels = chartData.map(function (data) {
-   return data._id;
+   return  data._id.substring(0, Math.min(10, data._id.length));
   });
 
   var values = chartData.map(function (data) {
@@ -72,7 +72,9 @@ function companyStatsController($scope, AnalyticsService) {
     {
      label: "Projects",
      data: values,
-     backgroundColor: graphColors,
+     backgroundColor: graphColors.sort(function () {
+      return Math.random() - 0.5;
+     }),
     },
    ],
   };
@@ -141,7 +143,7 @@ function companyStatsController($scope, AnalyticsService) {
 
  function displayTopCompanyChart(chartData) {
   var labels = chartData.map(function (data) {
-   return data._id;
+   return  data._id.substring(0, Math.min(10, data._id.length))
   });
 
   var values = chartData.map(function (data) {
@@ -154,7 +156,9 @@ function companyStatsController($scope, AnalyticsService) {
     {
      label: "Projects",
      data: values,
-     backgroundColor: graphColors,
+     backgroundColor: graphColors.sort(function () {
+      return Math.random() - 0.5;
+     }),
     },
    ],
   };
@@ -224,7 +228,7 @@ function companyStatsController($scope, AnalyticsService) {
   chartData = chartData.slice(startIndex, startIndex + pageSize);
 
   var labels = chartData.map(function (data) {
-   return data._id;
+   return data._id.substring(0, Math.min(10, data._id.length));
   });
 
   var values = chartData.map(function (data) {
@@ -237,8 +241,12 @@ function companyStatsController($scope, AnalyticsService) {
     {
      label: "Tickets",
      data: values,
-     backgroundColor: graphColors,
-     borderColor: graphColors,
+     backgroundColor: graphColors.sort(function () {
+      return Math.random() - 0.5;
+     }),
+     borderColor: graphColors.sort(function () {
+      return Math.random() - 0.5;
+     }),
     },
    ],
   };

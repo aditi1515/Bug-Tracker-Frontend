@@ -5,7 +5,7 @@
  />
  <div class="header">
   <h3>Tickets</h3>
-  <button class="btn" ng-click="launchModal('addTicketModal')" ng-show="profile.role.permissionSet.permissions.PROJECT.CREATE">
+  <button class="btn" ng-click="launchModal('addTicketModal')" ng-show="profile.role.permissionSet.permissions.TICKET.CREATE">
    Create Ticket
   </button>
  </div>
@@ -122,7 +122,7 @@
    </div>
    <div class="form-row">
     <div class="form-group col select-multiple-wrapper">
-     <label for="members">Assignees *</label>
+     <label for="members">Assignees</label>
 
      <select
       class="form-control"

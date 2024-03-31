@@ -170,7 +170,7 @@ function CompanyStatController($scope, AnalyticsService) {
  function displayCompanySize(chartData) {
   console.log("displayCompanySize", chartData);
   let labels = chartData.map(function (data) {
-   return data._id;
+   return data._id.substring(0, Math.min(10, data._id.length));
   });
   let values = chartData.map(function (data) {
    return data.totalUsers;
@@ -182,13 +182,15 @@ function CompanyStatController($scope, AnalyticsService) {
     {
      label: "People",
      data: values,
-     backgroundColor: graphColors,
+     backgroundColor: graphColors.sort(function () {
+      return Math.random() - 0.5;
+     }),
     },
    ],
   };
 
   var chartDiv = document.getElementById("companyWisePeopleChart");
-    console.log("chartDiv", chartDiv);
+  console.log("chartDiv", chartDiv);
   const existingChart = Chart.getChart(chartDiv);
   if (existingChart) {
    existingChart.destroy();
@@ -215,8 +217,8 @@ function CompanyStatController($scope, AnalyticsService) {
        text: "People Count",
       },
       ticks: {
-        stepSize: 1
-      }
+       stepSize: 1,
+      },
      },
     },
    },

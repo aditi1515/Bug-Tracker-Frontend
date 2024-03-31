@@ -36,7 +36,13 @@
        name="roleName"
        ng-model="presetName"
       />
+      {{}}
       <div class="tip">Add Your Preset</div>
+      <div class="error"
+      ng-if="presetNameError && (presetName.length === 0 || presetName === undefined)"
+      >
+      "Preset Name is required</div>
+    
      </div>
     </div>
 

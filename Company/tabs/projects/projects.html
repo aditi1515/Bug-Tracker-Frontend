@@ -69,6 +69,7 @@
       <div
        class="sub-option"
        ui-sref-active="active"
+       ng-if="profile.role.permissionSet.permissions.STATS.FULL_ACCESS || profile.role.permissionSet.permissions.STATS.ONLY_ENROLLED"
        ui-sref="company.projects.project.dashboard({projectId: project._id})"
       >
        <div class="bi bi-dash"></div>
@@ -79,6 +80,7 @@
       <div
        class="sub-option"
        ui-sref-active="active"
+       ng-if="profile.role.permissionSet.permissions.STATS.FULL_ACCESS || profile.role.permissionSet.permissions.STATS.ONLY_ENROLLED"
        ui-sref="company.projects.project.activity({projectId: project._id})"
       >
        <div class="bi bi-dash"></div>
@@ -210,7 +212,7 @@
     </div>
     <div class="form-row">
      <div class="form-group col select-multiple-wrapper">
-      <label for="members">Assignees *</label>
+      <label for="members">Assignees</label>
       <select
        class="form-control"
        id="assigneesGlobalTicket"

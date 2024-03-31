@@ -1,46 +1,104 @@
+.project-ticket-dashboard-wrapper {
+ display: flex;
+ flex-direction: column;
+ gap: 2rem;
+ width: 100%;
+}
 .project-dashboard-top-stats {
-  display: flex;
-  gap: 4rem;
-  padding: 2rem;
+ display: flex;
+ gap: 4rem;
+ padding: 2rem;
+ width: 100%;
+}
+
+.project-ticket-count-container {
+ width: 100%;
 }
 
 .ticket-count-wrapper {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+ display: flex;
+ gap: 1rem;
+ align-items: center;
 }
 
 .ticket-count {
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-  padding: 0.5rem 1rem;
-  width: 8rem;
+ display: flex;
+ flex-direction: column;
+ border-radius: 10px;
+ padding: 0.5rem 1rem;
+ width: 8rem;
 }
 
 .ticket-count:nth-of-type(1) {
-  background: var(--nice-purple);
+ background: var(--nice-purple);
 }
 
 .ticket-count:nth-of-type(2) {
-  background: var(--pastel-neon-green);
+ background: var(--pastel-neon-green);
 }
 
 .ticket-count:nth-of-type(3) {
-  background: var(--nice-red);
+ background: var(--nice-red);
 }
 
 .ticket-count-title {
-  font-size: 14px;
-  font-weight: 600;
+ font-size: 14px;
+ font-weight: 600;
 }
 .ticket-count-value {
-  font-size: 1.5rem;
-  font-weight: 600;
+ font-size: 1.5rem;
+ font-weight: 600;
 }
 
+.statusPriorityChartContainer {
+ display: flex;
+ width: 100%;
+}
 
-.statusPriorityChartContainer{
-    display: flex;
-    
+.statue-wise-chartContainer,
+.priority-wise-chartContainer {
+ flex: 1;
+ padding: 1rem;
+}
+
+.user-details {
+ display: flex;
+ align-items: center;
+ gap: 1rem;
+}
+
+.top-tickets-resolved-Users{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.top-tickets-resolved{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  
+}
+
+.user-details img {
+ width: 30px;
+ height: 30px;
+ border-radius: 50%;
+}
+
+.top-tickets-resolved-list table {
+ width: 40%;
+ border: 1px solid #eee;
+}
+
+.top-tickets-resolved-list table th {
+ text-align: left;
+ padding: 0.4rem;
+ background: var(--nice-purple);
+}
+
+.top-tickets-resolved-list table td {
+ padding: 0.4rem;
+ border-bottom: 1px solid #eee;
 }

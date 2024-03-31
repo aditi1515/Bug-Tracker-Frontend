@@ -281,7 +281,7 @@ function ticketController(
    return true;
   }
 
-  if (updateAccess.MANAGE_ACESS) {
+  if (updateAccess.MANAGE_ACCESS) {
    console.log("Project details: ", $scope.projectDetails);
    var isUserExistsInProject = $scope.projectDetails.members.some(function (
     member
@@ -293,6 +293,7 @@ function ticketController(
     if (isMetaInfo) {
      return updateAccess.FULL_ACCESS || updateAccess.ONLY_META_INFO;
     } else {
+
      console.log("return access: ", updateAccess.FULL_ACCESS);
      return updateAccess.FULL_ACCESS;
     }

@@ -87,6 +87,11 @@ function RoleManagementController(
  getAllRoles();
 
  $scope.saveTemplate = function (presetName) {
+  if (!presetName || presetName === "") {
+   $scope.presetNameError = true;
+   return;
+  }
+
   var data = {
    name: presetName,
    permissions: $scope.currentPermissionSet.permissions,

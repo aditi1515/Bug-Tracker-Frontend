@@ -92,12 +92,14 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
   }
 
   console.log("data", data);
-
+  let maxLength = 20;
   new Chart(chartDiv, {
    type: "bar",
    data: {
     labels: data.map(function (item) {
-     return item.project.name;
+     return item.project.name.length > maxLength
+      ? item.project.name.substring(0, maxLength) + "..."
+      : item.project.name;
     }),
     datasets: [
      {
@@ -179,12 +181,14 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
   ];
 
   console.log("dataset", dataSets);
-
+  let maxLength = 20;
   new Chart(chartDiv, {
    type: "bar",
    data: {
     labels: data.map(function (item) {
-     return item.project.name;
+     return item.project.name.length > maxLength
+      ? item.project.name.substring(0, maxLength) + "..."
+      : item.project.name;
     }),
     datasets: dataSets,
    },

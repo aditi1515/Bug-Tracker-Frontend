@@ -1,33 +1,68 @@
-<section>
-  <link
-    rel="stylesheet"
-    href="../../../../../../Company/tabs/projects/project/dashboard/ticket_dashboard/ticket_dashboard.css"
-  />
-  <div class="project-dashboard-top-stats">
-    <div class="project-user-count-container">
-      <h3>Tickets</h3>
-      <div class="ticket-count-wrapper">
-        <div class="ticket-count">
-          <span class="ticket-count-value">{{totalTickets.count}}</span>
-          <span class="ticket-count-title"> Total Tickets </span>
-        </div>
-        <div class="ticket-count">
-          <span class="ticket-count-value">{{totalTickets.bugs}}</span>
-          <span class="ticket-count-title"> Bugs </span>
-        </div>
-        <div class="ticket-count">
-          <span class="ticket-count-value">{{totalTickets.fr}}</span>
-          <span class="ticket-count-title"> FR </span>
-        </div>
-      </div>
-      <div class="statusPriorityChartContainer">
-        <div class="statue-wise-chartContainer">
-          <canvas id="statusWiseTickets-canvas"></canvas>
-        </div>
-        <div class="priority-wise-chartContainer">
-          <canvas id="priorityWiseTickets-canvas"></canvas>
-        </div>
-      </div>
+<section class="project-ticket-dashboard-wrapper">
+ <link
+  rel="stylesheet"
+  href="../../../../../../Company/tabs/projects/project/dashboard/ticket_dashboard/ticket_dashboard.css"
+ />
+ <div class="project-dashboard-top-stats">
+  <div class="project-ticket-count-container">
+   <h3>Tickets</h3>
+   <div class="ticket-count-wrapper">
+    <div class="ticket-count">
+     <span class="ticket-count-value">{{totalTickets.count}}</span>
+     <span class="ticket-count-title"> Total Tickets </span>
     </div>
+    <div class="ticket-count">
+     <span class="ticket-count-value">{{totalTickets.bugs}}</span>
+     <span class="ticket-count-title"> Bugs </span>
+    </div>
+    <div class="ticket-count">
+     <span class="ticket-count-value">{{totalTickets.fr}}</span>
+     <span class="ticket-count-title"> FR </span>
+    </div>
+   </div>
+   <div class="statusPriorityChartContainer">
+    <div class="statue-wise-chartContainer">
+     <canvas id="statusWiseTickets-canvas"></canvas>
+    </div>
+    <div class="priority-wise-chartContainer">
+     <canvas id="priorityWiseTickets-canvas"></canvas>
+    </div>
+   </div>
   </div>
+ </div>
+
+ <div class="top-tickets-resolved-Users">
+  <div class="top-tickets-resolved">
+   <h3>Top 5 Tickets Resolved</h3>
+   <div class="top-tickets-resolved-list">
+    <table>
+     <thead >
+      <tr>
+       <th>User</th>
+       <th>Tickets Resolved</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr ng-repeat="userProd in userProductivity">
+      
+       <td>
+        <div class="user-details">
+         <div class="user-image">
+          <img src="{{userProd.image}}" alt="" />
+         </div>
+         <div class="user-name">
+          <span>{{userProd.firstname}}</span>
+          <span
+           >{{userProd.lastname !== 'undefined' ? userProd.lastname : ""}}</span
+          >
+         </div>
+        </div>
+       </td>
+       <td>{{userProd.solvedTicketsCount}}</td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+ </div>
 </section>
