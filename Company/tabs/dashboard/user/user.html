@@ -38,14 +38,72 @@
     <span class="user-count-value">{{companySize.companySize}}</span>
     <span class="user-count-title"> Total Users </span>
    </div>
-   <!-- <div class="user-count">
-    <span class="user-count-value">{{dashboardUsers.active}}</span>
+   <div class="user-count">
+    <span class="user-count-value">{{companySize.currentMembersCount}}</span>
     <span class="user-count-title"> Active </span>
    </div>
    <div class="user-count">
-    <span class="user-count-value">{{dashboardUsers.inActive}}</span>
+    <span class="user-count-value">{{companySize.nonCurrentMembersCount}}</span>
     <span class="user-count-title"> InActive </span>
-   </div> -->
+   </div>
   </div>
+ </div>
+ <div class="users-with-most-projects">
+  <h3>Users with most projects</h3>
+
+  <div class="companycount-dateSelector date-range-selector">
+   <form name="usersWithMostProjectsForm">
+    <div class="uWMp-input">
+     <label for="">Start Date</label>
+     <input
+      type="date"
+      name="startDate"
+      ng-model="usersWithMostProjectsFormData.startDate"
+      ng-init="usersWithMostProjectsFormData.startDate = formDataInit.startDate"
+      ng-change="usersWithMostProjectsDateChanged()"
+      max="{{usersWithMostProjectsFormData.endDate |  date:'yyyy-MM-dd'}}"
+     />
+    </div>
+
+    <div class="uWMp-input">
+     <label for="">End Date</label>
+     <input
+      type="date"
+      name="endDate"
+      ng-model="usersWithMostProjectsFormData.endDate"
+      ng-init="usersWithMostProjectsFormData.endDate = formDataInit.endDate"
+      ng-change="usersWithMostProjectsDateChanged()"
+      min="{{usersWithMostProjectsFormData.startDate |  date:'yyyy-MM-dd'}}"
+      id=""
+     />
+    </div>
+   </form>
+  </div>
+
+
+<div class="usersWithMostProjects-table">
+  <table >
+   <thead>
+    <tr>
+     <th>Name</th>
+      <th>Email</th>
+     <th>Projects</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr ng-repeat="user in usersWithMostProjects">
+     <td>
+      <div class="user-details">
+       <img ng-src="{{user.details.user.image}}" alt="" />
+       <span>{{user.details.user.firstname}}</span>
+       <span>{{user.details.user.lastname !== 'undefined' ? user.lastname : ""}}</span>
+      </div>
+     </td>
+     <td>{{user.details.user.email}}</td>
+     <td>{{user.totalProjects}}</td>
+    </tr>
+   </tbody>
+  </table>
+ </div>
  </div>
 </section>

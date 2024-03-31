@@ -5,6 +5,7 @@ function CompanyUserDashboardController($scope, AnalyticsService) {
  };
 
  $scope.userCountFormData = {};
+ $scope.usersWithMostProjectsFormData = {};
 
  var graphColors = [
   "#C2DFFF", // Periwinkle
@@ -39,6 +40,28 @@ function CompanyUserDashboardController($scope, AnalyticsService) {
  $scope.countUserDateChanged = function () {
   fetchCompanySize();
  };
+
+
+ function getUsersWithMostProjects(){
+
+  var body = {
+   startDate:
+    $scope.usersWithMostProjectsFormData.startDate || $scope.formDataInit.startDate,
+   endDate: $scope.usersWithMostProjectsFormData.endDate || $scope.formDataInit.endDate,
+  };
+
+  AnalyticsService.getUsersWithMostProjects(body).then(function(response){
+    $scope.usersWithMostProjects = response.data;
+    displayUsersWithMostProjectsChart();
+  });
+ }
+
+ getUsersWithMostProjects()
+
+
+ $scope.usersWithMostProjectsDateChanged = function(){
+  getUsersWithMostProjects();
+ }
 
 }
 

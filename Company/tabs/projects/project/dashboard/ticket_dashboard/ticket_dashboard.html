@@ -31,9 +31,10 @@
   </div>
  </div>
 
+<div class="top-least-wrapper">
  <div class="top-tickets-resolved-Users">
   <div class="top-tickets-resolved">
-   <h3>Top 5 Tickets Resolved</h3>
+   <h3>Top 5 Tickets Resolvers</h3>
    <div class="top-tickets-resolved-list">
     <table>
      <thead >
@@ -65,4 +66,38 @@
    </div>
   </div>
  </div>
+ <div class="top-tickets-resolved-Users">
+  <div class="top-tickets-resolved">
+   <h3>Least 5 Tickets Resolvers</h3>
+   <div class="top-tickets-resolved-list">
+    <table>
+     <thead >
+      <tr>
+       <th>User</th>
+       <th>Tickets Remaining</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr ng-repeat="userProdLeast in userProductivityLeast">
+       <td>
+        <div class="user-details">
+         <div class="user-image">
+          <img src="{{userProdLeast.image}}" alt="" />
+         </div>
+         <div class="user-name">
+          <span>{{userProdLeast.firstname}}</span>
+          <span
+           >{{userProdLeast.lastname !== 'undefined' ? userProdLeast.lastname : ""}}</span
+          >
+         </div>
+        </div>
+       </td>
+       <td>{{userProdLeast.solvedTicketsCount}}</td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+ </div>
+</div>
 </section>

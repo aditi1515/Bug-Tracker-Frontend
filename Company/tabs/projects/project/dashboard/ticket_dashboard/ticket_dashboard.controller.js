@@ -150,7 +150,7 @@ function TicketDashboardInProjectController($scope, $state, AnalyticsService) {
   });
  }
 
- function fetchgetuserProductivityInTickets() {
+ function fetchTopuserProductivityInTickets() {
   var data = {
    projectId: $scope.projectId,
    startDate: $scope.formDataInit.startDate,
@@ -165,7 +165,25 @@ function TicketDashboardInProjectController($scope, $state, AnalyticsService) {
   });
  }
 
- fetchgetuserProductivityInTickets();
+ fetchTopuserProductivityInTickets();
+
+
+ function fetchLeastuserProductivityInTickets() {
+  var data = {
+   projectId: $scope.projectId,
+   startDate: $scope.formDataInit.startDate,
+   endDate: $scope.formDataInit.endDate,
+   status: "NOT_CLOSED",
+  };
+
+  AnalyticsService.getuserProductivityInTickets(data).then(function (response) {
+   console.log("fetchLeastuserProductivityInTickets", response);
+   $scope.userProductivityLeast = response.data;
+ 
+  });
+ }
+
+ fetchLeastuserProductivityInTickets()
 }
 
 trackflow.controller("TicketDashboardInProjectController", [

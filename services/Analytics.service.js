@@ -182,6 +182,21 @@ function AnalyticsService($http, BASE_URL) {
     return err;
    });
  };
+
+
+ this.getUsersWithMostProjects = function (body) {
+  return $http
+   .post(BASE_URL + "analytics/usersWithMostProjects",body)
+   .then(function (response) {
+    console.log("getUsersWithMostProjects", response);
+    return response;
+   })
+   .catch(function (err) {
+    console.log("Error getting users with most projects: ", err);
+    return err;
+   });
+ 
+ }
 }
 
 trackflow.service("AnalyticsService", ["$http", "BASE_URL", AnalyticsService]);
