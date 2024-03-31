@@ -105,6 +105,9 @@ function companyStatsController($scope, AnalyticsService) {
        display: true,
        text: "Project Count",
       },
+      ticks:{
+       stepSize: 1
+      }
      },
     },
    },

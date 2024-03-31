@@ -1,9 +1,51 @@
-<section>
+<section id="company-users-dashboard">
  <link
   rel="stylesheet"
   href="../../../../Company/tabs/dashboard/user/user.css"
  />
 
- user dashboard
+ <div class="users-count-wrapper">
+  <div class="companycount-dateSelector date-range-selector">
+   <form name="companycountForm">
+    <div class="input">
+     <label for="">Start Date</label>
+     <input
+      type="date"
+      name="startDate"
+      ng-model="userCountFormData.startDate"
+      ng-init="userCountFormData.startDate = formDataInit.startDate"
+      ng-change="countUserDateChanged()"
+      max="{{userCountFormData.endDate |  date:'yyyy-MM-dd'}}"
+     />
+    </div>
+    <div class="input">
+     <label for="">End Date</label>
+     <input
+      type="date"
+      name="endDate"
+      ng-model="userCountFormData.endDate"
+      ng-init="userCountFormData.endDate = formDataInit.endDate"
+      ng-change="countUserDateChanged()"
+      min="{{userCountFormData.startDate |  date:'yyyy-MM-dd'}}"
+      id=""
+     />
+    </div>
+   </form>
+  </div>
 
+  <div class="users-count">
+   <div class="user-count">
+    <span class="user-count-value">{{companySize.companySize}}</span>
+    <span class="user-count-title"> Total Users </span>
+   </div>
+   <!-- <div class="user-count">
+    <span class="user-count-value">{{dashboardUsers.active}}</span>
+    <span class="user-count-title"> Active </span>
+   </div>
+   <div class="user-count">
+    <span class="user-count-value">{{dashboardUsers.inActive}}</span>
+    <span class="user-count-title"> InActive </span>
+   </div> -->
+  </div>
+ </div>
 </section>

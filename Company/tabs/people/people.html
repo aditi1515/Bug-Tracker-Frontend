@@ -115,14 +115,18 @@
      <div class="form-row">
       <div class="form-group col">
        <label for="employeeRole">{{isEditing ? 'New Role*' : 'Role*'}}</label>
+      
        <select
         class="form-control"
         id="employeeRole"
         name="employeeRole"
         ng-model="addEmployeeFormData.role"
         ng-required="true"
-        ng-options="role.name for role in roles"
-       ></select>
+        ng-options=" role.name for role in roles"
+        
+       >
+ 
+     </select>
 
        <div
         class="error"
@@ -184,7 +188,8 @@
       </tr>
      </thead>
      <tbody>
-      <tr ng-repeat="person in peopleData.users">
+      <tr ng-if="person.role.name !== 'COMPANY_ADMIN'" ng-repeat="person in peopleData.users">
+
        <td>{{ person.firstname + " " + person.lastname }}</td>
        <td>{{ person.email }}</td>
 

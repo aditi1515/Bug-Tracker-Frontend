@@ -538,8 +538,8 @@
           alt=""
          />
          <span
-          >{{viewTicketDetails.assignedBy.firstname + " " +
-          viewTicketDetails.assignedBy.lastname }}</span
+          >{{viewTicketDetails.assignedBy.firstname + " " + (viewTicketDetails.assignedBy.lastname  !==  undefined ? viewTicketDetails.assignedBy.lastname : '' )
+           }}</span
          >
         </div>
        </div>
@@ -639,7 +639,7 @@
          ng-repeat="person in membersInProject"
          ng-if="!isAssigneeSelected(person)"
         >
-         {{person.firstname + " " + person.lastname}}
+         {{person.firstname + " " + (person.lastname !== 'undefined' ? person.lastname : '')}}
         </option>
        </select>
       </div>
@@ -653,7 +653,7 @@
         ng-repeat="assignee in viewTicketDetails.alreadyAssigned"
        >
         <img ng-src="{{assignee.image}}" alt="" />
-        <span>{{assignee.firstname + " " + assignee.lastname}}</span>
+        <span>{{assignee.firstname + " " + (assignee.lastname !== 'undefined'  ? assignee.lastname : '' )}}</span>
 
         <!-- reomove -->
         <div

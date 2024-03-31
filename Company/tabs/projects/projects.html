@@ -1,6 +1,6 @@
 <section class="projects-wrapper">
  <link rel="stylesheet" href="../../../Company/tabs/projects/projects.css" />
- <div class="project-sidebar">
+ <div class="project-sidebar" >
   <h2>Projects</h2>
   <div
    ng-show="profile.role.permissionSet.permissions.PROJECT.CREATE"
@@ -12,7 +12,7 @@
    <span>Manage</span>
   </div>
   <div
-   ng-show="profile.role.permissionSet.permissions.PROJECT.CREATE' "
+   ng-show="profile.role.permissionSet.permissions.TICKET.CREATE"
    class="project-sidebar-option"
    ng-click="launchModal('addTicketModalGlobal')"
   >
@@ -79,7 +79,7 @@
       <div
        class="sub-option"
        ui-sref-active="active"
-       ui-sref="company.projects.activity({projectId: project.id})"
+       ui-sref="company.projects.project.activity({projectId: project._id})"
       >
        <div class="bi bi-dash"></div>
        <div class="option-content">

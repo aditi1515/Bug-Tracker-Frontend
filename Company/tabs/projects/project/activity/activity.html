@@ -1,0 +1,102 @@
+<section class="activity-log-project">
+ <link
+  rel="stylesheet"
+  href="../../../../../Company/tabs/projects/project/activity/activity.css"
+ />
+
+ <h2>Activity Log</h2>
+ <div class="ticketLogsContainer">
+
+
+  <div class="ticketLog" ng-repeat="ticketLog in ticketLogs">
+   <div class="ticket-create-log" ng-if="ticketLog.action === 'CREATE'">
+    <div class="doneBy">
+     <img src="{{ticketLog.doneBy.image}}" alt="" />
+     <span
+      >{{ticketLog.doneBy.firstname + " " + (ticketLog.doneBy.lastname !==
+      'undefined' ? ticketLog.doneBy.lastname : '' ) }}</span
+     >
+     <div class="log-body">
+      <span>Created Ticket </span>
+     </div>
+     <div class="ticket-name">{{ticketLog.changes[0].next.name}}</div>
+    </div>
+
+    <div class="log-time">
+     <span>{{ticketLog.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</span>
+    </div>
+   </div>
+
+   <div class="ticket-edit-log" ng-if="ticketLog.action === 'UPDATE'">
+    <div class="doneBy">
+     <img src="{{ticketLog.doneBy.image}}" alt="" />
+     <span
+      >{{ticketLog.doneBy.firstname + " " + (ticketLog.doneBy.lastname !==
+      'undefined' ? ticketLog.doneBy.lastname : '' ) }}</span
+     >
+     <div class="log-body">
+      <span>Updated Ticket </span>
+     </div>
+     <div class="ticket-name">{{ticketLog.metaData.ticketName}}</div>
+    </div>
+
+    <div class="log-time">
+     <button
+      class="edit-log-info bi-eye"
+      type="button"
+      data-toggle="collapse"
+      data-target="{{'#' + ticketLog._id}}"
+      aria-expanded="false"
+      aria-controls="collapseExample"
+     ></button>
+
+     <span>{{ticketLog.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</span>
+    </div>
+   </div>
+   <div class="collapse" id="{{ticketLog._id}}">
+    <div class="card card-body">
+     <div class="log-change" ng-repeat="tlc in ticketLog.changes">
+      <div
+       class="plain-values"
+       ng-if="['status','dueDate','priority','ticketType','title','description'].includes(tlc.key)"
+      >
+       <span class="bi-arrow-return-right"></span>
+       <span>Changed</span>
+       <span>{{tlc.key}}</span>
+       <span>from</span>
+       <span class="bold-log">{{tlc.change.prev}}</span>
+       <span>to</span>
+       <span class="bold-log">{{tlc.change.new}}</span>
+      </div>
+
+      <div class="membersAdded" ng-if="['assignees'].includes(tlc.key)">
+       <span class="bi-arrow-return-right"></span>
+       <span>Added</span>
+       <span>{{tlc.key}}</span>
+       <div class="members">
+        <div class="member" ng-repeat="member in tlc.change.added">
+         <img class="member-img-log" src="{{member.image}}" alt="" />
+         <span>{{member.firstname + " " + (member.lastname !== 'undefined' ? member.lastname : '')}}</span>
+        </div>
+       
+      </div>
+     </div>
+
+     <div class="membersAdded" ng-if="['assignees'].includes(tlc.key)">
+      <span class="bi-arrow-return-right"></span>
+      <span>Removed</span>
+      <span>{{tlc.key}}</span>
+      <div class="members">
+       <div class="member" ng-repeat="member in tlc.change.removed">
+        <img class="member-img-log" src="{{member.image}}" alt="" />
+        <span>{{member.firstname + " " + (member.lastname !== 'undefined' ? member.lastname : '')}}</span>
+       </div>
+      
+     </div>
+    </div>
+
+    </div>
+   </div>
+  </div>
+ </div>
+</section>

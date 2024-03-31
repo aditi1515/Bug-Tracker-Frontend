@@ -157,7 +157,7 @@
     <div class="form-row">
      <div class="form-group col select-multiple-wrapper">
       <div
-       ng-if="profile.role.permissionSet.permissions.PROJECT.UPDATE.FULL_ACCESS"
+       ng-if="profile.role.permissionSet.permissions.PROJECT.UPDATE.FULL_ACCESS || profile.role.permissionSet.permissions.PROJECT.CREATE"
       >
        <label for="members"
         >{{isEditingProject ? "Add New Members" : "Members"}}</label
@@ -196,7 +196,10 @@
          ng-repeat="member in addProjectFormData.membersAlreadySelected"
         >
          <img ng-src="{{member.image}}" class="avatar" alt="" />
-         <span>{{member.firstname + " " + member.lastname}}</span>
+         <span
+          >{{member.firstname + (member.lastname !== 'undefined'? ' ' + member.lastname :
+          '')}}</span
+         >
          <i
           class="bi-x-circle-fill"
           ng-click="removeMember(member)"

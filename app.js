@@ -64,6 +64,17 @@ trackflow.config([
     url: "/people",
     templateUrl: "./Company/tabs/people/people.html",
     controller: "companyPeopleController",
+    resolve: {
+     authorize: function (auth, $state) {
+      var permissions = auth.role.permissionSet.permissions;
+      if (permissions.PEOPLE.CREATE) {
+       return true;
+      } else {
+       $state.go("company");
+       return false;
+      }
+     },
+    },
    })
    .state("company.projects", {
     url: "/projects",
@@ -142,11 +153,20 @@ trackflow.config([
     templateUrl:
      "./Company/tabs/projects/project/dashboard/people_dashboard/people.dashboard.html",
     controller: "PeopleDashboardInProjectController",
+   })
+   .state("company.projects.project.activity", {
+    url: "/activity",
+    templateUrl: "./Company/tabs/projects/project/activity/activity.html",
+    controller: "ActivityInProjectController",
    });
 
   $urlRouterProvider.otherwise("/");
  },
 ]);
+
+function roleCheck(permissions) {
+ // loop on permissions and if all true then resolve
+}
 
 function isAuthenticated($q, UserService, $state) {
  return UserService.isAuthenticated()

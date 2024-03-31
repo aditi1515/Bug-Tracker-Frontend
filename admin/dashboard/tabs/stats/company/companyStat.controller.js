@@ -180,7 +180,7 @@ function CompanyStatController($scope, AnalyticsService) {
    labels: labels,
    datasets: [
     {
-     label: "Companies",
+     label: "People",
      data: values,
      backgroundColor: graphColors,
     },
@@ -214,6 +214,9 @@ function CompanyStatController($scope, AnalyticsService) {
        display: true,
        text: "People Count",
       },
+      ticks: {
+        stepSize: 1
+      }
      },
     },
    },

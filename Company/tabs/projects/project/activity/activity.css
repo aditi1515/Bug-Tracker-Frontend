@@ -1,0 +1,108 @@
+.doneBy img {
+ width: 30px;
+ height: 30px;
+ border-radius: 50%;
+}
+
+.ticket-create-log,
+.ticket-edit-log {
+ display: flex;
+ gap: 10px;
+ align-items: center;
+ padding: 5px 10px;
+ font-size: 12px;
+ justify-content: space-between;
+ background: rgba(232, 244, 232, 0.675);
+ border-radius: 6px;
+}
+
+.ticket-name {
+ font-size: 14px;
+ font-weight: 600;
+}
+
+.log-time {
+ font-size: 10px;
+ color: #666;
+}
+
+.ticketLogsContainer {
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+ padding: 10px;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ background: white;
+ width: 100%;
+ height: 100%;
+ overflow-y: auto;
+}
+
+.ticket-create-log .doneBy {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+}
+
+.ticket-edit-log {
+ background: rgba(234, 243, 243, 0.671);
+ cursor: pointer;
+}
+
+.ticket-edit-log .doneBy {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+}
+
+.edit-log-info {
+ border: none;
+ outline: none;
+ background: transparent;
+ font-size: 12px;
+ cursor: pointer;
+}
+
+
+.card-body{
+ margin-top: 1rem;
+ padding: 0.3rem;
+ display: flex;
+ flex-direction: column;
+ gap: 0.4rem;
+}
+
+
+.bold-log{
+ font-weight: 600;
+}
+
+.log-change{
+ font-size: 12px;
+}
+
+.member-img-log{
+ width: 20px;
+ height: 20px;
+ border-radius: 50%;
+}
+
+.membersAdded{
+ display: flex;
+align-items: center;
+gap: 4px;
+}
+
+.membersAdded .members{
+ display: flex;
+ gap: 10px;
+ align-items: center;
+}
+
+.activity-log-project{
+ display: flex;
+ gap: 10px;
+padding: 1rem;
+ flex-direction: column;
+}
