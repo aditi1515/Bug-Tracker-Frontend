@@ -6,6 +6,8 @@
 
  <div class="companycount-data-map">
   <div class="companycount-wrapper">
+    <h3>Companies Count</h3>
+
    <div class="companycount-dateSelector date-range-selector">
     <form name="companycountForm">
      <div class="input">
@@ -60,10 +62,38 @@
    <canvas id="companyCountChart"></canvas>
   </div>
  </div>
-
+ <div class="trendsChart-wrapper">
+  <div class="graph-wrapper-comp-Analytics">
+    <div class="companyWisepeople">
+     <h3>Most Loyal Partners</h3>
+     <select name="loyalCompanyLimitOption" ng-change="loyalCompanyLimitChange()" id="" ng-model="loyalPartnerLimitSelectOption" >
+      <option  value="5">5</option>
+      <option value="10">10</option>
+     </select>
+     <div class="locationWiseCompanyCount__map__chart">
+      <canvas id="loyalPartnersChart"></canvas>   </div> 
+  
+    </div>
+   
+  <div class="companyTrend-wrapp">
+    <h3>Company Count Trend</h3>
+    <select
+      name="companyCountTrend-select"
+      ng-change="companyCountTrendOptionChange()"
+      id="companyTrend-select"
+      ng-model="companyTrendCountOption"
+    >
+      <option value="month">Monthly</option>
+      <option value="year">Yearly</option>
+    </select>
+    <div class="companyWiseTicketCountsChart-wrapper">
+      <canvas id="companyCountTrend-chart"></canvas>
+    </div>
+  </div>
+</div>
  <div class="graph-wrapper-comp-Analytics">
   <div class="companyWisepeople">
-   <h3>Company Wise Users</h3>
+   <h3>Company Size Based on Users</h3>
  
    <div class="companyWisePeopleChartWrapper">
     <canvas id="companyWisePeopleChart"></canvas>
@@ -93,7 +123,7 @@
   </div>
  
   <div class="locationWiseCompanyCount">
-   <h2>Location Wise Companies</h2>
+   <h3>Location Wise Companies</h3>
  
    <div class="locationWiseCompanyCount__map">
     <form
@@ -113,4 +143,5 @@
    </div>
  </div>
  </div>
+
 </section>
