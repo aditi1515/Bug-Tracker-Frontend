@@ -133,3 +133,8 @@ label {
  gap: 1rem;
  justify-content: flex-start;
 }
+
+.trends-wrapper{
+    display:flex;
+    gap:1rem;
+}

@@ -51,19 +51,19 @@ function AnalyticsService($http, BASE_URL) {
       });
   };
 
-  this.getcompanyCountTrend = function(option){
+  this.getcompanyCountTrend = function (option) {
     return $http
-    .get(BASE_URL + "analytics/companyCountTrend?option=" + option)
-    .then(function (response) {
-      console.log("ticketCount Trend", response);
-      return response;
-    })
-    .catch(function (err) {
-      console.log("Error getting ticketcount Trend : ", err);
-      return err;
-    });
-  }
-  
+      .get(BASE_URL + "analytics/companyCountTrend?option=" + option)
+      .then(function (response) {
+        console.log("ticketCount Trend", response);
+        return response;
+      })
+      .catch(function (err) {
+        console.log("Error getting ticketcount Trend : ", err);
+        return err;
+      });
+  };
+
   this.getCompanySize = function () {
     return $http
       .get(BASE_URL + "analytics/companySize")
@@ -148,6 +148,18 @@ function AnalyticsService($http, BASE_URL) {
       });
   };
 
+  this.getRoleBasedEmployeesCount = function () {
+    return $http
+      .get(BASE_URL + "analytics/employeesRoleDistribution")
+      .then(function (response) {
+        console.log("employeesRoleDistribution", response);
+        return response;
+      })
+      .catch(function (err) {
+        console.log("Error getting employeesRoleDistribution count: ", err);
+        return err;
+      });
+  };
   this.getprojectWiseUsers = function () {
     return $http
       .get(BASE_URL + "analytics/projectWiseUsers")

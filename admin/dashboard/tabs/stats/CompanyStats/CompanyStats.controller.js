@@ -329,7 +329,7 @@ function companyStatsController($scope, AnalyticsService) {
     var chartData = $scope.projectTrendData;
     if ($scope.projectTrendCountOption == "month") {
       var labels = chartData.map(function (data) {
-        return months[data._id.month - 1];
+        return months[data._id.month - 1] + " " + data._id.year;
       });
     } else {
       var labels = chartData.map(function (data) {
@@ -422,7 +422,7 @@ function companyStatsController($scope, AnalyticsService) {
     var chartData = $scope.ticketTrendData;
     if ($scope.ticketTrendCountOption == "month") {
       var labels = chartData.map(function (data) {
-        return months[data._id.month - 1];
+        return months[data._id.month - 1]+ " " + data._id.year;
       });
     } else {
       var labels = chartData.map(function (data) {

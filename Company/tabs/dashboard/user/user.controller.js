@@ -6,6 +6,7 @@ function CompanyUserDashboardController($scope, AnalyticsService) {
 
   $scope.userCountFormData = {};
   $scope.usersWithMostProjectsFormData = {};
+  $scope.roleBasedEmployeeCountData = {};
 
   var graphColors = [
     "#C2DFFF", // Periwinkle
@@ -105,13 +106,21 @@ function CompanyUserDashboardController($scope, AnalyticsService) {
           },
         },
       },
-      
     });
   }
 
   $scope.usersWithMostProjectsDateChanged = function () {
     getUsersWithMostProjects();
   };
+
+  function employeesRoleDistribution() {
+    AnalyticsService.getRoleBasedEmployeesCount().then(function (response) {
+      console.log("getRoleBasedEmployeesCount", response.data);
+      $scope.roleBasedEmployeeCountData = response.data;
+    });
+  }
+
+  employeesRoleDistribution();
 }
 
 trackflow.controller("CompanyUserDashboardController", [

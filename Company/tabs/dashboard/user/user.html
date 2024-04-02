@@ -53,40 +53,41 @@
       </div>
     </div>
   </div>
-  <div class="users-with-most-projects">
-    <h3>Top 5 Users with most projects</h3>
+  <div class="trends-wrapper">
+    <div class="users-with-most-projects">
+      <h3>Top 5 Users with most projects</h3>
 
-    <div class="companycount-dateSelector date-range-selector">
-      <form name="usersWithMostProjectsForm">
-        <div class="uWMp-input">
-          <label for="">Start Date</label>
-          <input
-            type="date"
-            name="startDate"
-            ng-model="usersWithMostProjectsFormData.startDate"
-            ng-init="usersWithMostProjectsFormData.startDate = formDataInit.startDate"
-            ng-change="usersWithMostProjectsDateChanged()"
-            max="{{usersWithMostProjectsFormData.endDate |  date:'yyyy-MM-dd'}}"
-          />
-        </div>
+      <div class="companycount-dateSelector date-range-selector">
+        <form name="usersWithMostProjectsForm">
+          <div class="uWMp-input">
+            <label for="">Start Date</label>
+            <input
+              type="date"
+              name="startDate"
+              ng-model="usersWithMostProjectsFormData.startDate"
+              ng-init="usersWithMostProjectsFormData.startDate = formDataInit.startDate"
+              ng-change="usersWithMostProjectsDateChanged()"
+              max="{{usersWithMostProjectsFormData.endDate |  date:'yyyy-MM-dd'}}"
+            />
+          </div>
 
-        <div class="uWMp-input">
-          <label for="">End Date</label>
-          <input
-            type="date"
-            name="endDate"
-            ng-model="usersWithMostProjectsFormData.endDate"
-            ng-init="usersWithMostProjectsFormData.endDate = formDataInit.endDate"
-            ng-change="usersWithMostProjectsDateChanged()"
-            min="{{usersWithMostProjectsFormData.startDate |  date:'yyyy-MM-dd'}}"
-            id=""
-          />
-        </div>
-      </form>
-    </div>
+          <div class="uWMp-input">
+            <label for="">End Date</label>
+            <input
+              type="date"
+              name="endDate"
+              ng-model="usersWithMostProjectsFormData.endDate"
+              ng-init="usersWithMostProjectsFormData.endDate = formDataInit.endDate"
+              ng-change="usersWithMostProjectsDateChanged()"
+              min="{{usersWithMostProjectsFormData.startDate |  date:'yyyy-MM-dd'}}"
+              id=""
+            />
+          </div>
+        </form>
+      </div>
 
-    <div class="usersWithMostProjects-table">
-      <!-- <table>
+      <div class="usersWithMostProjects-table">
+        <!-- <table>
         <thead>
           <tr>
             <th>Name</th>
@@ -111,7 +112,13 @@
           </tr>
         </tbody>
       </table> -->
+      </div>
+      <div><canvas id="usersWithMostProject-chart"></canvas></div>
     </div>
-    <div><canvas id="usersWithMostProject-chart"></canvas></div>
+    <div class="users-with-most-projects">
+      <h3>Employees Distribution by Role</h3>
+
+      <div><canvas id="employeesDistributionByRole-chart"></canvas></div>
+    </div>
   </div>
 </section>
