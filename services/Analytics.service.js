@@ -39,9 +39,21 @@ function AnalyticsService($http, BASE_URL) {
       });
   };
 
-  this.getProjectCountTrend = function (option) {
+  this.getProjectCountTrend = function (data) {
+
+    var query = "";
+    if (data.option) {
+      query = "option=" +data.option;
+    }
+    if(data.startDate){
+      query = query + "&startDate=" + data.startDate;
+    }
+    if(data.endDate){
+      query = query + "&endDate=" + data.endDate;
+    }
+
     return $http
-      .get(BASE_URL + "analytics/projectCountTrend?option=" + option)
+      .get(BASE_URL + "analytics/projectCountTrend?" + query)
       .then(function (response) {
         console.log("projectCountTrend", response);
         return response;
@@ -52,9 +64,21 @@ function AnalyticsService($http, BASE_URL) {
       });
   };
 
-  this.getticketCountTrend = function (option) {
+  this.getticketCountTrend = function (data) {
+
+    var query = "";
+    if (data.option) {
+      query = "option=" + data.option;
+    }
+    if(data.startDate){
+      query = query + "&startDate=" + data.startDate;
+    }
+    if(data.endDate){
+      query = query + "&endDate=" + data.endDate;
+    }
+
     return $http
-      .get(BASE_URL + "analytics/ticketCountTrend?option=" + option)
+      .get(BASE_URL + "analytics/ticketCountTrend?" + query)
       .then(function (response) {
         console.log("ticketCount Trend", response);
         return response;
@@ -65,9 +89,19 @@ function AnalyticsService($http, BASE_URL) {
       });
   };
 
-  this.getcompanyCountTrend = function (option) {
+  this.getcompanyCountTrend = function (data) {
+    var query = "";
+    if (data.option) {
+      query = "option=" + data.option;
+    }
+    if(data.startDate){
+      query = query + "&startDate=" + data.startDate;
+    }
+    if(data.endDate){
+      query = query + "&endDate=" + data.endDate;
+    }
     return $http
-      .get(BASE_URL + "analytics/companyCountTrend?option=" + option)
+      .get(BASE_URL + "analytics/companyCountTrend?" + query)
       .then(function (response) {
         console.log("ticketCount Trend", response);
         return response;

@@ -4,13 +4,68 @@
   href="../../../../../admin/dashboard/tabs/stats/company/companyStat.css"
  />
  
+ <div class="chart-option-picker">
+
+  <select
+  name="companyCountTrend-select"
+  ng-change="countTrendOptionChange()"
+  id="companyTrend-select"
+  ng-model="trendCountOption"
+>
+  <option value="month">Monthly</option>
+  <option value="year">Yearly</option>
+</select>
+
+<form name="trendCountForm" class="trendCountForm">
+  <div class="input">
+    <label for="">Start {{trendCountOption === 'month' ? 'date' : 'year'}}</label>
+    <input
+      type="date"
+      name="startDate"
+      ng-if="trendCountOption === 'month'"
+      ng-model="trendCountFormData.startDate"
+      ng-init="trendCountFormData.startDate = formDataInit.startDate"
+      ng-change="countTrendOptionChange()"
+      max="{{trendCountFormData.endDate |  date:'yyyy-MM-dd'}}"
+    />
+    
+    <input ng-if="trendCountOption === 'year'" 
+    ng-model="trendCountFormData.startYear"
+    ng-init="trendCountFormData.startYear = formDataInit.startYear"
+    ng-change="countTrendOptionChange()"
+    type="number" min="1900" max="2099" step="1" />
+  </div>
+  <div class="input">
+    <label for="">End {{trendCountOption === 'month' ? 'date' : 'year'}}</label>
+    <input
+      type="date"
+      name="endDate"
+      ng-model="trendCountFormData.endDate"
+      ng-if="trendCountOption === 'month'"
+      ng-init="trendCountFormData.endDate = formDataInit.endDate"
+      ng-change="countTrendOptionChange()"
+      min="{{trendCountFormData.startDate |  date:'yyyy-MM-dd'}}"
+      id=""
+    />
+    <input ng-if="trendCountOption === 'year'" 
+    ng-model="trendCountFormData.endYear"
+    ng-init="trendCountFormData.endYear = formDataInit.endYear"
+    ng-change=" countTrendOptionChange()"
+
+    type="number" min="1900" max="2099" step="1"  />
+  </div>
+</form>
+
+
+
+ </div>
 
  <div class="trendsChart-wrapper">
  
    
   <div class="companyTrend-wrapp">
     <h3>Company Registration Trend</h3>
-    <select
+    <!-- <select
       name="companyCountTrend-select"
       ng-change="companyCountTrendOptionChange()"
       id="companyTrend-select"
@@ -18,11 +73,43 @@
     >
       <option value="month">Monthly</option>
       <option value="year">Yearly</option>
-    </select>
+    </select> -->
     <div class="companyWiseTicketCountsChart-wrapper">
       <canvas id="companyCountTrend-chart"></canvas>
     </div>
   </div>
+
+  <div class="projectTrend-wrapp">
+    <h3>Project Count Trend</h3>
+    <!-- <select
+      name="projectCountTrend-select"
+      ng-change="projectCountTrendOptionChange()"
+      id="projectTrend-select"
+      ng-model="projectTrendCountOption"
+    >
+      <option value="month">Monthly</option>
+      <option value="year">Yearly</option>
+    </select> -->
+    <div class="companyWiseTicketCountsChart-wrapper">
+      <canvas id="projectCountTrend-chart"></canvas>
+    </div>
+  </div>
+  <div class="projectTrend-wrapp">
+    <h3>Ticket Count Trend</h3>
+    <!-- <select
+      name="ticketCountTrend-select"
+      ng-change="ticketCountTrendOptionChange()"
+      id="ticketTrend-select"
+      ng-model="ticketTrendCountOption"
+    >
+      <option value="month">Monthly</option>
+      <option value="year">Yearly</option>
+    </select> -->
+    <div class="companyWiseTicketCountsChart-wrapper">
+      <canvas id="ticketCountTrend-chart"></canvas>
+    </div>
+  </div>
+
 </div>
  <div class="graph-wrapper-comp-Analytics">
   <div class="companyWisepeople">

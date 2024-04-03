@@ -1,496 +1,491 @@
 function companyStatsController($scope, AnalyticsService) {
-  $scope.companyWisePeople = [];
-  $scope.currtCWPpage = 1;
-  $scope.totalPagesInCWP = 0;
-  $scope.currtProjectCWPage = 1;
-  $scope.totalPagesInProjectCW = 0;
-  $scope.projectCountFormData = {};
-  $scope.formDataInit = {
-    startDate: new Date("2023-01-01"),
-    endDate: new Date("2025-01-01"),
+ $scope.companyWisePeople = [];
+ $scope.currtCWPpage = 1;
+ $scope.totalPagesInCWP = 0;
+ $scope.currtProjectCWPage = 1;
+ $scope.totalPagesInProjectCW = 0;
+ $scope.projectCountFormData = {};
+ $scope.formDataInit = {
+  startDate: new Date("2023-01-01"),
+  endDate: new Date("2025-01-01"),
+ };
+
+ $scope.totalTickets = 0;
+ $scope.ticketCountFormData = {};
+ $scope.cptPage = 1;
+ $scope.totalPagesInCPT = 0;
+ $scope.projectTrendCountOption = "month";
+ $scope.ticketTrendCountOption = "month";
+ var graphColors = [
+  "#C2DFFF", // Periwinkle
+  "#F5DCE8", // Lavender Rose
+  "#D0F0C0", // Tea Green
+  "#E2CCFF", // Light Pastel Purple
+  "#FFDFD3", // Peach Puff
+  "#C8E6C9", // Tea Green Light
+  "#E1E0FF", // Periwinkle Light
+  "#FFE5F7", // Pink Light
+  "#D8FFCC", // Light Mint
+  "#FFEEDD", // Light Apricot
+ ];
+
+ function fetchcountProjectsInCompany() {
+  AnalyticsService.getProjectsInCompany().then(function (response) {
+   console.log("fetchcountProjectsInCompany", response);
+   $scope.projectCountInCompany = response.data;
+   $scope.totalPagesInProjectCW = Math.ceil(
+    $scope.projectCountInCompany.length / 20
+   );
+   $scope.companyWiseProjectPageChange(1);
+  });
+ }
+
+ fetchcountProjectsInCompany();
+
+ $scope.companyWiseProjectPageChange = function (pageNo) {
+  console.log("Page changed: ", pageNo);
+  var pageSize = 20;
+
+  var data = $scope.projectCountInCompany;
+
+  var start = (pageNo - 1) * pageSize;
+  var end = start + pageSize;
+  data = data.slice(start, end);
+
+  $scope.currtProjectCWPage = pageNo;
+  displayProjectsInCompany(data);
+ };
+
+ function displayProjectsInCompany(chartData) {
+  var labels = chartData.map(function (data) {
+   return data._id.substring(0, Math.min(10, data._id.length));
+  });
+
+  var values = chartData.map(function (data) {
+   return data.projectCount;
+  });
+
+  var data = {
+   labels: labels,
+   datasets: [
+    {
+     label: "Projects",
+     data: values,
+     backgroundColor: graphColors.sort(function () {
+      return Math.random() - 0.5;
+     }),
+    },
+   ],
   };
 
-  $scope.totalTickets = 0;
-  $scope.ticketCountFormData = {};
-  $scope.cptPage = 1;
-  $scope.totalPagesInCPT = 0;
-  $scope.projectTrendCountOption = "month";
-  $scope.ticketTrendCountOption = "month";
-  var graphColors = [
-    "#C2DFFF", // Periwinkle
-    "#F5DCE8", // Lavender Rose
-    "#D0F0C0", // Tea Green
-    "#E2CCFF", // Light Pastel Purple
-    "#FFDFD3", // Peach Puff
-    "#C8E6C9", // Tea Green Light
-    "#E1E0FF", // Periwinkle Light
-    "#FFE5F7", // Pink Light
-    "#D8FFCC", // Light Mint
-    "#FFEEDD", // Light Apricot
-  ];
+  var chartDiv = document.getElementById("companyWiseProjectsChart");
 
-  function fetchcountProjectsInCompany() {
-    AnalyticsService.getProjectsInCompany().then(function (response) {
-      console.log("fetchcountProjectsInCompany", response);
-      $scope.projectCountInCompany = response.data;
-      $scope.totalPagesInProjectCW = Math.ceil(
-        $scope.projectCountInCompany.length / 20
-      );
-      $scope.companyWiseProjectPageChange(1);
-    });
+  var existingChart = Chart.getChart(chartDiv);
+  if (existingChart) {
+   existingChart.destroy();
   }
 
-  fetchcountProjectsInCompany();
-
-  $scope.companyWiseProjectPageChange = function (pageNo) {
-    console.log("Page changed: ", pageNo);
-    var pageSize = 20;
-
-    var data = $scope.projectCountInCompany;
-
-    var start = (pageNo - 1) * pageSize;
-    var end = start + pageSize;
-    data = data.slice(start, end);
-
-    $scope.currtProjectCWPage = pageNo;
-    displayProjectsInCompany(data);
-  };
-
-  function displayProjectsInCompany(chartData) {
-    var labels = chartData.map(function (data) {
-      return data._id.substring(0, Math.min(10, data._id.length));
-    });
-
-    var values = chartData.map(function (data) {
-      return data.projectCount;
-    });
-
-    var data = {
-      labels: labels,
-      datasets: [
-        {
-          label: "Projects",
-          data: values,
-          backgroundColor: graphColors.sort(function () {
-            return Math.random() - 0.5;
-          }),
-        },
-      ],
-    };
-
-    var chartDiv = document.getElementById("companyWiseProjectsChart");
-
-    var existingChart = Chart.getChart(chartDiv);
-    if (existingChart) {
-      existingChart.destroy();
-    }
-
-    new Chart(chartDiv, {
-      type: "bar",
-      data: data,
-      options: {
-        responsive: true,
-        legend: {
-          position: "bottom",
-        },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Companies",
-            },
-          },
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: "Project Count",
-            },
-            ticks: {
-              stepSize: 1,
-            },
-          },
-        },
+  new Chart(chartDiv, {
+   type: "bar",
+   data: data,
+   options: {
+    responsive: true,
+    legend: {
+     position: "bottom",
+    },
+    scales: {
+     x: {
+      title: {
+       display: true,
+       text: "Companies",
       },
-    });
-  }
-
-  function fetchprojectCount() {
-    var body = {
-      startDate:
-        $scope.projectCountFormData.startDate || $scope.formDataInit.startDate,
-      endDate:
-        $scope.projectCountFormData.endDate || $scope.formDataInit.endDate,
-    };
-
-    AnalyticsService.getProjectCount(body).then(function (response) {
-      console.log("fetchprojectCount", response);
-      $scope.projectCount = response.data;
-    });
-  }
-
-  $scope.countProjectDateChanged = function () {
-    fetchprojectCount();
-  };
-
-  //pie chart for project wise companies top 5
-  function fetchTopCompany() {
-    var limit = 5;
-    AnalyticsService.getProjectsInCompany(limit, true).then(function (
-      response
-    ) {
-      console.log("topCompaniesProjectWise", response.data);
-      displayTopCompanyChart(response.data);
-    });
-  }
-
-  function displayTopCompanyChart(chartData) {
-    var labels = chartData.map(function (data) {
-      return data._id.substring(0, Math.min(10, data._id.length));
-    });
-
-    var values = chartData.map(function (data) {
-      return data.projectCount;
-    });
-
-    var data = {
-      labels: labels,
-      datasets: [
-        {
-          label: "Projects",
-          data: values,
-          backgroundColor: graphColors.sort(function () {
-            return Math.random() - 0.5;
-          }),
-        },
-      ],
-    };
-
-    var chartDiv = document.getElementById("topCompanyProjectWiseChart");
-
-    const existingChart = Chart.getChart(chartDiv);
-    if (existingChart) {
-      existingChart.destroy();
-    }
-
-    new Chart(chartDiv, {
-      type: "pie",
-      data: data,
-      options: {
-        responsive: true,
-        plugins: {
-          title: {
-            display: true,
-            text: "Top 5 Companies Project Wise",
-          },
-          legend: {
-            position: "right",
-          },
-        },
-        animation: {
-          animateRotate: true,
-        },
+     },
+     y: {
+      beginAtZero: true,
+      title: {
+       display: true,
+       text: "Project Count",
       },
-    });
-  }
-
-  function getTotalTickets() {
-    var body = {
-      startDate:
-        $scope.ticketCountFormData.startDate || $scope.formDataInit.startDate,
-      endDate:
-        $scope.ticketCountFormData.endDate || $scope.formDataInit.endDate,
-    };
-
-    AnalyticsService.getTotalTickets(body).then(function (response) {
-      console.log("getTotalTickets", response);
-      $scope.totalTickets = formatToK(response.data?.totalTickets);
-    });
-  }
-
-  $scope.countTicketDateChanged = function () {
-    getTotalTickets();
-  };
-
-  function getcompanyWiseTicketCounts() {
-    AnalyticsService.companyWiseTicketCounts().then(function (response) {
-      console.log("companyWiseTicketCounts", response.data);
-
-      $scope.totalPagesInCPT = Math.ceil(
-        response.data.companyWiseTickets.length / 20
-      );
-      $scope.companyWiseTicketCountsChartData =
-        response.data.companyWiseTickets;
-      displayCompanyWiseTicketCounts();
-    });
-  }
-
-  function displayCompanyWiseTicketCounts() {
-    var pageSize = 20;
-    var chartData = $scope.companyWiseTicketCountsChartData;
-    $scope.totalPagesInCPT = Math.ceil(chartData.length / pageSize);
-    var startIndex = ($scope.cptPage - 1) * pageSize;
-    chartData = chartData.slice(startIndex, startIndex + pageSize);
-
-    var labels = chartData.map(function (data) {
-      return data._id.substring(0, Math.min(10, data._id.length));
-    });
-
-    var values = chartData.map(function (data) {
-      return data.totalTickets;
-    });
-
-    var data = {
-      labels: labels,
-      datasets: [
-        {
-          label: "Tickets",
-          data: values,
-          backgroundColor: graphColors.sort(function () {
-            return Math.random() - 0.5;
-          }),
-          borderColor: graphColors.sort(function () {
-            return Math.random() - 0.5;
-          }),
-        },
-      ],
-    };
-
-    var config = {
-      type: "bar",
-      data: data,
-      options: {
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Companies",
-            },
-          },
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: "Ticket Count",
-            },
-          },
-        },
+      ticks: {
+       stepSize: 1,
       },
-    };
+     },
+    },
+   },
+  });
+ }
 
-    var ctx = document
-      .getElementById("companyWiseTicketCountsChart")
-      .getContext("2d");
-
-    const existingChart = Chart.getChart(ctx);
-    if (existingChart) {
-      existingChart.destroy();
-    }
-
-    new Chart(ctx, config);
-  }
-
-  $scope.companyWiseTicketCountsPageChange = function (pageNo) {
-    $scope.cptPage = pageNo;
-    displayCompanyWiseTicketCounts();
+ function fetchprojectCount() {
+  var body = {
+   startDate:
+    $scope.projectCountFormData.startDate || $scope.formDataInit.startDate,
+   endDate: $scope.projectCountFormData.endDate || $scope.formDataInit.endDate,
   };
 
-  getcompanyWiseTicketCounts();
+  AnalyticsService.getProjectCount(body).then(function (response) {
+   console.log("fetchprojectCount", response);
+   $scope.projectCount = response.data;
+  });
+ }
 
-  getTotalTickets();
-
-  fetchTopCompany();
+ $scope.countProjectDateChanged = function () {
   fetchprojectCount();
+ };
 
-  //project count trend
-  function projectCountTrend() {
-    AnalyticsService.getProjectCountTrend($scope.projectTrendCountOption).then(
-      function (response) {
-        $scope.projectTrendData = response.data;
-        displayProjectTrendDataChart();
-      }
-    );
+ //pie chart for project wise companies top 5
+ function fetchTopCompany() {
+  var limit = 5;
+  AnalyticsService.getProjectsInCompany(limit, true).then(function (response) {
+   console.log("topCompaniesProjectWise", response.data);
+   displayTopCompanyChart(response.data);
+  });
+ }
+
+ function displayTopCompanyChart(chartData) {
+  var labels = chartData.map(function (data) {
+   return data._id.substring(0, Math.min(10, data._id.length));
+  });
+
+  var values = chartData.map(function (data) {
+   return data.projectCount;
+  });
+
+  var data = {
+   labels: labels,
+   datasets: [
+    {
+     label: "Projects",
+     data: values,
+     backgroundColor: graphColors.sort(function () {
+      return Math.random() - 0.5;
+     }),
+    },
+   ],
+  };
+
+  var chartDiv = document.getElementById("topCompanyProjectWiseChart");
+
+  const existingChart = Chart.getChart(chartDiv);
+  if (existingChart) {
+   existingChart.destroy();
   }
-  function displayProjectTrendDataChart() {
-    var months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    var chartData = $scope.projectTrendData;
-    if ($scope.projectTrendCountOption == "month") {
-      var labels = chartData.map(function (data) {
-        return months[data._id.month - 1] + " " + data._id.year;
-      });
-    } else {
-      var labels = chartData.map(function (data) {
-        return data._id.year;
-      });
-    }
-    var values = chartData.map(function (data) {
-      return data.projectCount;
-    });
 
-    var data = {
-      labels: labels,
-      datasets: [
-        {
-          label: "Projects",
-          data: values,
-          backgroundColor: graphColors.sort(function () {
-            return Math.random() - 0.5;
-          }),
-        },
-      ],
-    };
+  new Chart(chartDiv, {
+   type: "pie",
+   data: data,
+   options: {
+    responsive: true,
+    plugins: {
+     title: {
+      display: true,
+      text: "Top 5 Companies Project Wise",
+     },
+     legend: {
+      position: "right",
+     },
+    },
+    animation: {
+     animateRotate: true,
+    },
+   },
+  });
+ }
 
-    var chartDiv = document.getElementById("projectCountTrend-chart");
+ function getTotalTickets() {
+  var body = {
+   startDate:
+    $scope.ticketCountFormData.startDate || $scope.formDataInit.startDate,
+   endDate: $scope.ticketCountFormData.endDate || $scope.formDataInit.endDate,
+  };
 
-    var existingChart = Chart.getChart(chartDiv);
-    if (existingChart) {
-      existingChart.destroy();
-    }
+  AnalyticsService.getTotalTickets(body).then(function (response) {
+   console.log("getTotalTickets", response);
+   $scope.totalTickets = formatNumber(response.data?.totalTickets);
+  });
+ }
 
-    new Chart(chartDiv, {
-      type: "line",
-      data: data,
-      options: {
-        responsive: true,
-        legend: {
-          position: "bottom",
-        },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: $scope.projectTrendCountOption,
-            },
-          },
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: "Project Count",
-            },
-            ticks: {
-              stepSize: 1,
-            },
-          },
-        },
+ $scope.countTicketDateChanged = function () {
+  getTotalTickets();
+ };
+
+ function getcompanyWiseTicketCounts() {
+  AnalyticsService.companyWiseTicketCounts().then(function (response) {
+   console.log("companyWiseTicketCounts", response.data);
+
+   $scope.totalPagesInCPT = Math.ceil(
+    response.data.companyWiseTickets.length / 20
+   );
+   $scope.companyWiseTicketCountsChartData = response.data.companyWiseTickets;
+   displayCompanyWiseTicketCounts();
+  });
+ }
+
+ function displayCompanyWiseTicketCounts() {
+  var pageSize = 20;
+  var chartData = $scope.companyWiseTicketCountsChartData;
+  $scope.totalPagesInCPT = Math.ceil(chartData.length / pageSize);
+  var startIndex = ($scope.cptPage - 1) * pageSize;
+  chartData = chartData.slice(startIndex, startIndex + pageSize);
+
+  var labels = chartData.map(function (data) {
+   return data._id.substring(0, Math.min(10, data._id.length));
+  });
+
+  var values = chartData.map(function (data) {
+   return data.totalTickets;
+  });
+
+  var data = {
+   labels: labels,
+   datasets: [
+    {
+     label: "Tickets",
+     data: values,
+     backgroundColor: graphColors.sort(function () {
+      return Math.random() - 0.5;
+     }),
+     borderColor: graphColors.sort(function () {
+      return Math.random() - 0.5;
+     }),
+    },
+   ],
+  };
+
+  var config = {
+   type: "bar",
+   data: data,
+   options: {
+    scales: {
+     x: {
+      title: {
+       display: true,
+       text: "Companies",
       },
-    });
+     },
+     y: {
+      beginAtZero: true,
+      title: {
+       display: true,
+       text: "Ticket Count",
+      },
+     },
+    },
+   },
+  };
+
+  var ctx = document
+   .getElementById("companyWiseTicketCountsChart")
+   .getContext("2d");
+
+  const existingChart = Chart.getChart(ctx);
+  if (existingChart) {
+   existingChart.destroy();
   }
+
+  new Chart(ctx, config);
+ }
+
+ $scope.companyWiseTicketCountsPageChange = function (pageNo) {
+  $scope.cptPage = pageNo;
+  displayCompanyWiseTicketCounts();
+ };
+
+ getcompanyWiseTicketCounts();
+
+ getTotalTickets();
+
+ fetchTopCompany();
+ fetchprojectCount();
+
+ //project count trend
+ function projectCountTrend() {
+  AnalyticsService.getProjectCountTrend($scope.projectTrendCountOption).then(
+   function (response) {
+    $scope.projectTrendData = response.data;
+    displayProjectTrendDataChart();
+   }
+  );
+ }
+ function displayProjectTrendDataChart() {
+  var months = [
+   "Jan",
+   "Feb",
+   "Mar",
+   "Apr",
+   "May",
+   "Jun",
+   "Jul",
+   "Aug",
+   "Sep",
+   "Oct",
+   "Nov",
+   "Dec",
+  ];
+  var chartData = $scope.projectTrendData;
+  if ($scope.projectTrendCountOption == "month") {
+   var labels = chartData.map(function (data) {
+    return months[data._id.month - 1] + " " + data._id.year;
+   });
+  } else {
+   var labels = chartData.map(function (data) {
+    return data._id.year;
+   });
+  }
+  var values = chartData.map(function (data) {
+   return data.projectCount;
+  });
+
+  var data = {
+   labels: labels,
+   datasets: [
+    {
+     label: "Projects",
+     data: values,
+     backgroundColor: graphColors.sort(function () {
+      return Math.random() - 0.5;
+     }),
+    },
+   ],
+  };
+
+  var chartDiv = document.getElementById("projectCountTrend-chart");
+
+  var existingChart = Chart.getChart(chartDiv);
+  if (existingChart) {
+   existingChart.destroy();
+  }
+
+  new Chart(chartDiv, {
+   type: "line",
+   data: data,
+   options: {
+    responsive: true,
+    legend: {
+     position: "bottom",
+    },
+    scales: {
+     x: {
+      title: {
+       display: true,
+       text: $scope.projectTrendCountOption,
+      },
+     },
+     y: {
+      beginAtZero: true,
+      title: {
+       display: true,
+       text: "Project Count",
+      },
+      ticks: {
+       stepSize: 1,
+      },
+     },
+    },
+   },
+  });
+ }
+ projectCountTrend();
+
+ $scope.projectCountTrendOptionChange = function () {
   projectCountTrend();
+ };
 
-  $scope.projectCountTrendOptionChange = function () {
-    projectCountTrend();
+ //ticketCount Trend
+ function ticketCountTrend() {
+  AnalyticsService.getticketCountTrend($scope.ticketTrendCountOption).then(
+   function (response) {
+    $scope.ticketTrendData = response.data;
+    displayTicketTrendDataChart();
+   }
+  );
+ }
+ function displayTicketTrendDataChart() {
+  var months = [
+   "Jan",
+   "Feb",
+   "Mar",
+   "Apr",
+   "May",
+   "Jun",
+   "Jul",
+   "Aug",
+   "Sep",
+   "Oct",
+   "Nov",
+   "Dec",
+  ];
+  var chartData = $scope.ticketTrendData;
+  if ($scope.ticketTrendCountOption == "month") {
+   var labels = chartData.map(function (data) {
+    return months[data._id.month - 1] + " " + data._id.year;
+   });
+  } else {
+   var labels = chartData.map(function (data) {
+    return data._id.year;
+   });
+  }
+  var values = chartData.map(function (data) {
+   return data.ticketCount;
+  });
+
+  var data = {
+   labels: labels,
+   datasets: [
+    {
+     label: "Tickets",
+     data: values,
+     backgroundColor: graphColors.sort(function () {
+      return Math.random() - 0.5;
+     }),
+    },
+   ],
   };
 
-  //ticketCount Trend
-  function ticketCountTrend() {
-    AnalyticsService.getticketCountTrend($scope.ticketTrendCountOption).then(
-      function (response) {
-        $scope.ticketTrendData = response.data;
-        displayTicketTrendDataChart();
-      }
-    );
+  var chartDiv = document.getElementById("ticketCountTrend-chart");
+
+  var existingChart = Chart.getChart(chartDiv);
+  if (existingChart) {
+   existingChart.destroy();
   }
-  function displayTicketTrendDataChart() {
-    var months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    var chartData = $scope.ticketTrendData;
-    if ($scope.ticketTrendCountOption == "month") {
-      var labels = chartData.map(function (data) {
-        return months[data._id.month - 1]+ " " + data._id.year;
-      });
-    } else {
-      var labels = chartData.map(function (data) {
-        return data._id.year;
-      });
-    }
-    var values = chartData.map(function (data) {
-      return data.ticketCount;
-    });
 
-    var data = {
-      labels: labels,
-      datasets: [
-        {
-          label: "Tickets",
-          data: values,
-          backgroundColor: graphColors.sort(function () {
-            return Math.random() - 0.5;
-          }),
-        },
-      ],
-    };
-
-    var chartDiv = document.getElementById("ticketCountTrend-chart");
-
-    var existingChart = Chart.getChart(chartDiv);
-    if (existingChart) {
-      existingChart.destroy();
-    }
-
-    new Chart(chartDiv, {
-      type: "line",
-      data: data,
-      options: {
-        responsive: true,
-        legend: {
-          position: "bottom",
-        },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: $scope.ticketTrendCountOption,
-            },
-          },
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: "Ticket Count",
-            },
-            ticks: {
-              stepSize: 1,
-            },
-          },
-        },
+  new Chart(chartDiv, {
+   type: "line",
+   data: data,
+   options: {
+    responsive: true,
+    legend: {
+     position: "bottom",
+    },
+    scales: {
+     x: {
+      title: {
+       display: true,
+       text: $scope.ticketTrendCountOption,
       },
-    });
-  }
-  ticketCountTrend();
+     },
+     y: {
+      beginAtZero: true,
+      title: {
+       display: true,
+       text: "Ticket Count",
+      },
+      ticks: {
+       stepSize: 1,
+      },
+     },
+    },
+   },
+  });
+ }
+ ticketCountTrend();
 
-  $scope.ticketCountTrendOptionChange = function () {
-    ticketCountTrend();
-  };
+ $scope.ticketCountTrendOptionChange = function () {
+  ticketCountTrend();
+ };
 }
 
 trackflow.controller("companyStatsController", [
-  "$scope",
-  "AnalyticsService",
-  companyStatsController,
+ "$scope",
+ "AnalyticsService",
+ companyStatsController,
 ]);

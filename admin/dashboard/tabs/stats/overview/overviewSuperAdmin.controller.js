@@ -1,150 +1,146 @@
 function overviewSuperAdminController($scope, AnalyticsService) {
-  $scope.formDataInit = {
-    startDate: new Date("2023-01-01"),
-    endDate: new Date("2025-01-01"),
+ $scope.formDataInit = {
+  startDate: new Date("2023-01-01"),
+  endDate: new Date("2025-01-01"),
+ };
+ $scope.currtCWPpage = 1;
+ $scope.totalPagesInCWP = 0;
+ $scope.companyCountFormData = {};
+ $scope.recentlyEnrolledCompaniesData = {};
+ $scope.mostLoyalPartnersData = {};
+ $scope.projectCountFormData = {};
+ $scope.totalTickets = 0;
+ $scope.ticketCountFormData = {};
+
+ $scope.loyalPartnerLimitSelectOption = "5";
+
+ var graphColors = [
+  "#C2DFFF", // Periwinkle
+  "#F5DCE8", // Lavender Rose
+  "#D0F0C0", // Tea Green
+  "#E2CCFF", // Light Pastel Purple
+  "#FFDFD3", // Peach Puff
+  "#C8E6C9", // Tea Green Light
+  "#E1E0FF", // Periwinkle Light
+  "#FFE5F7", // Pink Light
+  "#D8FFCC", // Light Mint
+  "#FFEEDD", // Light Apricot
+ ];
+
+ function fetchcountCompanies() {
+  var startDate =
+   $scope.companyCountFormData.startDate || $scope.formDataInit.startDate;
+  var endDate =
+   $scope.companyCountFormData.endDate || $scope.formDataInit.endDate;
+  console.log("startDate", startDate);
+  console.log("endDate", endDate);
+  AnalyticsService.getCountCompanies({
+   startDate: startDate,
+   endDate: endDate,
+  }).then(
+   function (response) {
+    console.log(response);
+    $scope.companiesCount = response.data;
+    displayCompanyCountChart(response.data);
+   },
+   function (error) {
+    console.log(error);
+   }
+  );
+ }
+
+ function displayCompanyCountChart(chartData) {
+  var chartDiv = document.querySelector("#companyCountChart");
+
+  console.log("chartDiv", chartDiv);
+  var data = {
+   labels: ["Total", "Enabled", "Disabled"],
+   datasets: [
+    {
+     label: "Companies",
+     data: [
+      chartData.totalCompanies,
+      chartData.enabledCompanies,
+      chartData.disabledCompanies,
+     ],
+     backgroundColor: ["#e3e2ff", "#d1da90", "#ffdcdc"],
+    },
+   ],
+   options: {
+    responsive: true,
+    legend: {
+     position: "bottom",
+    },
+   },
   };
-  $scope.currtCWPpage = 1;
-  $scope.totalPagesInCWP = 0;
-  $scope.companyCountFormData = {};
-  $scope.recentlyEnrolledCompaniesData = {};
-  $scope.mostLoyalPartnersData = {};
-  $scope.projectCountFormData = {};
-  $scope.totalTickets = 0;
-  $scope.ticketCountFormData = {};
 
-  $scope.loyalPartnerLimitSelectOption = "5";
-
-  var graphColors = [
-    "#C2DFFF", // Periwinkle
-    "#F5DCE8", // Lavender Rose
-    "#D0F0C0", // Tea Green
-    "#E2CCFF", // Light Pastel Purple
-    "#FFDFD3", // Peach Puff
-    "#C8E6C9", // Tea Green Light
-    "#E1E0FF", // Periwinkle Light
-    "#FFE5F7", // Pink Light
-    "#D8FFCC", // Light Mint
-    "#FFEEDD", // Light Apricot
-  ];
-
-  function fetchcountCompanies() {
-    var startDate =
-      $scope.companyCountFormData.startDate || $scope.formDataInit.startDate;
-    var endDate =
-      $scope.companyCountFormData.endDate || $scope.formDataInit.endDate;
-    console.log("startDate", startDate);
-    console.log("endDate", endDate);
-    AnalyticsService.getCountCompanies({
-      startDate: startDate,
-      endDate: endDate,
-    }).then(
-      function (response) {
-        console.log(response);
-        $scope.companiesCount = response.data;
-        displayCompanyCountChart(response.data);
-      },
-      function (error) {
-        console.log(error);
-      }
-    );
+  const existingChart = Chart.getChart(chartDiv);
+  if (existingChart) {
+   existingChart.destroy();
   }
 
-  function displayCompanyCountChart(chartData) {
-    var chartDiv = document.querySelector("#companyCountChart");
+  new Chart(chartDiv, {
+   type: "pie",
+   data: data,
+  });
+ }
 
-    console.log("chartDiv", chartDiv);
-    var data = {
-      labels: ["Total", "Enabled", "Disabled"],
-      datasets: [
-        {
-          label: "Companies",
-          data: [
-            chartData.totalCompanies,
-            chartData.enabledCompanies,
-            chartData.disabledCompanies,
-          ],
-          backgroundColor: ["#e3e2ff", "#d1da90", "#ffdcdc"],
-        },
-      ],
-      options: {
-        responsive: true,
-        legend: {
-          position: "bottom",
-        },
-      },
-    };
+ fetchcountCompanies();
 
-    const existingChart = Chart.getChart(chartDiv);
-    if (existingChart) {
-      existingChart.destroy();
-    }
-
-    new Chart(chartDiv, {
-      type: "pie",
-      data: data,
-    });
-  }
-
+ $scope.countCompanyDateChanged = function () {
   fetchcountCompanies();
+ };
 
-  $scope.countCompanyDateChanged = function () {
-    fetchcountCompanies();
+ fetchprojectCount();
+
+ function fetchprojectCount() {
+  var body = {
+   startDate:
+    $scope.projectCountFormData.startDate || $scope.formDataInit.startDate,
+   endDate: $scope.projectCountFormData.endDate || $scope.formDataInit.endDate,
   };
 
-  fetchprojectCount();
+  AnalyticsService.getProjectCount(body).then(function (response) {
+   console.log("fetchprojectCount", response);
+   $scope.projectCount = response.data;
+  });
+ }
 
-  function fetchprojectCount() {
-    var body = {
-      startDate:
-        $scope.projectCountFormData.startDate || $scope.formDataInit.startDate,
-      endDate:
-        $scope.projectCountFormData.endDate || $scope.formDataInit.endDate,
-    };
+ function recentlyEnrolledCompanies() {
+  AnalyticsService.getRecentlyEnrolledCompanies().then(function (response) {
+   $scope.recentlyEnrolledCompaniesData = response.data;
+  });
+ }
+ recentlyEnrolledCompanies();
 
-    AnalyticsService.getProjectCount(body).then(function (response) {
-      console.log("fetchprojectCount", response);
-      $scope.projectCount = response.data;
-    });
-  }
+ function mostLoyalPartners() {
+  var limitOption = $scope.loyalPartnerLimitSelectOption;
 
-  function recentlyEnrolledCompanies() {
-    AnalyticsService.getRecentlyEnrolledCompanies().then(function (response) {
-      $scope.recentlyEnrolledCompaniesData = response.data;
-    });
-  }
-  recentlyEnrolledCompanies();
+  AnalyticsService.getMostLoyalPartners(limitOption).then(function (response) {
+   $scope.mostLoyalPartnersData = response.data;
+   displayLoyalPartnerChart();
+  });
+ }
+ mostLoyalPartners();
 
-  function mostLoyalPartners() {
-    var limitOption = $scope.loyalPartnerLimitSelectOption;
+ function getTotalTickets() {
+  var body = {
+   startDate:
+    $scope.ticketCountFormData.startDate || $scope.formDataInit.startDate,
+   endDate: $scope.ticketCountFormData.endDate || $scope.formDataInit.endDate,
+  };
 
-    AnalyticsService.getMostLoyalPartners(limitOption).then(function (
-      response
-    ) {
-      $scope.mostLoyalPartnersData = response.data;
-      displayLoyalPartnerChart();
-    });
-  }
-  mostLoyalPartners();
+  AnalyticsService.getTotalTickets(body).then(function (response) {
+   console.log("getTotalTickets", response);
+   $scope.totalTickets = formatNumber(response.data?.totalTickets);
+  });
+ }
 
-  
-  function getTotalTickets() {
-    var body = {
-      startDate:
-        $scope.ticketCountFormData.startDate || $scope.formDataInit.startDate,
-      endDate:
-        $scope.ticketCountFormData.endDate || $scope.formDataInit.endDate,
-    };
-
-    AnalyticsService.getTotalTickets(body).then(function (response) {
-      console.log("getTotalTickets", response);
-      $scope.totalTickets = formatToK(response.data?.totalTickets);
-    });
-  }
-
+ getTotalTickets();
 }
 
 trackflow.controller("overviewSuperAdminController", [
-  "$scope",
-  "AnalyticsService",
-  overviewSuperAdminController,
+ "$scope",
+ "AnalyticsService",
+ overviewSuperAdminController,
 ]);
