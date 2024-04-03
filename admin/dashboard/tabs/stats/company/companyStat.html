@@ -3,80 +3,13 @@
   rel="stylesheet"
   href="../../../../../admin/dashboard/tabs/stats/company/companyStat.css"
  />
+ 
 
- <div class="companycount-data-map">
-  <div class="companycount-wrapper">
-    <h3>Companies Count</h3>
-
-   <div class="companycount-dateSelector date-range-selector">
-    <form name="companycountForm">
-     <div class="input">
-      <label for="">Start Date</label>
-      <input
-       type="date"
-       name="startDate"
-       ng-model="companyCountFormData.startDate"
-       ng-init="companyCountFormData.startDate = formDataInit.startDate"
-       ng-change="countCompanyDateChanged()"
-       max="{{companyCountFormData.endDate |  date:'yyyy-MM-dd'}}"
-      />
-     </div>
-     <div class="input">
-      <label for="">End Date</label>
-      <input
-       type="date"
-       name="endDate"
-       ng-model="companyCountFormData.endDate"
-       ng-init="companyCountFormData.endDate = formDataInit.endDate"
-       ng-change="countCompanyDateChanged()"
-       min="{{companyCountFormData.startDate |  date:'yyyy-MM-dd'}}"
-       id=""
-      />
-     </div>
-    </form>
-   </div>
-
-   <div class="companycount">
-    <div class="companycount__card">
-     <div class="companycount__card__count">
-      {{companiesCount.totalCompanies}}
-     </div>
-     <div class="companycount__card__title">Total Companies</div>
-    </div>
-    <div class="companycount__card">
-     <div class="companycount__card__count">
-      {{companiesCount.enabledCompanies}}
-     </div>
-     <div class="companycount__card__title">Active Companies</div>
-    </div>
-    <div class="companycount__card">
-     <div class="companycount__card__count">
-      {{companiesCount.disabledCompanies}}
-     </div>
-     <div class="companycount__card__title">Inactive Companies</div>
-    </div>
-   </div>
-  </div>
-
-  <div class="companycountchart-wrapper">
-   <canvas id="companyCountChart"></canvas>
-  </div>
- </div>
  <div class="trendsChart-wrapper">
-  <div class="graph-wrapper-comp-Analytics">
-    <div class="companyWisepeople">
-     <h3>Most Loyal Partners</h3>
-     <select name="loyalCompanyLimitOption" ng-change="loyalCompanyLimitChange()" id="" ng-model="loyalPartnerLimitSelectOption" >
-      <option  value="5">5</option>
-      <option value="10">10</option>
-     </select>
-     <div class="locationWiseCompanyCount__map__chart">
-      <canvas id="loyalPartnersChart"></canvas>   </div> 
-  
-    </div>
+ 
    
   <div class="companyTrend-wrapp">
-    <h3>Company Count Trend</h3>
+    <h3>Company Registration Trend</h3>
     <select
       name="companyCountTrend-select"
       ng-change="companyCountTrendOptionChange()"

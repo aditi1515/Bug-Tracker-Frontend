@@ -65,17 +65,17 @@ trackflow.config([
         url: "/people",
         templateUrl: "./Company/tabs/people/people.html",
         controller: "companyPeopleController",
-    resolve: {
-     authorize: function (auth, $state) {
-      var permissions = auth.role.permissionSet.permissions;
-      if (permissions.PEOPLE.CREATE) {
-       return true;
-      } else {
-       $state.go("company");
-       return false;
-      }
-     },
-    },
+        resolve: {
+          authorize: function (auth, $state) {
+            var permissions = auth.role.permissionSet.permissions;
+            if (permissions.PEOPLE.CREATE) {
+              return true;
+            } else {
+              $state.go("company");
+              return false;
+            }
+          },
+        },
       })
       .state("company.projects", {
         url: "/projects",
@@ -117,6 +117,11 @@ trackflow.config([
         templateUrl: "./admin/dashboard/tabs/stats/company/companyStat.html",
         controller: "CompanyStatController",
       })
+      .state("superAdminDashboard.base.overview", {
+        url: "/overview",
+        templateUrl: "./admin/dashboard/tabs/stats/overview/overviewSuperAdmin.html",
+        controller:"overviewSuperAdminController",
+      })
       .state("superAdminDashboard.base.companySize", {
         url: "/companySize",
         templateUrl:
@@ -127,7 +132,7 @@ trackflow.config([
         url: "/dashboard",
         templateUrl: "./Company/tabs/dashboard/dashboard.html",
         controller: "CompanyDashboardController",
-        redirectTo : "company.dashboard.people"
+        redirectTo: "company.dashboard.people",
       })
       .state("company.dashboard.people", {
         url: "/people",
@@ -152,11 +157,11 @@ trackflow.config([
         templateUrl:
           "./Company/tabs/projects/project/dashboard/people_dashboard/people.dashboard.html",
         controller: "PeopleDashboardInProjectController",
-   })
-   .state("company.projects.project.activity", {
-    url: "/activity",
-    templateUrl: "./Company/tabs/projects/project/activity/activity.html",
-    controller: "ActivityInProjectController",
+      })
+      .state("company.projects.project.activity", {
+        url: "/activity",
+        templateUrl: "./Company/tabs/projects/project/activity/activity.html",
+        controller: "ActivityInProjectController",
       })
       .state("company.projects.project.dashboard.tickets", {
         url: "/tickets",
@@ -170,7 +175,7 @@ trackflow.config([
 ]);
 
 function roleCheck(permissions) {
- // loop on permissions and if all true then resolve
+  // loop on permissions and if all true then resolve
 }
 
 function isAuthenticated($q, UserService, $state) {

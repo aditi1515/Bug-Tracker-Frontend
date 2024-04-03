@@ -12,6 +12,20 @@ function AnalyticsService($http, BASE_URL) {
       });
   };
 
+
+  this.getRecentlyEnrolledCompanies = function (option) {
+    return $http
+      .get(BASE_URL + "analytics/recentlyEnrolledCompanies")
+      .then(function (response) {
+        console.log("getRecentlyEnrolledCompanies", response);
+        return response;
+      })
+      .catch(function (err) {
+        console.log("Error getting RecentlyEnrolledCompanies  : ", err);
+        return err;
+      });
+  };
+  
   this.getLocationWiseCompanyCount = function (body) {
     return $http
       .post(BASE_URL + "analytics/countCompanyByLocation", body)

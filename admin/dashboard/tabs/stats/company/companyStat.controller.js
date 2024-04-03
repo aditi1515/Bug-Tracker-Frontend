@@ -5,12 +5,11 @@ function CompanyStatController($scope, AnalyticsService) {
   };
   $scope.currtCWPpage = 1;
   $scope.totalPagesInCWP = 0;
-  $scope.companyCountFormData = {};
   $scope.locationWiseCompanyFormData = {
     locationOption: "country",
   };
-  $scope.mostLoyalPartnersData = {};
-  $scope.loyalPartnerLimitSelectOption = "5";
+  $scope.companyCountFormData = {};
+
   $scope.companyTrendCountOption = "month";
 
   var graphColors = [
@@ -25,70 +24,6 @@ function CompanyStatController($scope, AnalyticsService) {
     "#D8FFCC", // Light Mint
     "#FFEEDD", // Light Apricot
   ];
-
-  function fetchcountCompanies() {
-    var startDate =
-      $scope.companyCountFormData.startDate || $scope.formDataInit.startDate;
-    var endDate =
-      $scope.companyCountFormData.endDate || $scope.formDataInit.endDate;
-    console.log("startDate", startDate);
-    console.log("endDate", endDate);
-    AnalyticsService.getCountCompanies({
-      startDate: startDate,
-      endDate: endDate,
-    }).then(
-      function (response) {
-        console.log(response);
-        $scope.companiesCount = response.data;
-        displayCompanyCountChart(response.data);
-      },
-      function (error) {
-        console.log(error);
-      }
-    );
-  }
-
-  function displayCompanyCountChart(chartData) {
-    var chartDiv = document.querySelector("#companyCountChart");
-
-    console.log("chartDiv", chartDiv);
-    var data = {
-      labels: ["Total", "Enabled", "Disabled"],
-      datasets: [
-        {
-          label: "Companies",
-          data: [
-            chartData.totalCompanies,
-            chartData.enabledCompanies,
-            chartData.disabledCompanies,
-          ],
-          backgroundColor: ["#e3e2ff", "#d1da90", "#ffdcdc"],
-        },
-      ],
-      options: {
-        responsive: true,
-        legend: {
-          position: "bottom",
-        },
-      },
-    };
-
-    const existingChart = Chart.getChart(chartDiv);
-    if (existingChart) {
-      existingChart.destroy();
-    }
-
-    new Chart(chartDiv, {
-      type: "pie",
-      data: data,
-    });
-  }
-
-  fetchcountCompanies();
-
-  $scope.countCompanyDateChanged = function () {
-    fetchcountCompanies();
-  };
 
   // ----------------- Company count chart  location wise -----------------
 
@@ -247,20 +182,9 @@ function CompanyStatController($scope, AnalyticsService) {
 
   fetchCompanySize();
 
-  $scope.loyalCompanyLimitChange = function () {
-    mostLoyalPartners();
-  };
-  function mostLoyalPartners() {
-    var limitOption = $scope.loyalPartnerLimitSelectOption;
-
-    AnalyticsService.getMostLoyalPartners(limitOption).then(function (
-      response
-    ) {
-      $scope.mostLoyalPartnersData = response.data;
-      displayLoyalPartnerChart();
-    });
-  }
-  mostLoyalPartners();
+  // $scope.loyalCompanyLimitChange = function () {
+  //   mostLoyalPartners();
+  // };
 
   // function displayLoyalPartnerChart() {
   //   var data = $scope.mostLoyalPartnersData;
@@ -362,7 +286,6 @@ function CompanyStatController($scope, AnalyticsService) {
             text: "Most Loyal Partners",
           },
         },
-        
       },
     });
   }

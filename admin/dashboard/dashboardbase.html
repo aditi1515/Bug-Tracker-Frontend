@@ -1,25 +1,32 @@
 <section class="analytics-wrapper">
- <link rel="stylesheet" href="../../admin/dashboard/dashboardbase.css" />
- <div class="analytics-sidebar">
-  <h2>Analytics</h2>
-  <div
-   ui-sref="superAdminDashboard.base.companyStats"
-   ui-sref-active="active"
-   class="analytics-sidebar-option"
-  >
-   <div class="bi-building"></div>
-   <span>Companies </span>
-  </div>
-  <div
-   ui-sref="superAdminDashboard.base.companySize"
-   ui-sref-active="active"
-   class="analytics-sidebar-option"
-  >
-   <div class="bi-box"></div>
-   <span>Project-Ticket </span>
+  <link rel="stylesheet" href="../../admin/dashboard/dashboardbase.css" />
+  <div class="analytics-sidebar">
+    <h2>Analytics</h2>
+    <div
+      ui-sref="superAdminDashboard.base.overview"
+      ui-sref-active="active"
+      class="analytics-sidebar-option"
+    >
+      <div class="bi-journal-check"></div>
+      <span>Overview</span>
+    </div>
+    <div
+      ui-sref="superAdminDashboard.base.companyStats"
+      ui-sref-active="active"
+      class="analytics-sidebar-option"
+    >
+      <div class="bi-building"></div>
+      <span>Companies </span>
+    </div>
+    <div
+      ui-sref="superAdminDashboard.base.companySize"
+      ui-sref-active="active"
+      class="analytics-sidebar-option"
+    >
+      <div class="bi-box"></div>
+      <span>Project-Ticket </span>
+    </div>
   </div>
 
- </div>
-
- <div class="subview" ui-view></div>
+  <div class="subview" ui-view></div>
 </section>

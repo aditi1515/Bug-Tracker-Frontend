@@ -1,123 +1,124 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="trackflow">
- <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trackflow</title>
-  <base href="#!/" />
-  <link rel="stylesheet" href="./index.css" />
-  <!-- bootstrap -->
-  <link
-   rel="stylesheet"
-   href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-   integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-   crossorigin="anonymous"
-  />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trackflow</title>
+    <base href="#!/" />
+    <link rel="stylesheet" href="./index.css" />
+    <!-- bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
 
-  <script
-   src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-   integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-   crossorigin="anonymous"
-  ></script>
-  <script
-   src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-   integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-   crossorigin="anonymous"
-  ></script>
-  <script
-   src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-   integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-   crossorigin="anonymous"
-  ></script>
-  <link
-   rel="stylesheet"
-   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
-  />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
 
-  <!-- select2 css -->
-  <link
-   href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
-   rel="stylesheet"
-  />
+    <!-- select2 css -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
 
-  <!-- select2 script -->
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- select2 script -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-  <!-- angular scripts -->
+    <!-- angular scripts -->
 
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.1.0/angular-ui-router.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.1.0/angular-ui-router.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- app -->
-  <script src="app.js"></script>
+    <!-- app -->
+    <script src="app.js"></script>
 
-  <!-- controllers -->
-  <script src="login/loginController.js"></script>
-  <script src="sidebar/sidebarController.js"></script>
-  <script src="Company/companyController.js"></script>
-  <script src="admin/dashboard/dashboardController.js"></script>
-  <script src="admin/dashboard/tabs/dashboard_company.controller.js"></script>
-  <script src="Company/tabs/people/people.controller.js"></script>
-  <script src="Company/tabs/projects/projects.controller.js"></script>
-  <script src="Company/tabs/projects/manage/manage.controller.js"></script>
-  <script src="Company/tabs/projects/project/ticket/ticket.controller.js"></script>
-  <script src="Company/tabs/projects/project/project.controller.js"></script>
-  <script src="Company/CompanyNotExists/companyNotExists.controller.js"></script>
-  <script src="changepassword/forgotPassword.controller.js"></script>
-  <script src="changepassword/resetPassword.controller.js"></script>
-  <script src="Company/tabs/Role/Role.controller.js"></script>
-  <script src="Company/tabs/activity/activity.controller.js"></script>
-  <script src="admin/dashboard/tabs/stats/company/companyStat.controller.js"></script>
-  <script src="admin/dashboard/tabs/stats/CompanyStats/CompanyStats.controller.js"></script>
-  <script src="admin/dashboard/tabs/stats/ticket/ticketstats.controller.js"></script>
-  <script src="Company/tabs/dashboard/dashboard.controller.js"></script>
-  <script src="Company/tabs/dashboard/user/user.controller.js"></script>
-  <script src="Company/tabs/dashboard/projects/project.dashboard.controller.js"></script>
-  <script src="Company/tabs/projects/project/dashboard/project.dashboard.controller.js"></script>
-  <script src="Company/tabs/projects/project/dashboard/people_dashboard/people.dashboard.controller.js"></script>
-  <script src="Company/tabs/projects/project/activity/activity.controller.js"></script>
-  <script src="Company/tabs/projects/project/dashboard/ticket_dashboard/ticket_dashboard.controller.js"></script>
+    <!-- controllers -->
+    <script src="login/loginController.js"></script>
+    <script src="sidebar/sidebarController.js"></script>
+    <script src="Company/companyController.js"></script>
+    <script src="admin/dashboard/dashboardController.js"></script>
+    <script src="admin/dashboard/tabs/dashboard_company.controller.js"></script>
+    <script src="Company/tabs/people/people.controller.js"></script>
+    <script src="Company/tabs/projects/projects.controller.js"></script>
+    <script src="Company/tabs/projects/manage/manage.controller.js"></script>
+    <script src="Company/tabs/projects/project/ticket/ticket.controller.js"></script>
+    <script src="Company/tabs/projects/project/project.controller.js"></script>
+    <script src="Company/CompanyNotExists/companyNotExists.controller.js"></script>
+    <script src="changepassword/forgotPassword.controller.js"></script>
+    <script src="changepassword/resetPassword.controller.js"></script>
+    <script src="Company/tabs/Role/Role.controller.js"></script>
+    <script src="Company/tabs/activity/activity.controller.js"></script>
+    <script src="admin/dashboard/tabs/stats/company/companyStat.controller.js"></script>
+    <script src="admin/dashboard/tabs/stats/CompanyStats/CompanyStats.controller.js"></script>
+    <script src="admin/dashboard/tabs/stats/ticket/ticketstats.controller.js"></script>
+    <script src="Company/tabs/dashboard/dashboard.controller.js"></script>
+    <script src="Company/tabs/dashboard/user/user.controller.js"></script>
+    <script src="Company/tabs/dashboard/projects/project.dashboard.controller.js"></script>
+    <script src="Company/tabs/projects/project/dashboard/project.dashboard.controller.js"></script>
+    <script src="Company/tabs/projects/project/dashboard/people_dashboard/people.dashboard.controller.js"></script>
+    <script src="Company/tabs/projects/project/activity/activity.controller.js"></script>
+    <script src="Company/tabs/projects/project/dashboard/ticket_dashboard/ticket_dashboard.controller.js"></script>
+    <script src="admin/dashboard/tabs/stats/overview/overviewSuperAdmin.controller.js"></script>
 
-  <!-- services -->
-  <script src="services/User.service.js"></script>
-  <script src="services/sidebar.service.js"></script>
-  <script src="services//Modal.service.js"></script>
-  <script src="services/Form.service.js"></script>
-  <script src="services/Company.service.js"></script>
-  <script src="services/snackbar.service.js"></script>
-  <script src="services/Project.service.js"></script>
-  <script src="services/Ticket.service.js"></script>
-  <script src="services/Role.service.js"></script>
-  <script src="services/Activity.service.js"></script>
-  <script src="services/Analytics.service.js"></script>
+    <!-- services -->
+    <script src="services/User.service.js"></script>
+    <script src="services/sidebar.service.js"></script>
+    <script src="services//Modal.service.js"></script>
+    <script src="services/Form.service.js"></script>
+    <script src="services/Company.service.js"></script>
+    <script src="services/snackbar.service.js"></script>
+    <script src="services/Project.service.js"></script>
+    <script src="services/Ticket.service.js"></script>
+    <script src="services/Role.service.js"></script>
+    <script src="services/Activity.service.js"></script>
+    <script src="services/Analytics.service.js"></script>
 
-  <!-- factories -->
-  <script src="factories/formDataFactory.js"></script>
-  <script src="factories/filePreviewFactory.js"></script>
+    <!-- factories -->
+    <script src="factories/formDataFactory.js"></script>
+    <script src="factories/filePreviewFactory.js"></script>
 
-  <!-- utils -->
-  <script src="utils/BaseInterceptor.js"></script>
-  <script src="utils/select2.js"></script>
-  <script src="utils/filemodel.js"></script>
-  <script src="utils/QueryGenerator.js"></script>
-  <script src="./utils/passwordValidatorDirective.js"></script>
-  <script src="./utils/generateJson.js"></script>
-  <script src="./utils/FormDataGenerator.js"></script>
-  <script src="./utils/formaters.js"></script>
+    <!-- utils -->
+    <script src="utils/BaseInterceptor.js"></script>
+    <script src="utils/select2.js"></script>
+    <script src="utils/filemodel.js"></script>
+    <script src="utils/QueryGenerator.js"></script>
+    <script src="./utils/passwordValidatorDirective.js"></script>
+    <script src="./utils/generateJson.js"></script>
+    <script src="./utils/FormDataGenerator.js"></script>
+    <script src="./utils/formaters.js"></script>
 
-  <!-- directives -->
-  <script src="components/sidebar/sidebarDirective.js"></script>
-  <script src="components/Modal/modal.directive.js"></script>
-  <script src="components/Form/Form.directive.js"></script>
-  <script src="components/Form/validators.js"></script>
- </head>
- <body class="">
-  <!-- <sidebar ng-include="'sidebar/sidebar.html'" ng-if="!isLoginPage()"></sidebar> -->
+    <!-- directives -->
+    <script src="components/sidebar/sidebarDirective.js"></script>
+    <script src="components/Modal/modal.directive.js"></script>
+    <script src="components/Form/Form.directive.js"></script>
+    <script src="components/Form/validators.js"></script>
+  </head>
+  <body class="">
+    <!-- <sidebar ng-include="'sidebar/sidebar.html'" ng-if="!isLoginPage()"></sidebar> -->
 
-  <main ui-view></main>
+    <main ui-view></main>
 
-  <div class="alert hide" role="alert"></div>
- </body>
+    <div class="alert hide" role="alert"></div>
+  </body>
 </html>
