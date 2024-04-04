@@ -12,7 +12,6 @@ function AnalyticsService($http, BASE_URL) {
       });
   };
 
-
   this.getRecentlyEnrolledCompanies = function (option) {
     return $http
       .get(BASE_URL + "analytics/recentlyEnrolledCompanies")
@@ -25,7 +24,7 @@ function AnalyticsService($http, BASE_URL) {
         return err;
       });
   };
-  
+
   this.getLocationWiseCompanyCount = function (body) {
     return $http
       .post(BASE_URL + "analytics/countCompanyByLocation", body)
@@ -40,15 +39,14 @@ function AnalyticsService($http, BASE_URL) {
   };
 
   this.getProjectCountTrend = function (data) {
-
     var query = "";
     if (data.option) {
-      query = "option=" +data.option;
+      query = "option=" + data.option;
     }
-    if(data.startDate){
+    if (data.startDate) {
       query = query + "&startDate=" + data.startDate;
     }
-    if(data.endDate){
+    if (data.endDate) {
       query = query + "&endDate=" + data.endDate;
     }
 
@@ -65,15 +63,14 @@ function AnalyticsService($http, BASE_URL) {
   };
 
   this.getticketCountTrend = function (data) {
-
     var query = "";
     if (data.option) {
       query = "option=" + data.option;
     }
-    if(data.startDate){
+    if (data.startDate) {
       query = query + "&startDate=" + data.startDate;
     }
-    if(data.endDate){
+    if (data.endDate) {
       query = query + "&endDate=" + data.endDate;
     }
 
@@ -94,10 +91,10 @@ function AnalyticsService($http, BASE_URL) {
     if (data.option) {
       query = "option=" + data.option;
     }
-    if(data.startDate){
+    if (data.startDate) {
       query = query + "&startDate=" + data.startDate;
     }
-    if(data.endDate){
+    if (data.endDate) {
       query = query + "&endDate=" + data.endDate;
     }
     return $http
@@ -307,6 +304,18 @@ function AnalyticsService($http, BASE_URL) {
       })
       .catch(function (err) {
         console.log("Error getting users with most projects: ", err);
+        return err;
+      });
+  };
+  this.getSystemUsageTime = function () {
+    return $http
+      .get(BASE_URL + "analytics/systemUsageTime/")
+      .then(function (response) {
+        console.log("systemUsageTime", response);
+        return response;
+      })
+      .catch(function (err) {
+        console.log("Error getting systemUsageTime: ", err);
         return err;
       });
   };
