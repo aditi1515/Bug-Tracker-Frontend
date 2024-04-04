@@ -2,8 +2,10 @@ function CompanyStatController($scope, AnalyticsService) {
  $scope.formDataInit = {
   startDate: new Date(new Date().getFullYear(), 0, 1),
   endDate: new Date(new Date().getFullYear(), 11, 31),
-  startYear: new Date().getFullYear() - 1,
+  startYear: new Date().getFullYear(),
   endYear: new Date().getFullYear(),
+  startMonth: new Date().getMonth(),
+  endMonth: new Date().getMonth() + 1,
  };
  $scope.currtCWPpage = 1;
  $scope.totalPagesInCWP = 0;
@@ -11,11 +13,22 @@ function CompanyStatController($scope, AnalyticsService) {
   locationOption: "country",
  };
 
+ $scope.companyTrendPage = 1;
+ $scope.totalPagesInCompanyTrend = 0;
+
+ $scope.projectTrendPage = 1;
+ $scope.totalPagesInProjectTrend = 0;
+
+ $scope.ticketTrendPage = 1;
+ $scope.totalPagesInTicketTrend = 0;
+
  $scope.trendCountFormData = {
   startDate: new Date(new Date().getFullYear(), 0, 1),
   endDate: new Date(new Date().getFullYear(), 11, 31),
-  startYear: new Date().getFullYear() - 1,
+  startYear: new Date().getFullYear(),
   endYear: new Date().getFullYear(),
+  startMonth: new Date().getMonth(),
+  endMonth: new Date().getMonth() + 1,
  };
 
  $scope.companyCountFormData = {};
@@ -310,11 +323,25 @@ function CompanyStatController($scope, AnalyticsService) {
 
   AnalyticsService.getcompanyCountTrend(data).then(function (response) {
    $scope.companyTrendData = response.data;
+   $scope.totalPagesInCompanyTrend = Math.ceil(
+    $scope.companyTrendData.length / 20
+   );
    displayCompanyTrendDataChart();
   });
  }
 
+ $scope.companyTrendPageChange = function (pageNo) {
+  $scope.companyTrendPage = pageNo;
+  displayCompanyTrendDataChart();
+ };
+
  function displayCompanyTrendDataChart() {
+  var pageSize = 20;
+  var chartData = $scope.companyTrendData;
+  $scope.totalPagesInCompanyTrend = Math.ceil(chartData.length / pageSize);
+  var startIndex = ($scope.companyTrendPage - 1) * pageSize;
+  chartData = chartData.slice(startIndex, Math.min(startIndex + pageSize, chartData.length));
+
   var months = [
    "Jan",
    "Feb",
@@ -330,7 +357,13 @@ function CompanyStatController($scope, AnalyticsService) {
    "Dec",
   ];
   var chartData = $scope.companyTrendData;
-  if ($scope.trendCountOption == "month") {
+  if ($scope.trendCountOption == "day") {
+   var labels = chartData.map(function (data) {
+    return (
+     data._id.day + " " + months[data._id.month - 1] + " " + data._id.year
+    );
+   });
+  } else if ($scope.trendCountOption == "month") {
    var labels = chartData.map(function (data) {
     return months[data._id.month - 1] + " " + data._id.year;
    });
@@ -392,7 +425,6 @@ function CompanyStatController($scope, AnalyticsService) {
    },
   });
  }
- companyCountTrend();
 
  $scope.companyCountTrendOptionChange = function () {
   companyCountTrend();
@@ -407,10 +439,25 @@ function CompanyStatController($scope, AnalyticsService) {
   };
   AnalyticsService.getProjectCountTrend(data).then(function (response) {
    $scope.projectTrendData = response.data;
+   $scope.totalPagesInProjectTrend = Math.ceil(
+    $scope.projectTrendData.length / 20
+   );
    displayProjectTrendDataChart();
   });
  }
+
+ $scope.projectTrendPageChange = function (pageNo) {
+  $scope.projectTrendPage = pageNo;
+  displayProjectTrendDataChart();
+ };
+
  function displayProjectTrendDataChart() {
+  var pageSize = 20;
+  var chartData = $scope.projectTrendData;
+  $scope.totalPagesInProjectTrend = Math.ceil(chartData.length / pageSize);
+  var startIndex = ($scope.projectTrendPage - 1) * pageSize;
+  chartData = chartData.slice(startIndex, Math.min(startIndex + pageSize, chartData.length));
+
   var months = [
    "Jan",
    "Feb",
@@ -425,8 +472,13 @@ function CompanyStatController($scope, AnalyticsService) {
    "Nov",
    "Dec",
   ];
-  var chartData = $scope.projectTrendData;
-  if ($scope.trendCountOption == "month") {
+  if ($scope.trendCountOption == "day") {
+   var labels = chartData.map(function (data) {
+    return (
+     data._id.day + " " + months[data._id.month - 1] + " " + data._id.year
+    );
+   });
+  } else if ($scope.trendCountOption == "month") {
    var labels = chartData.map(function (data) {
     return months[data._id.month - 1] + " " + data._id.year;
    });
@@ -488,7 +540,6 @@ function CompanyStatController($scope, AnalyticsService) {
    },
   });
  }
- projectCountTrend();
 
  $scope.projectCountTrendOptionChange = function () {
   projectCountTrend();
@@ -503,10 +554,29 @@ function CompanyStatController($scope, AnalyticsService) {
   };
   AnalyticsService.getticketCountTrend(data).then(function (response) {
    $scope.ticketTrendData = response.data;
+   $scope.totalPagesInTicketTrend = Math.ceil(
+    $scope.ticketTrendData.length / 20
+   );
    displayTicketTrendDataChart();
   });
  }
+
+ $scope.ticketTrendPageChange = function (pageNo) {
+  $scope.ticketTrendPage = pageNo;
+  displayTicketTrendDataChart();
+ };
+
  function displayTicketTrendDataChart() {
+
+
+  var chartData = $scope.ticketTrendData;
+
+  var pageSize = 20;
+  $scope.totalPagesInTicketTrend = Math.ceil(chartData.length / pageSize);
+  var startIndex = ($scope.ticketTrendPage - 1) * pageSize;
+  chartData = chartData.slice(startIndex, Math.min(startIndex + pageSize, chartData.length));
+  
+
   var months = [
    "Jan",
    "Feb",
@@ -521,8 +591,13 @@ function CompanyStatController($scope, AnalyticsService) {
    "Nov",
    "Dec",
   ];
-  var chartData = $scope.ticketTrendData;
-  if ($scope.trendCountOption == "month") {
+  if ($scope.trendCountOption == "day") {
+   var labels = chartData.map(function (data) {
+    return (
+     data._id.day + " " + months[data._id.month - 1] + " " + data._id.year
+    );
+   });
+  } else if ($scope.trendCountOption == "month") {
    var labels = chartData.map(function (data) {
     return months[data._id.month - 1] + " " + data._id.year;
    });
@@ -584,13 +659,19 @@ function CompanyStatController($scope, AnalyticsService) {
    },
   });
  }
- ticketCountTrend();
 
  $scope.ticketCountTrendOptionChange = function () {
   ticketCountTrend();
  };
 
  $scope.countTrendOptionChange = function () {
+  console.log("trendCountOption", $scope.trendCountOption);
+  console.log(
+   "trendCountFormData date",
+   $scope.trendCountFormData.startDate,
+   $scope.trendCountFormData.endDate
+  );
+
   if ($scope.trendCountOption == "year") {
    $scope.trendCountFormData.startDate = new Date(
     $scope.trendCountFormData.startYear,
@@ -602,6 +683,17 @@ function CompanyStatController($scope, AnalyticsService) {
     11,
     31
    );
+  } else if ($scope.trendCountOption == "month") {
+   $scope.trendCountFormData.startDate = new Date(
+    $scope.trendCountFormData.startYear,
+    $scope.trendCountFormData.startMonth,
+    1
+   );
+   $scope.trendCountFormData.endDate = new Date(
+    $scope.trendCountFormData.endYear,
+    $scope.trendCountFormData.endMonth,
+    0
+   );
   }
 
   console.log("trendCountFormData", $scope.trendCountFormData);
@@ -610,6 +702,8 @@ function CompanyStatController($scope, AnalyticsService) {
   projectCountTrend();
   ticketCountTrend();
  };
+
+ $scope.countTrendOptionChange();
 }
 
 trackflow.controller("CompanyStatController", [

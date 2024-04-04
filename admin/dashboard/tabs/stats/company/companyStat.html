@@ -12,48 +12,95 @@
   id="companyTrend-select"
   ng-model="trendCountOption"
 >
+  <option value="day">Day wise</option>
   <option value="month">Monthly</option>
   <option value="year">Yearly</option>
 </select>
 
 <form name="trendCountForm" class="trendCountForm">
   <div class="input">
-    <label for="">Start {{trendCountOption === 'month' ? 'date' : 'year'}}</label>
+    <label for="">Start {{trendCountOption}}</label>
     <input
       type="date"
       name="startDate"
-      ng-if="trendCountOption === 'month'"
+      ng-if="trendCountOption === 'day'"
       ng-model="trendCountFormData.startDate"
-      ng-init="trendCountFormData.startDate = formDataInit.startDate"
+      ng-init="trendCountFormData.startDate"
       ng-change="countTrendOptionChange()"
       max="{{trendCountFormData.endDate |  date:'yyyy-MM-dd'}}"
     />
+    <select
+    ng-if="trendCountOption === 'month'"
+    ng-model="trendCountFormData.startMonth"
+    ng-change="countTrendOptionChange()"
+    ng-init="trendCountFormData.startMonth = formDataInit.startMonth"
+    name="month-select-start" id="">
+    <option ng-value="1">January</option>
+    <option ng-value="2">February</option>
+    <option ng-value="3">March</option>
+    <option ng-value="4">April</option>
+    <option ng-value="5">May</option>
+    <option ng-value="6">June</option>
+    <option ng-value="7">July</option>
+    <option ng-value="8">August</option>
+    <option ng-value="9">September</option>
+    <option ng-value="10">October</option>
+    <option ng-value="11">November</option>
+    <option ng-value="12">December</option>
+    </select>
     
-    <input ng-if="trendCountOption === 'year'" 
+
+
+    <input ng-if="trendCountOption === 'year' || trendCountOption === 'month'" 
     ng-model="trendCountFormData.startYear"
     ng-init="trendCountFormData.startYear = formDataInit.startYear"
     ng-change="countTrendOptionChange()"
     type="number" min="1900" max="2099" step="1" />
   </div>
   <div class="input">
-    <label for="">End {{trendCountOption === 'month' ? 'date' : 'year'}}</label>
+    <label for="">End {{trendCountOption}}</label>
     <input
       type="date"
       name="endDate"
       ng-model="trendCountFormData.endDate"
-      ng-if="trendCountOption === 'month'"
-      ng-init="trendCountFormData.endDate = formDataInit.endDate"
+      ng-if="trendCountOption === 'day'"
+      ng-init="trendCountFormData.endDate"
       ng-change="countTrendOptionChange()"
       min="{{trendCountFormData.startDate |  date:'yyyy-MM-dd'}}"
       id=""
     />
-    <input ng-if="trendCountOption === 'year'" 
+
+    <select
+    ng-if="trendCountOption === 'month'"
+    ng-model="trendCountFormData.endMonth"
+    ng-change="countTrendOptionChange()"
+    ng-init="trendCountFormData.endMonth = formDataInit.endMonth"
+    name="month-select-end" id="">
+    <option ng-value="1">January</option>
+    <option ng-value="2">February</option>
+    <option ng-value="3">March</option>
+    <option ng-value="4">April</option>
+    <option ng-value="5">May</option>
+    <option ng-value="6">June</option>
+    <option ng-value="7">July</option>
+    <option ng-value="8">August</option>
+    <option ng-value="9">September</option>
+    <option ng-value="10">October</option>
+    <option ng-value="11">November</option>
+    <option ng-value="12">December</option>
+    
+    </select>
+
+    <input ng-if="trendCountOption === 'year' || trendCountOption === 'month'" 
     ng-model="trendCountFormData.endYear"
     ng-init="trendCountFormData.endYear = formDataInit.endYear"
     ng-change=" countTrendOptionChange()"
 
     type="number" min="1900" max="2099" step="1"  />
+  
   </div>
+
+
 </form>
 
 
@@ -77,6 +124,29 @@
     <div class="companyWiseTicketCountsChart-wrapper">
       <canvas id="companyCountTrend-chart"></canvas>
     </div>
+
+    <div class="pagination">
+      <div class="pagination__pageCount">
+        <span>Page</span>
+        <span>{{companyTrendPage}}</span>
+        <span>of</span>
+        <span>{{totalPagesInCompanyTrend}}</span>
+      </div>
+
+      <i
+        ng-disabled="companyTrendPage == 1"
+        ng-click="companyTrendPageChange(companyTrendPage - 1)"
+        class="bi-arrow-left-square-fill"
+        ng-class="{disabled:companyTrendPage===1}"
+      ></i>
+      <i
+        class="bi-arrow-right-square-fill"
+        ng-disabled="companyTrendPage === totalPagesInCompanyTrend"
+        ng-click="companyTrendPageChange(companyTrendPage + 1)"
+        ng-class="{disabled:companyTrendPage===totalPagesInCompanyTrend}"
+      ></i>
+    </div>
+
   </div>
 
   <div class="projectTrend-wrapp">
@@ -93,6 +163,28 @@
     <div class="companyWiseTicketCountsChart-wrapper">
       <canvas id="projectCountTrend-chart"></canvas>
     </div>
+
+    <div class="pagination">
+      <div class="pagination__pageCount">
+        <span>Page</span>
+        <span>{{projectTrendPage}}</span>
+        <span>of</span>
+        <span>{{totalPagesInProjectTrend}}</span>
+      </div>
+
+      <i
+        ng-disabled="projectTrendPage == 1"
+        ng-click="projectTrendPageChange(projectTrendPage - 1)"
+        class="bi-arrow-left-square-fill"
+        ng-class="{disabled:projectTrendPage===1}"
+      ></i>
+      <i
+        class="bi-arrow-right-square-fill"
+        ng-disabled="projectTrendPage === totalPagesInProjectTrend"
+        ng-click="projectTrendPageChange(projectTrendPage + 1)"
+        ng-class="{disabled:projectTrendPage===totalPagesInProjectTrend}"
+      ></i>
+    </div>
   </div>
   <div class="projectTrend-wrapp">
     <h3>Ticket Count Trend</h3>
@@ -108,6 +200,30 @@
     <div class="companyWiseTicketCountsChart-wrapper">
       <canvas id="ticketCountTrend-chart"></canvas>
     </div>
+
+    <div class="pagination">
+      <div class="pagination__pageCount">
+        <span>Page</span>
+        <span>{{ticketTrendPage}}</span>
+        <span>of</span>
+        <span>{{totalPagesInTicketTrend}}</span>
+      </div>
+
+      <i
+        ng-disabled="ticketTrendPage == 1"
+        ng-click="ticketTrendPageChange(ticketTrendPage - 1)"
+        class="bi-arrow-left-square-fill"
+        ng-class="{disabled:ticketTrendPage===1}"
+      ></i>
+      <i
+        class="bi-arrow-right-square-fill"
+        ng-disabled="ticketTrendPage === totalPagesInTicketTrend"
+        ng-click="ticketTrendPageChange(ticketTrendPage + 1)"
+        ng-class="{disabled:ticketTrendPage===totalPagesInTicketTrend}"
+      ></i>
+
+    </div>
+
   </div>
 
 </div>
