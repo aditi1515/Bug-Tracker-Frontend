@@ -4,10 +4,11 @@ function CompanyUserDashboardController($scope, AnalyticsService) {
     endDate: new Date("2024-12-31"),
   };
 
-  $scope.userCountFormData = {};
-  $scope.usersWithMostProjectsFormData = {};
-  $scope.roleBasedEmployeeCountData = {};
+  
+  $scope.peopleAnalyticsSearchData = {}
 
+  $scope.roleBasedEmployeeCountData = {};
+  
   var graphColors = [
     "#C2DFFF", // Periwinkle
     "#F5DCE8", // Lavender Rose
@@ -24,11 +25,10 @@ function CompanyUserDashboardController($scope, AnalyticsService) {
   function fetchCompanySize() {
     var body = {
       startDate:
-        $scope.userCountFormData.startDate || $scope.formDataInit.startDate,
-      endDate: $scope.userCountFormData.endDate || $scope.formDataInit.endDate,
+        $scope.peopleAnalyticsSearchData.startDate || $scope.formDataInit.startDate,
+      endDate: $scope.peopleAnalyticsSearchData.endDate || $scope.formDataInit.endDate,
     };
 
-    console.log("fetchCompanySize", body);
 
     AnalyticsService.getCompanySize(body).then(function (response) {
       $scope.companySize = response.data[0];
@@ -45,10 +45,10 @@ function CompanyUserDashboardController($scope, AnalyticsService) {
   function getUsersWithMostProjects() {
     var body = {
       startDate:
-        $scope.usersWithMostProjectsFormData.startDate ||
+        $scope.peopleAnalyticsSearchData.startDate ||
         $scope.formDataInit.startDate,
       endDate:
-        $scope.usersWithMostProjectsFormData.endDate ||
+        $scope.peopleAnalyticsSearchData.endDate ||
         $scope.formDataInit.endDate,
     };
 
@@ -62,7 +62,6 @@ function CompanyUserDashboardController($scope, AnalyticsService) {
 
   function displayUsersWithMostProjectsChart() {
     var data = $scope.usersWithMostProjects;
-    console.log("displayUsersWithMostProjectsChart", data);
 
     var keys = data.map(function (d) {
       return d.details.user.firstname;
@@ -109,18 +108,139 @@ function CompanyUserDashboardController($scope, AnalyticsService) {
     });
   }
 
-  $scope.usersWithMostProjectsDateChanged = function () {
+  $scope.peopleAnalyticsSearchDataChanged = function () {
+    fetchCompanySize()
     getUsersWithMostProjects();
+    getUsersWithMostTickets()
   };
 
   function employeesRoleDistribution() {
     AnalyticsService.getRoleBasedEmployeesCount().then(function (response) {
-      console.log("getRoleBasedEmployeesCount", response.data);
       $scope.roleBasedEmployeeCountData = response.data;
+      displayemployeesRoleDistribution()
     });
   }
 
+
+  function displayemployeesRoleDistribution() {
+
+    var data = $scope.roleBasedEmployeeCountData;
+
+    var keys = data.map(function (d) {
+      return d._id;
+    });
+    var values = data.map(function (d) {
+      return d.roleBasedCount;
+    });
+
+    var ctx = document.getElementById("EmployeeRoleDistribution");
+
+
+    var existingChart = Chart.getChart(ctx);
+    if (existingChart) {
+      existingChart.destroy();
+    }
+    new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: keys,
+        datasets: [
+          {
+            label: "Role",
+            data: values,
+            backgroundColor: graphColors.sort(function () {
+              return Math.random() - 0.5;
+            }),
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        legend: {
+          position: "bottom",
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: "Employee Role Distribution",
+          },
+        },
+      },
+    });
+
+  }
+
+
   employeesRoleDistribution();
+
+
+  function getUsersWithMostTickets() {
+    var body = {
+      startDate:
+        $scope.peopleAnalyticsSearchData.startDate ||
+        $scope.formDataInit.startDate,
+      endDate:
+        $scope.peopleAnalyticsSearchData.endDate ||
+        $scope.formDataInit.endDate,
+    };
+
+    AnalyticsService.getUsersWithMostTickets(body).then(function (response) {
+      $scope.usersWithMostTickets = response.data;
+      displayUsersWithMostTicketsChart();
+    });
+  }
+
+  getUsersWithMostTickets();
+
+  function displayUsersWithMostTicketsChart() {
+    var data = $scope.usersWithMostTickets;
+    console.log("displayUsersWithMostTciketsChart", data);
+
+    var keys = data.map(function (d) {
+      return  d._id.firstname + " " +  d._id.lastname;
+    });
+    var values = data.map(function (d) {
+      return d.totalTickets;
+    });
+
+    var ctx = document.getElementById("usersWithMostTickets-chart");
+
+    var existingChart = Chart.getChart(ctx);
+    if (existingChart) {
+      existingChart.destroy();
+    }
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: keys,
+        datasets: [
+          {
+            label: "Ticket Count",
+            data: values,
+            backgroundColor: graphColors.sort(function () {
+              return Math.random() - 0.5;
+            }),
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        legend: {
+          position: "bottom",
+        },
+        ticks: {
+          stepSize: 1,
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: "User Ticket Count",
+          },
+        },
+      },
+    });
+  }
+
 }
 
 trackflow.controller("CompanyUserDashboardController", [

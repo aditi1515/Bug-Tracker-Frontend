@@ -81,6 +81,9 @@ label {
  background: white;
  padding: 1rem;
  border-radius: 10px;
+ flex-direction: column;
+ gap: 0.6rem;
+ width: 100%;
 }
 
 
@@ -137,4 +140,32 @@ label {
 .trends-wrapper{
     display:flex;
     gap:1rem;
+}
+
+#EmployeeRoleDistribution-wrapper{
+    display: flex;
+    gap: 1rem;
+    width: 60%;
+    height: fit-content;
+    margin: auto;
+}
+
+
+#EmployeeRoleDistribution{
+width: 100%;
+height: 100%;
+flex: 1;
+
+}
+
+.date-picker{
+    display: flex;
+    gap: 1rem;
+}
+
+.date-picker-input input{
+    padding: 0.2rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 8rem;
 }

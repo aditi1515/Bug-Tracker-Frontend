@@ -109,9 +109,14 @@ function AnalyticsService($http, BASE_URL) {
       });
   };
 
-  this.getCompanySize = function () {
+  this.getCompanySize = function (body) {
+    var param = "";
+    if(body){
+      param = "?startDate=" + body.startDate + "&endDate=" + body.endDate;
+    }
+
     return $http
-      .get(BASE_URL + "analytics/companySize")
+      .get(BASE_URL + "analytics/companySize"+param)
       .then(function (response) {
         console.log("getCompanySize", response);
         return response;
@@ -205,9 +210,15 @@ function AnalyticsService($http, BASE_URL) {
         return err;
       });
   };
-  this.getprojectWiseUsers = function () {
+  this.getprojectWiseUsers = function (body) {
+
+    var param = "";
+    if(body){
+      param = "?startDate=" + body.startDate + "&endDate=" + body.endDate;
+    }
+
     return $http
-      .get(BASE_URL + "analytics/projectWiseUsers")
+      .get(BASE_URL + "analytics/projectWiseUsers"+param)
       .then(function (response) {
         console.log("getprojectWiseUsers", response);
         return response;
@@ -219,12 +230,17 @@ function AnalyticsService($http, BASE_URL) {
   };
 
   //get number of tickets in project
-  this.getprojectWiseTickets = function (projectId) {
-    console.log("getprojectWiseTickets", projectId);
+  this.getprojectWiseTickets = function (data) {
 
     var query = "";
-    if (projectId) {
-      query = "?projectId=" + projectId;
+
+    if(data){
+      query = "?startDate=" + data.startDate + "&endDate=" + data.endDate;
+    }
+
+
+    if (data.projectId) {
+      query = "?projectId=" + data.projectId;
     }
 
     return $http
@@ -307,6 +323,21 @@ function AnalyticsService($http, BASE_URL) {
         return err;
       });
   };
+
+
+  this.getUsersWithMostTickets = function (body) {
+    return $http
+      .post(BASE_URL + "analytics/usersWithMostTickets", body)
+      .then(function (response) {
+        console.log("getUsersWithMostProjects", response);
+        return response;
+      })
+      .catch(function (err) {
+        console.log("Error getting users with most projects: ", err);
+        return err;
+      });
+  };
+
   this.getSystemUsageTime = function () {
     return $http
       .get(BASE_URL + "analytics/systemUsageTime/")
@@ -319,6 +350,27 @@ function AnalyticsService($http, BASE_URL) {
         return err;
       });
   };
+
+
+  this.getProjectCompletionTime = function (body) {
+
+    var param = "";
+    if(body){
+      param = "?startDate=" + body.startDate + "&endDate=" + body.endDate;
+    }
+
+    return $http
+      .get(BASE_URL + "analytics/getEachProjectCompletionTime"+param)
+      .then(function (response) {
+        console.log("projectCompletionTime", response);
+        return response;
+      })
+      .catch(function (err) {
+        console.log("Error getting projectCompletionTime: ", err);
+        return err;
+      });
+  
+  }
 }
 
 trackflow.service("AnalyticsService", ["$http", "BASE_URL", AnalyticsService]);

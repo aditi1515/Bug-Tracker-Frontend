@@ -11,3 +11,8 @@ function formatNumber(number) {
       return number.toString();
   }
 }
+
+function convertMillisecondsToHours(ms, decimal = 2) {
+    var hours = ms / 3600000;
+    return hours.toFixed(decimal);
+}

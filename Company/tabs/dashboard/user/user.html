@@ -4,34 +4,36 @@
     href="../../../../Company/tabs/dashboard/user/user.css"
   />
 
+  <form name="date-picker" class="date-picker">
+    <div class="date-picker-input">
+      <label for="">Start Date</label>
+      <input
+        type="date"
+        name="startDate"
+        ng-model="peopleAnalyticsSearchData.startDate"
+        ng-init="peopleAnalyticsSearchData.startDate = formDataInit.startDate"
+        ng-change="peopleAnalyticsSearchDataChanged()"
+        max="{{peopleAnalyticsSearchData.endDate |  date:'yyyy-MM-dd'}}"
+      />
+    </div>
+
+    <div class="date-picker-input">
+      <label for="">End Date</label>
+      <input
+        type="date"
+        name="endDate"
+        ng-model="peopleAnalyticsSearchData.endDate"
+        ng-init="peopleAnalyticsSearchData.endDate = formDataInit.endDate"
+        ng-change="peopleAnalyticsSearchDataChanged()"
+        min="{{peopleAnalyticsSearchData.startDate |  date:'yyyy-MM-dd'}}"
+        id=""
+      />
+    </div>
+  </form>
+
   <div class="users-count-wrapper">
     <h3>Employees Count</h3>
     <div class="companycount-dateSelector date-range-selector">
-      <form name="companycountForm">
-        <div class="input">
-          <label for="">Start Date</label>
-          <input
-            type="date"
-            name="startDate"
-            ng-model="userCountFormData.startDate"
-            ng-init="userCountFormData.startDate = formDataInit.startDate"
-            ng-change="countUserDateChanged()"
-            max="{{userCountFormData.endDate |  date:'yyyy-MM-dd'}}"
-          />
-        </div>
-        <div class="input">
-          <label for="">End Date</label>
-          <input
-            type="date"
-            name="endDate"
-            ng-model="userCountFormData.endDate"
-            ng-init="userCountFormData.endDate = formDataInit.endDate"
-            ng-change="countUserDateChanged()"
-            min="{{userCountFormData.startDate |  date:'yyyy-MM-dd'}}"
-            id=""
-          />
-        </div>
-      </form>
     </div>
 
     <div class="users-count">
@@ -58,32 +60,7 @@
       <h3>Top 5 Users with most projects</h3>
 
       <div class="companycount-dateSelector date-range-selector">
-        <form name="usersWithMostProjectsForm">
-          <div class="uWMp-input">
-            <label for="">Start Date</label>
-            <input
-              type="date"
-              name="startDate"
-              ng-model="usersWithMostProjectsFormData.startDate"
-              ng-init="usersWithMostProjectsFormData.startDate = formDataInit.startDate"
-              ng-change="usersWithMostProjectsDateChanged()"
-              max="{{usersWithMostProjectsFormData.endDate |  date:'yyyy-MM-dd'}}"
-            />
-          </div>
-
-          <div class="uWMp-input">
-            <label for="">End Date</label>
-            <input
-              type="date"
-              name="endDate"
-              ng-model="usersWithMostProjectsFormData.endDate"
-              ng-init="usersWithMostProjectsFormData.endDate = formDataInit.endDate"
-              ng-change="usersWithMostProjectsDateChanged()"
-              min="{{usersWithMostProjectsFormData.startDate |  date:'yyyy-MM-dd'}}"
-              id=""
-            />
-          </div>
-        </form>
+      
       </div>
 
       <div class="usersWithMostProjects-table">
@@ -118,7 +95,14 @@
     <div class="users-with-most-projects">
       <h3>Employees Distribution by Role</h3>
 
-      <div><canvas id="usersWithMostProject-chart"></canvas></div>
+      <div id="EmployeeRoleDistribution-wrapper"><canvas id="EmployeeRoleDistribution"></canvas></div>
+    </div>
+  </div>
+
+  <div class="trends-wrapper">
+    <div class="users-with-most-projects">
+      <h3>Top 5 Users with most tickets</h3>
+      <div><canvas id="usersWithMostTickets-chart"></canvas></div>
     </div>
   </div>
 </section>

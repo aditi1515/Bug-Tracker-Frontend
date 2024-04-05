@@ -20,7 +20,7 @@ function TicketDashboardInProjectController($scope, $state, AnalyticsService) {
  ];
 
  function totalTicketsInProject() {
-  AnalyticsService.getprojectWiseTickets($scope.projectId).then(function (
+  AnalyticsService.getprojectWiseTickets({projectId:$scope.projectId}).then(function (
    response
   ) {
    $scope.totalTickets = response.data[0];

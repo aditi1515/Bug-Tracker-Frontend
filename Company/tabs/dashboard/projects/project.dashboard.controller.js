@@ -11,6 +11,11 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
  $scope.pwtPage = 1;
  $scope.totalPagesInPWT = 0;
 
+ $scope.pctPage = 1;
+  $scope.totalPagesInPCT = 0;
+
+ $scope.projectAnalyticsSearchData = {};
+
  var graphColors = [
   "#C2DFFF", // Periwinkle
   "#F5DCE8", // Lavender Rose
@@ -27,8 +32,10 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
  function fetchcountProjects() {
   var body = {
    startDate:
-    $scope.projectCountFormData.startDate || $scope.formDataInit.startDate,
-   endDate: $scope.projectCountFormData.endDate || $scope.formDataInit.endDate,
+    $scope.projectAnalyticsSearchData.startDate ||
+    $scope.formDataInit.startDate,
+   endDate:
+    $scope.projectAnalyticsSearchData.endDate || $scope.formDataInit.endDate,
   };
 
   AnalyticsService.getProjectCount(body).then(function (response) {
@@ -37,8 +44,11 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
   });
  }
 
- $scope.countProjectDateChanged = function () {
+ $scope.projectAnalyticsSearchDataChanged = function () {
   fetchcountProjects();
+  getprojectWiseTickets();
+  getprojectWiseUsers();
+  getProjectCompletionTime();
  };
 
  function displayProjectsCountChart() {
@@ -59,7 +69,9 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
      {
       label: "Projects",
       data: [data.inProgress, data.complete],
-      backgroundColor: ["#7e7cf6", "#e47a88"],
+      backgroundColor: graphColors.sort(function () {
+       return Math.random() - 0.5;
+      }),
       borderWidth: 1,
      },
     ],
@@ -69,7 +81,15 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
  fetchcountProjects();
 
  function getprojectWiseUsers() {
-  AnalyticsService.getprojectWiseUsers().then(function (response) {
+  var body = {
+   startDate:
+    $scope.projectAnalyticsSearchData.startDate ||
+    $scope.formDataInit.startDate,
+   endDate:
+    $scope.projectAnalyticsSearchData.endDate || $scope.formDataInit.endDate,
+  };
+
+  AnalyticsService.getprojectWiseUsers(body).then(function (response) {
    $scope.projectWiseUsers = response.data;
    console.log("projectWiseUsers", $scope.projectWiseUsers);
    displayprojectWiseUsersChart();
@@ -82,6 +102,7 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
 
   var pageSize = 10;
   $scope.totalPagesInPWU = Math.ceil(data.length / pageSize);
+  $scope.pwuPage = data.length > 0 ? 1 : 0;
   var startIndex = ($scope.pwuPage - 1) * pageSize;
   data = data.slice(startIndex, Math.min(startIndex + pageSize, data.length));
 
@@ -107,7 +128,9 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
       data: data.map(function (item) {
        return item.userCount;
       }),
-      backgroundColor: graphColors,
+      backgroundColor: graphColors.sort(function () {
+       return Math.random() - 0.5;
+      }),
       borderWidth: 1,
      },
     ],
@@ -136,7 +159,15 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
  }
 
  function getprojectWiseTickets() {
-  AnalyticsService.getprojectWiseTickets().then(function (response) {
+  var body = {
+   startDate:
+    $scope.projectAnalyticsSearchData.startDate ||
+    $scope.formDataInit.startDate,
+   endDate:
+    $scope.projectAnalyticsSearchData.endDate || $scope.formDataInit.endDate,
+  };
+
+  AnalyticsService.getprojectWiseTickets(body).then(function (response) {
    $scope.projectWiseTickets = response.data;
    console.log("projectWiseTickets", $scope.projectWiseTickets);
    displayprojectWiseTicketsChart();
@@ -149,6 +180,7 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
   var existsChart = Chart.getChart(chartDiv);
   console.log(data);
   var pageSize = 10;
+
   $scope.totalPagesInPWT = Math.ceil(data.length / pageSize);
   var startIndex = ($scope.pwtPage - 1) * pageSize;
   data = data.slice(startIndex, Math.min(startIndex + pageSize, data.length));
@@ -165,7 +197,9 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
     data: data.map(function (item) {
      return item.bugs;
     }),
-    backgroundColor: graphColors,
+    backgroundColor: graphColors.sort(function () {
+     return Math.random() - 0.5;
+    }),
     borderWidth: 1,
    },
    {
@@ -226,6 +260,91 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
   $scope.pwtPage = page;
   displayprojectWiseTicketsChart();
  };
+
+
+ function getProjectCompletionTime(){
+  var body = {
+    startDate: $scope.projectAnalyticsSearchData.startDate || $scope.formDataInit.startDate,
+    endDate: $scope.projectAnalyticsSearchData.endDate || $scope.formDataInit.endDate,
+  };
+
+  AnalyticsService.getProjectCompletionTime(body).then(function (response) {
+    $scope.projectCompletionTime = response.data;
+    console.log("projectCompletionTime", $scope.projectCompletionTime);
+    displayProjectCompletionTimeChart();
+  });
+ }
+
+  getProjectCompletionTime();
+
+  function displayProjectCompletionTimeChart() {
+    var data = $scope.projectCompletionTime;
+
+    var pageSize = 10;
+    $scope.totalPagesInPCT = Math.ceil(data.length / pageSize);
+    var startIndex = ($scope.pctPage - 1) * pageSize;
+    data = data.slice(startIndex, Math.min(startIndex + pageSize, data.length));
+
+
+    var chartDiv = document.getElementById("projectCompletionTimeChart");
+    var existsChart = Chart.getChart(chartDiv);
+    if (existsChart) {
+      existsChart.destroy();
+    }
+
+    console.log("datadisplayProjectCompletionTimeChart ", data);
+
+
+
+    new Chart(chartDiv, {
+      type: "bar",
+      data: {
+        labels: data.map(function (item) {
+          return item.name
+        }),
+        datasets: [
+          {
+            label: "Average Time(hrs)",
+            data: data.map(function (item) {
+              return convertMillisecondsToHours(item.duration);
+            }),
+            backgroundColor: graphColors.sort(function () {
+              return Math.random() - 0.5;
+            }),
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Projects",
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: "Hours",
+            },
+            beginAtZero: true,
+            ticks: {
+              stepSize: 50,
+            },
+          },
+        },
+      },
+    });
+  
+  }
+
+
+  $scope.projectWiseCTPageChange = function(page){
+    $scope.pctPage = page;
+    displayProjectCompletionTimeChart();
+  }
+
 }
 
 trackflow.controller("CompanyProjectsDashboardController", [

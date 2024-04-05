@@ -4,36 +4,38 @@
   href="../../../../Company/tabs/dashboard/projects/projects.dashboard.css"
  />
 
+ <form name="projectAnalyticsForm-date-picker" class="projectAnalyticsForm-date-picker">
+  <div class="input">
+   <label for="">Start Date</label>
+   <input
+    type="date"
+    name="startDate"
+    ng-model="projectAnalyticsSearchData.startDate"
+    ng-init="projectAnalyticsSearchData.startDate = formDataInit.startDate"
+    ng-change="projectAnalyticsSearchDataChanged()"
+    max="{{projectAnalyticsSearchData.endDate |  date:'yyyy-MM-dd'}}"
+   />
+  </div>
+  <div class="input">
+   <label for="">End Date</label>
+   <input
+    type="date"
+    name="endDate"
+    ng-model="projectAnalyticsSearchData.endDate"
+    ng-init="projectAnalyticsSearchData.endDate = formDataInit.endDate"
+    ng-change="projectAnalyticsSearchDataChanged()"
+    min="{{projectAnalyticsSearchData.startDate |  date:'yyyy-MM-dd'}}"
+    id=""
+   />
+  </div>
+ </form>
+
  <div class="project-count-bar">
   <!-- start end date form -->
   <div class="form-value-container">
     <h3>Projects Count in Company</h3>
    <div class="companycount-dateSelector date-range-selector">
-    <form name="companycountForm">
-     <div class="input">
-      <label for="">Start Date</label>
-      <input
-       type="date"
-       name="startDate"
-       ng-model="projectCountFormData.startDate"
-       ng-init="projectCountFormData.startDate = formDataInit.startDate"
-       ng-change="countProjectDateChanged()"
-       max="{{projectCountFormData.endDate |  date:'yyyy-MM-dd'}}"
-      />
-     </div>
-     <div class="input">
-      <label for="">End Date</label>
-      <input
-       type="date"
-       name="endDate"
-       ng-model="projectCountFormData.endDate"
-       ng-init="projectCountFormData.endDate = formDataInit.endDate"
-       ng-change="countProjectDateChanged()"
-       min="{{projectCountFormData.startDate |  date:'yyyy-MM-dd'}}"
-       id=""
-      />
-     </div>
-    </form>
+    
    </div>
    <div class="project-counts">
     <div class="project-count">
@@ -72,10 +74,10 @@
     </div>
 
     <i
-     ng-disabled="pwuPage == 1"
+     ng-disabled="pwuPage <= 1"
      ng-click="projectWiseUsersPageChange(pwuPage - 1)"
      class="bi-arrow-left-square-fill"
-     ng-class="{disabled:pwuPage===1}"
+     ng-class="{disabled:pwuPage<=1}"
     ></i>
     <i
      class="bi-arrow-right-square-fill"
@@ -102,10 +104,10 @@
     </div>
 
     <i
-     ng-disabled="pwtPage == 1"
+     ng-disabled="pwtPage <= 1"
      ng-click="projectWiseTicketsPageChange(pwtPage - 1)"
      class="bi-arrow-left-square-fill"
-     ng-class="{disabled:pwtPage===1}"
+     ng-class="{disabled:pwtPage <= 1}"
     ></i>
     <i
      class="bi-arrow-right-square-fill"
@@ -117,6 +119,40 @@
  </div>
 </div>
 </div>
+
+<div class="chart-row">
+  <div class="project-wise-users">
+   <h3>Project Completion Time</h3>
+   <div class="project-wise-users-display">
+    <div class="project-wise-users-chart-wrapper">
+      <canvas id="projectCompletionTimeChart"></canvas>
+    </div>
+    <div class="pagination">
+     <div class="pagination__pageCount">
+      <span>Page</span>
+      <span>{{pctPage}}</span>
+      <span>of</span>
+      <span>{{totalPagesInPCT}}</span>
+     </div>
+ 
+     <i
+      ng-disabled="pctPage <= 1"
+      ng-click="projectWiseCTPageChange(pctPage - 1)"
+      class="bi-arrow-left-square-fill"
+      ng-class="{disabled:pctPage<=1}"
+     ></i>
+     <i
+      class="bi-arrow-right-square-fill"
+      ng-disabled="pctPage === totalPagesInPCT"
+      ng-click="projectWiseCTPageChange(pctPage + 1)"
+      ng-class="{disabled:pctPage===totalPagesInPCT}"
+     ></i>
+    </div>
+   </div>
+ </div>
+ 
+
+ </div>
 
  </div>
 
