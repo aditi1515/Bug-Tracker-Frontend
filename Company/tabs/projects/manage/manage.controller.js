@@ -128,7 +128,7 @@ function companyProjectsManageController(
    member
   ) {
    if (member._id === person._id) {
-    console.log("Member selected: ", member._id, person._id);
+    console.log("Member selected: ", member.firstname, person._id);
    }
    return member._id === person._id;
   });

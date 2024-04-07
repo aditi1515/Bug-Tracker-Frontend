@@ -1,13 +1,16 @@
 function CompanyStatController($scope, AnalyticsService) {
  $scope.formDataInit = {
-  startDate: new Date(new Date().getFullYear(), 0, 1),
-  endDate: new Date(new Date().getFullYear(), 11, 31),
+  startDate: new Date(
+   new Date().getFullYear(),
+   new Date().getMonth() - 1,
+   new Date().getDate()
+  ),
+  endDate: new Date(),
   startYear: new Date().getFullYear(),
   endYear: new Date().getFullYear(),
   startMonth: new Date().getMonth(),
   endMonth: new Date().getMonth() + 1,
  };
-
 
  $scope.companyTrendPage = 1;
  $scope.totalPagesInCompanyTrend = 0;
@@ -19,8 +22,12 @@ function CompanyStatController($scope, AnalyticsService) {
  $scope.totalPagesInTicketTrend = 0;
 
  $scope.trendCountFormData = {
-  startDate: new Date(new Date().getFullYear(), 0, 1),
-  endDate: new Date(new Date().getFullYear(), 11, 31),
+  startDate: new Date(
+   new Date().getFullYear(),
+   new Date().getMonth() - 1,
+   new Date().getDate()
+  ),
+  endDate: new Date(),
   startYear: new Date().getFullYear(),
   endYear: new Date().getFullYear(),
   startMonth: new Date().getMonth(),
@@ -42,9 +49,6 @@ function CompanyStatController($scope, AnalyticsService) {
   "#D8FFCC", // Light Mint
   "#FFEEDD", // Light Apricot
  ];
-
-
-
 
  // $scope.loyalCompanyLimitChange = function () {
  //   mostLoyalPartners();
@@ -182,7 +186,10 @@ function CompanyStatController($scope, AnalyticsService) {
   var chartData = $scope.companyTrendData;
   $scope.totalPagesInCompanyTrend = Math.ceil(chartData.length / pageSize);
   var startIndex = ($scope.companyTrendPage - 1) * pageSize;
-  chartData = chartData.slice(startIndex, Math.min(startIndex + pageSize, chartData.length));
+  chartData = chartData.slice(
+   startIndex,
+   Math.min(startIndex + pageSize, chartData.length)
+  );
 
   var months = [
    "Jan",
@@ -298,7 +305,10 @@ function CompanyStatController($scope, AnalyticsService) {
   var chartData = $scope.projectTrendData;
   $scope.totalPagesInProjectTrend = Math.ceil(chartData.length / pageSize);
   var startIndex = ($scope.projectTrendPage - 1) * pageSize;
-  chartData = chartData.slice(startIndex, Math.min(startIndex + pageSize, chartData.length));
+  chartData = chartData.slice(
+   startIndex,
+   Math.min(startIndex + pageSize, chartData.length)
+  );
 
   var months = [
    "Jan",
@@ -409,15 +419,15 @@ function CompanyStatController($scope, AnalyticsService) {
  };
 
  function displayTicketTrendDataChart() {
-
-
   var chartData = $scope.ticketTrendData;
 
   var pageSize = 20;
   $scope.totalPagesInTicketTrend = Math.ceil(chartData.length / pageSize);
   var startIndex = ($scope.ticketTrendPage - 1) * pageSize;
-  chartData = chartData.slice(startIndex, Math.min(startIndex + pageSize, chartData.length));
-  
+  chartData = chartData.slice(
+   startIndex,
+   Math.min(startIndex + pageSize, chartData.length)
+  );
 
   var months = [
    "Jan",

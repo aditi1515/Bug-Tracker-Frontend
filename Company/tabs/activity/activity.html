@@ -112,7 +112,7 @@
          <div
           class="log-change"
           ng-repeat="(key,value) in selectedLog.changes[0].next"
-          ng-if="!['_id','__v','createdAt','updatedAt','companyDetails'].includes(key) && ['permissions','roles'].includes(selectedLog.model.name) "
+          ng-if="!['_id','__v','createdAt','updatedAt','companyDetails','ticketClosedAt'].includes(key) && ['permissions','roles'].includes(selectedLog.model.name) "
          >
           <div class="" ng-if="!isObject(value)">
            <span class="bold">{{key}} : </span>

@@ -57,12 +57,17 @@
 .statusPriorityChartContainer {
  display: flex;
  width: 100%;
+ gap: 1rem;
+ margin-top: 2rem;
 }
 
 .statue-wise-chartContainer,
 .priority-wise-chartContainer {
  flex: 1;
  padding: 1rem;
+ background-color: white;
+ border-radius:10px ;
+ border: 1px solid #ccc;
 }
 
 .user-details {

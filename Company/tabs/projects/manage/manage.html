@@ -162,7 +162,7 @@
        <label for="members"
         >{{isEditingProject ? "Add New Members" : "Members"}}</label
        >
-
+      
        <select
         class="form-control"
         id="members"
@@ -174,6 +174,7 @@
         style="width: 100%"
         placeholder="Select Members"
        >
+     
         <option
          ng-value="{'_id': person._id, 'firstname': person.firstname, 'lastname' : person.lastname , 'email': person.email , 'image': person.image}"
          data-image="{{person.image}}"
@@ -181,7 +182,7 @@
          ng-selected="person._id === profile._id"
          ng-if="!isMemberSelected(person)"
         >
-         {{person.firstname}}
+         {{person.firstname + " " + person.lastname }}
         </option>
        </select>
       </div>

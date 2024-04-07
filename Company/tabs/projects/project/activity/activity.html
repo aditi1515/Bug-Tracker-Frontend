@@ -27,7 +27,7 @@
     </div>
    </div>
 
-   <div class="ticket-edit-log" ng-if="ticketLog.action === 'UPDATE'">
+   <div class="ticket-edit-log" ng-if="ticketLog.action === 'UPDATE'" >
     <div class="doneBy">
      <img src="{{ticketLog.doneBy.image}}" alt="" />
      <span
@@ -58,7 +58,7 @@
      <div class="log-change" ng-repeat="tlc in ticketLog.changes">
       <div
        class="plain-values"
-       ng-if="['status','dueDate','priority','ticketType','title','description'].includes(tlc.key)"
+       ng-if="['status','dueDate','priority','ticketType','title','description','ticketClosedAt'].includes(tlc.key)"
       >
        <span class="bi-arrow-return-right"></span>
        <span>Changed</span>

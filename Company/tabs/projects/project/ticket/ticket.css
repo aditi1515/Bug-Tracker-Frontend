@@ -363,6 +363,7 @@ select.form-control:not([size]):not([multiple]) {
 
 .ticket.pending{
  border-top: 5px solid red;
+ background-color: rgb(240, 209, 209);
 }
 
 .ticket:hover {

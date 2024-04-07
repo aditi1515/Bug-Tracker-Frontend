@@ -296,3 +296,7 @@ button {
  color: var(--dark-pink);
  margin: 1.2rem;
 }
+
+.select2-selection__choice__remove {
+ width: auto;
+}

@@ -141,9 +141,9 @@
       ></i>
       <i
         class="bi-arrow-right-square-fill"
-        ng-disabled="companyTrendPage === totalPagesInCompanyTrend"
+        ng-disabled="companyTrendPage >= totalPagesInCompanyTrend"
         ng-click="companyTrendPageChange(companyTrendPage + 1)"
-        ng-class="{disabled:companyTrendPage===totalPagesInCompanyTrend}"
+        ng-class="{disabled:companyTrendPage>=totalPagesInCompanyTrend}"
       ></i>
     </div>
 
@@ -180,9 +180,9 @@
       ></i>
       <i
         class="bi-arrow-right-square-fill"
-        ng-disabled="projectTrendPage === totalPagesInProjectTrend"
+        ng-disabled="projectTrendPage >= totalPagesInProjectTrend"
         ng-click="projectTrendPageChange(projectTrendPage + 1)"
-        ng-class="{disabled:projectTrendPage===totalPagesInProjectTrend}"
+        ng-class="{disabled:projectTrendPage>=totalPagesInProjectTrend}"
       ></i>
     </div>
   </div>
@@ -217,9 +217,9 @@
       ></i>
       <i
         class="bi-arrow-right-square-fill"
-        ng-disabled="ticketTrendPage === totalPagesInTicketTrend"
+        ng-disabled="ticketTrendPage >= totalPagesInTicketTrend"
         ng-click="ticketTrendPageChange(ticketTrendPage + 1)"
-        ng-class="{disabled:ticketTrendPage===totalPagesInTicketTrend}"
+        ng-class="{disabled:ticketTrendPage>=totalPagesInTicketTrend}"
       ></i>
 
     </div>
@@ -227,7 +227,57 @@
   </div>
 
 </div>
-
+ <!--- <div class="graph-wrapper-comp-Analytics">
+  <div class="companyWisepeople">
+   <h3>Company Size Based on Users</h3>
+ 
+   <div class="companyWisePeopleChartWrapper">
+    <canvas id="companyWisePeopleChart"></canvas>
+   </div>
+ 
+   <div class="pagination">
+    <div class="pagination__pageCount">
+     <span>Page</span>
+     <span>{{currtCWPpage}}</span>
+     <span>of</span>
+     <span>{{totalPagesInCWP}}</span>
+    </div>
+ 
+    <i
+     ng-disabled="currtCWPpage == 1"
+     ng-click="companyWisepeoplePageChange(currtCWPpage - 1)"
+     class="bi-arrow-left-square-fill"
+     ng-class="{disabled:currtCWPpage===1}"
+    ></i>
+    <i
+     class="bi-arrow-right-square-fill"
+     ng-disabled="currtCWPpage >= totalPagesInCWP"
+     ng-click="companyWisepeoplePageChange(currtCWPpage + 1)"
+     ng-class="{disabled:currtCWPpage>=totalPagesInCWP}"
+    ></i>
+   </div>
+  </div>
+ 
+  <div class="locationWiseCompanyCount">
+   <h3>Location Wise Companies</h3>
+ 
+   <div class="locationWiseCompanyCount__map">
+    <form
+     name="locationWiseCompanyForm"
+     class="locationWiseCompanyForm date-range-selector"
+    >
+     <select name="locationOption" ng-change="locationWiseCompanyDateChanged()" id="" ng-model="locationWiseCompanyFormData.locationOption" >
+      <option  value="country">Country</option>
+      <option value="state">State</option>
+      <option value="city">City</option>
+     </select>
+     </div>
+    </form>
+    <div class="locationWiseCompanyCount__map__chart">
+     <canvas id="locationWiseCompanyCountChart"></canvas>
+    </div>
+   </div>
  </div>
+ </div> --->
 
 </section>

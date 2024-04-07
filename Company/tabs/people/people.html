@@ -105,6 +105,15 @@
         Invalid phone number
        </div>
       </div>
+      <div class="form-group col" ng-if="isEditing">
+       <label for="">Status</label>
+     
+       <div class="user-active-wrapper">
+          <span>User Active In Project</span>
+          <input type="checkbox" name="" ng-model="addEmployeeFormData.isCurrentMember" id="user-active-checkbox" checked="addEmployeeFormData.isCurrentMember"/>
+       </div>
+          
+      </div>
      </div>
 
      <div ng-if="isEditing" class="form-row cur-role">
@@ -115,7 +124,7 @@
      <div class="form-row">
       <div class="form-group col">
        <label for="employeeRole">{{isEditing ? 'New Role*' : 'Role*'}}</label>
-      
+
        <select
         class="form-control"
         id="employeeRole"
@@ -123,10 +132,7 @@
         ng-model="addEmployeeFormData.role"
         ng-required="true"
         ng-options=" role.name for role in roles"
-        
-       >
- 
-     </select>
+       ></select>
 
        <div
         class="error"
@@ -175,8 +181,9 @@
        <th scope="col">Email</th>
        <th scope="col">Phone Number</th>
        <th scope="col">Role</th>
-       <!-- <th scope="col">Status</th> -->
+      <th scope="col">Status</th>
        <th scope="col">Join Date</th>
+
        <!-- edit-btn -->
        <th scope="col">Edit</th>
        <!-- admin details -->
@@ -188,8 +195,10 @@
       </tr>
      </thead>
      <tbody>
-      <tr ng-if="person.role.name !== 'COMPANY_ADMIN'" ng-repeat="person in peopleData.users">
-
+      <tr
+       ng-if="person.role.name !== 'COMPANY_ADMIN'"
+       ng-repeat="person in peopleData.users"
+      >
        <td>{{ person.firstname + " " + person.lastname }}</td>
        <td>{{ person.email }}</td>
 
@@ -197,13 +206,13 @@
        <td>
         <span class="badge">{{person.role.name}}</span>
        </td>
-       <!-- <td>
+      <td>
         <span
          class="badge"
          ng-class="{'badge-success': person.isCurrentMember, 'badge-danger': !person.isCurrentMember}"
-         >{{person.isCurrentMember}}</span
+         >{{person.isCurrentMember ? 'Active' : 'Disabled'}}</span
         >
-       </td> -->
+       </td>
        <td>{{person.createdAt | date : 'MM/dd/yyyy'}}</td>
        <!-- <td>{{ company.admin.firstname + " " + company.admin.lastname }}</td>
   <td>{{ company.admin.email }}</td>

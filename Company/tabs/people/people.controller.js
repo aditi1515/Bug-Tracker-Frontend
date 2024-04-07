@@ -103,7 +103,9 @@ function companyPeopleController(
    email: employee.email,
    role: employee.role,
    phoneNumber: employee.phoneNumber,
+   isCurrentMember : employee.isCurrentMember,
    previousData: $scope.currentEditingEmployee,
+
   };
 
   $scope.addEmployeeFormData = editEmployeeFormData;

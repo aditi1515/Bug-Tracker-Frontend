@@ -52,6 +52,7 @@ function CompanyProjectsDashboardController($scope, AnalyticsService) {
   getprojectWiseTickets();
   getprojectWiseUsers();
   getProjectCompletionTime();
+  getProjectWisePendingTickets()
  };
 
  function displayProjectsCountChart() {

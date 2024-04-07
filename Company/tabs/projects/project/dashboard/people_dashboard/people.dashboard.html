@@ -1,85 +1,172 @@
 <section>
-  <link
-    rel="stylesheet"
-    href="../../../../../../Company/tabs/projects/project/dashboard/people_dashboard/people.dashboard.css"
-  />
+ <link
+  rel="stylesheet"
+  href="../../../../../../Company/tabs/projects/project/dashboard/people_dashboard/people.dashboard.css"
+ />
 
-  <div class="project-dashboard-top-stats">
-    <div class="project-user-count-container">
-      <h3>People</h3>
-      <div class="user-count-wrapper">
-        <div class="user-count">
-          <span class="user-count-value">{{usersInProject.count}}</span>
-          <span class="user-count-title"> Total Members </span>
-        </div>
-        <div class="user-count">
-          <span class="user-count-value">{{usersInProject.active}}</span>
-          <span class="user-count-title"> Active </span>
-        </div>
-        <div class="user-count">
-          <span class="user-count-value">{{usersInProject.inActive}}</span>
-          <span class="user-count-title"> InActive </span>
-        </div>
-      </div>
+ <div class="project-dashboard-top-stats">
+  <div class="project-user-count-container">
+   <h3>People</h3>
+   <div class="user-count-wrapper">
+    <div class="user-count">
+     <span class="user-count-value">{{usersInProject.count}}</span>
+     <span class="user-count-title"> Total Members </span>
     </div>
-
-    <div class="date-data-container">
-      <h3>Date</h3>
-      <div class="project-date-data-wrapper">
-        <div class="project-date-data">
-          <span class="project-date-data-value date"
-            >{{projectDetails.createdAt | date : dd-MM-yyyy}}</span
-          >
-          <span class="project-date-data-title"> Started At</span>
-        </div>
-        <div class="project-date-data">
-          <span class="project-date-data-value date"
-            >{{projectDetails.dueDate | date : dd-MM-yyyy}}</span
-          >
-          <span class="project-date-data-title"> Due Date</span>
-        </div>
-        <div class="project-date-data">
-          <span class="project-date-data-value">{{dateData.timePassed}}</span>
-          <span class="project-date-data-title"> Days Passed</span>
-        </div>
-        <div class="project-date-data">
-          <span class="project-date-data-value">{{dateData.timeLeft}}</span>
-          <span class="project-date-data-title"> Days Left</span>
-        </div>
-      </div>
+    <div class="user-count">
+     <span class="user-count-value">{{usersInProject.active}}</span>
+     <span class="user-count-title"> Active </span>
     </div>
+    <div class="user-count">
+     <span class="user-count-value">{{usersInProject.inActive}}</span>
+     <span class="user-count-title"> InActive </span>
+    </div>
+   </div>
   </div>
 
-  <div class="people-table">
-    <h3>Members in Project</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="userDetail in usersInProject.users">
-          <td class="table-username">
-            <img ng-src="{{userDetail.user.image}}" alt="" />
-            <span
-              >{{ userDetail.user.firstname + (userDetail.user.lastname !==
-              'undefined' ? ' ' + userDetail.user.lastname : '') }}</span
-            >
-          </td>
-          <td>{{userDetail.user.email}}</td>
-          <td>
-            <span
-              class="table-status"
-              ng-class="{'badge-success': userDetail.isUserActiveInProject, 'badge-warning': !userDetail.isUserActiveInProject}"
-            >
-              {{userDetail.isUserActiveInProject ? 'Active' : 'InActive'}}
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="date-data-container">
+   <h3>Date</h3>
+   <div class="project-date-data-wrapper">
+    <div class="project-date-data">
+     <span class="project-date-data-value date"
+      >{{projectDetails.createdAt | date : dd-MM-yyyy}}</span
+     >
+     <span class="project-date-data-title"> Started At</span>
+    </div>
+    <div class="project-date-data">
+     <span class="project-date-data-value date"
+      >{{projectDetails.dueDate | date : dd-MM-yyyy}}</span
+     >
+     <span class="project-date-data-title"> Due Date</span>
+    </div>
+    <div class="project-date-data">
+     <span class="project-date-data-value">{{dateData.timePassed}}</span>
+     <span class="project-date-data-title"> Days Passed</span>
+    </div>
+    <div class="project-date-data">
+     <span class="project-date-data-value">{{dateData.timeLeft}}</span>
+     <span class="project-date-data-title"> Days Left</span>
+    </div>
+   </div>
   </div>
+ </div>
+
+ <div class="people-table">
+  <h3>Members in Project</h3>
+  <table>
+   <thead>
+    <tr>
+     <th>Name</th>
+     <th>Email</th>
+     <th>Status</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr ng-repeat="userDetail in usersInProject.users">
+     <td class="table-username">
+      <img ng-src="{{userDetail.user.image}}" alt="" />
+      <span
+       >{{ userDetail.user.firstname + (userDetail.user.lastname !== 'undefined'
+       ? ' ' + userDetail.user.lastname : '') }}</span
+      >
+     </td>
+     <td>{{userDetail.user.email}}</td>
+     <td>
+      <span
+       class="table-status"
+       ng-class="{'badge-success': userDetail.isUserActiveInProject, 'badge-warning': !userDetail.isUserActiveInProject}"
+      >
+       {{userDetail.isUserActiveInProject ? 'Active' : 'InActive'}}
+      </span>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </div>
+
+ <div class="trends-wrapper">
+  <div class="users-with-most-projects">
+   <h3>Most Productive Members</h3>
+   <div><canvas id="mostProductiveMembers-chart-project"></canvas></div>
+   <div class="pagination">
+    <div class="pagination__pageCount">
+     <span>Page</span>
+     <span>{{mPUPage}}</span>
+     <span>of</span>
+     <span>{{totalPagesInMPU}}</span>
+    </div>
+
+    <i
+     ng-disabled="mPUPage <= 1"
+     ng-click="mostProductiveMembersPageChange(mPUPage - 1)"
+     class="bi-arrow-left-square-fill"
+     ng-class="{disabled:mPUPage<=1}"
+    ></i>
+    <i
+     class="bi-arrow-right-square-fill"
+     ng-disabled="mPUPage >=totalPagesInMPU"
+     ng-click="mostProductiveMembersPageChange(mPUPage + 1)"
+     ng-class="{disabled:mPUPage>=totalPagesInMPU}"
+    ></i>
+   </div>
+  </div>
+  <div class="users-with-most-projects">
+   <h3>Least Productive Members</h3>
+   <div><canvas id="leastProductiveMembers-chart-project"></canvas></div>
+   <div class="pagination">
+    <div class="pagination__pageCount">
+     <span>Page</span>
+     <span>{{lPUPage}}</span>
+     <span>of</span>
+     <span>{{totalPagesInLPU}}</span>
+    </div>
+
+    <i
+     ng-disabled="lPUPage <= 1"
+     ng-click="leastProductiveMembersPageChange(lPUPage - 1)"
+     class="bi-arrow-left-square-fill"
+     ng-class="{disabled:lPUPage<=1}"
+    ></i>
+    <i
+     class="bi-arrow-right-square-fill"
+     ng-disabled="lPUPage >=totalPagesInLPU"
+     ng-click="leastProductiveMembersPageChange(lPUPage + 1)"
+     ng-class="{disabled:lPUPage>=totalPagesInLPU}"
+    ></i>
+   </div>
+  </div>
+ </div>
+
+ <div class="trends-wrapper">
+  <div class="users-with-most-projects">
+   <h3>Users with most pending tickets</h3>
+   <div><canvas id="leastTicketResolvers-chart"></canvas></div>
+   <div class="pagination">
+    <div class="pagination__pageCount">
+     <span>Page</span>
+     <span>{{uWMPTPage}}</span>
+     <span>of</span>
+     <span>{{totalPagesInUWMPT}}</span>
+    </div>
+
+    <i
+     ng-disabled="uWMPTPage <= 1"
+     ng-click="userWithMostPendingTicketsPageChange(uWMPTPage - 1)"
+     class="bi-arrow-left-square-fill"
+     ng-class="{disabled:uWMPTPage<=1}"
+    ></i>
+    <i
+     class="bi-arrow-right-square-fill"
+     ng-disabled="uWMPTPage >=totalPagesInUWMPT"
+     ng-click="userWithMostPendingTicketsPageChange(uWMPTPage + 1)"
+     ng-class="{disabled:uWMPTPage>=totalPagesInUWMPT}"
+    ></i>
+   </div>
+  </div>
+
+  <div class="users-with-most-projects">
+    <h3>Top 5 Users with most tickets assigned</h3>
+    <div><canvas id="usersWithMostTickets-chart"></canvas></div>
+  </div>
+
+ </div>
 </section>
