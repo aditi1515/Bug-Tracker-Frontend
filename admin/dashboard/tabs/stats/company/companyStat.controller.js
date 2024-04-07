@@ -7,11 +7,7 @@ function CompanyStatController($scope, AnalyticsService) {
   startMonth: new Date().getMonth(),
   endMonth: new Date().getMonth() + 1,
  };
- $scope.currtCWPpage = 1;
- $scope.totalPagesInCWP = 0;
- $scope.locationWiseCompanyFormData = {
-  locationOption: "country",
- };
+
 
  $scope.companyTrendPage = 1;
  $scope.totalPagesInCompanyTrend = 0;
@@ -32,7 +28,7 @@ function CompanyStatController($scope, AnalyticsService) {
  };
 
  $scope.companyCountFormData = {};
- $scope.trendCountOption = "month";
+ $scope.trendCountOption = "day";
 
  var graphColors = [
   "#C2DFFF", // Periwinkle
@@ -47,162 +43,8 @@ function CompanyStatController($scope, AnalyticsService) {
   "#FFEEDD", // Light Apricot
  ];
 
- // ----------------- Company count chart  location wise -----------------
 
- function fetchlocationWiseCompanyCount() {
-  console.log("fetchlocationWiseCompanyCount");
-  var option = $scope.locationWiseCompanyFormData.locationOption || "country";
-  AnalyticsService.getLocationWiseCompanyCount({
-   option: option,
-  }).then(
-   function (response) {
-    console.log(response);
-    $scope.locationWiseCompaniesCount = response.data;
-    displayLocationWiseCompanyCountChart(response.data);
-   },
-   function (error) {
-    console.log(error);
-   }
-  );
- }
 
- function displayLocationWiseCompanyCountChart(chartData) {
-  var lables = chartData.map(function (data) {
-   return data._id;
-  });
-
-  var values = chartData.map(function (data) {
-   return data.locationWiseCompanies;
-  });
-
-  var data = {
-   labels: lables,
-   datasets: [
-    {
-     label: "Companies",
-     data: values,
-     backgroundColor: [
-      "#e3e2ff",
-      "#d1da90",
-      "#ffdcdc",
-      "#e9a77e",
-      "#6cc5d7",
-      "#7e7cf6",
-     ],
-    },
-   ],
-   options: {
-    responsive: true,
-    legend: {
-     position: "bottom",
-    },
-   },
-  };
-
-  var chartDiv = document.querySelector("#locationWiseCompanyCountChart");
-
-  const existingChart = Chart.getChart(chartDiv);
-  if (existingChart) {
-   existingChart.destroy();
-  }
-
-  new Chart(chartDiv, {
-   type: "bar",
-   data: data,
-  });
- }
-
- $scope.locationWiseCompanyDateChanged = function () {
-  fetchlocationWiseCompanyCount();
- };
-
- fetchlocationWiseCompanyCount();
-
- function fetchCompanySize() {
-  AnalyticsService.getCompanySize().then(function (response) {
-   console.log("fetchCompanySize", response);
-   $scope.companyWisePeople = response.data;
-   $scope.totalPagesInCWP = Math.ceil($scope.companyWisePeople.length / 20);
-   $scope.companyWisepeoplePageChange(1);
-  });
- }
-
- function displayCompanySize(chartData) {
-  console.log("displayCompanySize", chartData);
-  let labels = chartData.map(function (data) {
-   return data._id.substring(0, Math.min(10, data._id.length));
-  });
-  let values = chartData.map(function (data) {
-   return data.totalUsers;
-  });
-
-  var data = {
-   labels: labels,
-   datasets: [
-    {
-     label: "People",
-     data: values,
-     backgroundColor: graphColors.sort(function () {
-      return Math.random() - 0.5;
-     }),
-    },
-   ],
-  };
-
-  var chartDiv = document.getElementById("companyWisePeopleChart");
-  console.log("chartDiv", chartDiv);
-  const existingChart = Chart.getChart(chartDiv);
-  if (existingChart) {
-   existingChart.destroy();
-  }
-
-  new Chart(chartDiv, {
-   type: "bar",
-   data: data,
-   options: {
-    responsive: true,
-    legend: {
-     position: "bottom",
-    },
-    scales: {
-     x: {
-      title: {
-       display: true,
-       text: "Companies",
-      },
-     },
-     y: {
-      title: {
-       display: true,
-       text: "People Count",
-      },
-      ticks: {
-       stepSize: 1,
-      },
-     },
-    },
-   },
-  });
- }
-
- $scope.companyWisepeoplePageChange = function (pageNo) {
-  console.log("Page changed: ", pageNo);
-  var pageSize = 20;
-
-  var data = $scope.companyWisePeople;
-
-  var start = (pageNo - 1) * pageSize;
-  var end = start + pageSize;
-  data = data.slice(start, end);
-
-  $scope.currtCWPpage = pageNo;
-
-  console.log("data", data);
-
-  displayCompanySize(data);
- };
-
- fetchCompanySize();
 
  // $scope.loyalCompanyLimitChange = function () {
  //   mostLoyalPartners();

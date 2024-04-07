@@ -20,11 +20,11 @@ function TicketDashboardInProjectController($scope, $state, AnalyticsService) {
  ];
 
  function totalTicketsInProject() {
-  AnalyticsService.getprojectWiseTickets({projectId:$scope.projectId}).then(function (
-   response
-  ) {
-   $scope.totalTickets = response.data[0];
-  });
+  AnalyticsService.getprojectWiseTickets({ projectId: $scope.projectId }).then(
+   function (response) {
+    $scope.totalTickets = response.data[0];
+   }
+  );
  }
 
  totalTicketsInProject();
@@ -161,12 +161,60 @@ function TicketDashboardInProjectController($scope, $state, AnalyticsService) {
   AnalyticsService.getuserProductivityInTickets(data).then(function (response) {
    console.log("getuserProductivityInTickets", response);
    $scope.userProductivity = response.data;
- 
+   displayTopuserProductivityInTicketsChart();
+  });
+ }
+
+ function displayTopuserProductivityInTicketsChart() {
+  var data = $scope.userProductivity;
+  console.log("displayTopuserProductivityInTicketsChart", data);
+
+  var keys = data.map(function (d) {
+   return d.firstname + " " + d.lastname;
+  });
+  var values = data.map(function (d) {
+   return d.solvedTicketsCount;
+  });
+
+  var ctx = document.getElementById("topTicketsResolved-canvas");
+
+  var existingChart = Chart.getChart(ctx);
+  if (existingChart) {
+   existingChart.destroy();
+  }
+  new Chart(ctx, {
+   type: "bar",
+   data: {
+    labels: keys,
+    datasets: [
+     {
+      label: "TicketCount",
+      data: values,
+      backgroundColor: graphColors.sort(function () {
+       return Math.random() - 0.5;
+      }),
+     },
+    ],
+   },
+   options: {
+    responsive: true,
+    legend: {
+     position: "bottom",
+    },
+    ticks: {
+     stepSize: 1,
+    },
+    plugins: {
+     title: {
+      display: true,
+      text: "User Ticket Count",
+     },
+    },
+   },
   });
  }
 
  fetchTopuserProductivityInTickets();
-
 
  function fetchLeastuserProductivityInTickets() {
   var data = {
@@ -179,11 +227,60 @@ function TicketDashboardInProjectController($scope, $state, AnalyticsService) {
   AnalyticsService.getuserProductivityInTickets(data).then(function (response) {
    console.log("fetchLeastuserProductivityInTickets", response);
    $scope.userProductivityLeast = response.data;
- 
+   displayLeastuserProductivityInTicketsChart();
   });
  }
 
- fetchLeastuserProductivityInTickets()
+ function displayLeastuserProductivityInTicketsChart() {
+  var data = $scope.userProductivityLeast;
+  console.log("displayLeastuserProductivityInTicketsChart", data);
+
+  var keys = data.map(function (d) {
+   return d.firstname + " " + d.lastname;
+  });
+  var values = data.map(function (d) {
+   return d.solvedTicketsCount;
+  });
+
+  var ctx = document.getElementById("leastTicketsResolved-canvas");
+
+  var existingChart = Chart.getChart(ctx);
+  if (existingChart) {
+   existingChart.destroy();
+  }
+  new Chart(ctx, {
+   type: "bar",
+   data: {
+    labels: keys,
+    datasets: [
+     {
+      label: "TicketCount",
+      data: values,
+      backgroundColor: graphColors.sort(function () {
+       return Math.random() - 0.5;
+      }),
+     },
+    ],
+   },
+   options: {
+    responsive: true,
+    legend: {
+     position: "bottom",
+    },
+    ticks: {
+     stepSize: 1,
+    },
+    plugins: {
+     title: {
+      display: true,
+      text: "User Ticket Count",
+     },
+    },
+   },
+  });
+ }
+
+ fetchLeastuserProductivityInTickets();
 }
 
 trackflow.controller("TicketDashboardInProjectController", [

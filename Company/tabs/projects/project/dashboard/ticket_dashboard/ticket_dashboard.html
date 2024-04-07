@@ -19,6 +19,11 @@
      <span class="ticket-count-value">{{totalTickets.fr}}</span>
      <span class="ticket-count-title"> FR </span>
     </div>
+
+    <div class="ticket-count">
+     <span class="ticket-count-value">{{totalTickets.pendingTickets}}</span>
+     <span class="ticket-count-title"> Pending Tickets </span>
+    </div>
    </div>
    <div class="statusPriorityChartContainer">
     <div class="statue-wise-chartContainer">
@@ -31,73 +36,22 @@
   </div>
  </div>
 
-<div class="top-least-wrapper">
+<!-- <div class="top-least-wrapper">
  <div class="top-tickets-resolved-Users">
   <div class="top-tickets-resolved">
    <h3>Top 5 Tickets Resolvers</h3>
-   <div class="top-tickets-resolved-list">
-    <table>
-     <thead >
-      <tr>
-       <th>User</th>
-       <th>Tickets Resolved</th>
-      </tr>
-     </thead>
-     <tbody>
-      <tr ng-repeat="userProd in userProductivity">
-      
-       <td>
-        <div class="user-details">
-         <div class="user-image">
-          <img src="{{userProd.image}}" alt="" />
-         </div>
-         <div class="user-name">
-          <span>{{userProd.firstname}}</span>
-          <span
-           >{{userProd.lastname !== 'undefined' ? userProd.lastname : ""}}</span
-          >
-         </div>
-        </div>
-       </td>
-       <td>{{userProd.solvedTicketsCount}}</td>
-      </tr>
-     </tbody>
-    </table>
+   <div class="top-tickets-resolved-chart">
+    <canvas id="topTicketsResolved-canvas"></canvas>
    </div>
   </div>
  </div>
  <div class="top-tickets-resolved-Users">
   <div class="top-tickets-resolved">
    <h3>Least 5 Tickets Resolvers</h3>
-   <div class="top-tickets-resolved-list">
-    <table>
-     <thead >
-      <tr>
-       <th>User</th>
-       <th>Tickets Remaining</th>
-      </tr>
-     </thead>
-     <tbody>
-      <tr ng-repeat="userProdLeast in userProductivityLeast">
-       <td>
-        <div class="user-details">
-         <div class="user-image">
-          <img src="{{userProdLeast.image}}" alt="" />
-         </div>
-         <div class="user-name">
-          <span>{{userProdLeast.firstname}}</span>
-          <span
-           >{{userProdLeast.lastname !== 'undefined' ? userProdLeast.lastname : ""}}</span
-          >
-         </div>
-        </div>
-       </td>
-       <td>{{userProdLeast.solvedTicketsCount}}</td>
-      </tr>
-     </tbody>
-    </table>
+   <div class="top-tickets-resolved-chart">
+    <canvas id="leastTicketsResolved-canvas"></canvas>
    </div>
   </div>
  </div>
-</div>
+</div> -->
 </section>

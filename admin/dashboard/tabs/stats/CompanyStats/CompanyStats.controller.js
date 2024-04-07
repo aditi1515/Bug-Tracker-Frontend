@@ -10,12 +10,18 @@ function companyStatsController($scope, AnalyticsService) {
   endDate: new Date("2025-01-01"),
  };
 
+
  $scope.totalTickets = 0;
  $scope.ticketCountFormData = {};
  $scope.cptPage = 1;
  $scope.totalPagesInCPT = 0;
  $scope.projectTrendCountOption = "month";
  $scope.ticketTrendCountOption = "month";
+
+ $scope.locationWiseCompanyFormData = {
+  locationOption: "country",
+ };
+
  var graphColors = [
   "#C2DFFF", // Periwinkle
   "#F5DCE8", // Lavender Rose
@@ -482,6 +488,161 @@ function companyStatsController($scope, AnalyticsService) {
  $scope.ticketCountTrendOptionChange = function () {
   ticketCountTrend();
  };
+
+ function fetchlocationWiseCompanyCount() {
+  console.log("fetchlocationWiseCompanyCount");
+  var option = $scope.locationWiseCompanyFormData.locationOption || "country";
+  AnalyticsService.getLocationWiseCompanyCount({
+   option: option,
+  }).then(
+   function (response) {
+    console.log(response);
+    $scope.locationWiseCompaniesCount = response.data;
+    displayLocationWiseCompanyCountChart(response.data);
+   },
+   function (error) {
+    console.log(error);
+   }
+  );
+ }
+
+ function displayLocationWiseCompanyCountChart(chartData) {
+  var lables = chartData.map(function (data) {
+   return data._id;
+  });
+
+  var values = chartData.map(function (data) {
+   return data.locationWiseCompanies;
+  });
+
+  var data = {
+   labels: lables,
+   datasets: [
+    {
+     label: "Companies",
+     data: values,
+     backgroundColor: [
+      "#e3e2ff",
+      "#d1da90",
+      "#ffdcdc",
+      "#e9a77e",
+      "#6cc5d7",
+      "#7e7cf6",
+     ],
+    },
+   ],
+   options: {
+    responsive: true,
+    legend: {
+     position: "bottom",
+    },
+   },
+  };
+
+  var chartDiv = document.querySelector("#locationWiseCompanyCountChart");
+
+  const existingChart = Chart.getChart(chartDiv);
+  if (existingChart) {
+   existingChart.destroy();
+  }
+
+  new Chart(chartDiv, {
+   type: "bar",
+   data: data,
+  });
+ }
+
+ $scope.locationWiseCompanyDateChanged = function () {
+  fetchlocationWiseCompanyCount();
+ };
+
+ fetchlocationWiseCompanyCount();
+
+ function fetchCompanySize() {
+  AnalyticsService.getCompanySize().then(function (response) {
+   console.log("fetchCompanySize", response);
+   $scope.companyWisePeople = response.data;
+   $scope.totalPagesInCWP = Math.ceil($scope.companyWisePeople.length / 20);
+   $scope.companyWisepeoplePageChange(1);
+  });
+ }
+
+ function displayCompanySize(chartData) {
+  console.log("displayCompanySize", chartData);
+  let labels = chartData.map(function (data) {
+   return data._id.substring(0, Math.min(10, data._id.length));
+  });
+  let values = chartData.map(function (data) {
+   return data.totalUsers;
+  });
+
+  var data = {
+   labels: labels,
+   datasets: [
+    {
+     label: "People",
+     data: values,
+     backgroundColor: graphColors.sort(function () {
+      return Math.random() - 0.5;
+     }),
+    },
+   ],
+  };
+
+  var chartDiv = document.getElementById("companyWisePeopleChart");
+  console.log("chartDiv", chartDiv);
+  const existingChart = Chart.getChart(chartDiv);
+  if (existingChart) {
+   existingChart.destroy();
+  }
+
+  new Chart(chartDiv, {
+   type: "bar",
+   data: data,
+   options: {
+    responsive: true,
+    legend: {
+     position: "bottom",
+    },
+    scales: {
+     x: {
+      title: {
+       display: true,
+       text: "Companies",
+      },
+     },
+     y: {
+      title: {
+       display: true,
+       text: "People Count",
+      },
+      ticks: {
+       stepSize: 1,
+      },
+     },
+    },
+   },
+  });
+ }
+
+ $scope.companyWisepeoplePageChange = function (pageNo) {
+  console.log("Page changed: ", pageNo);
+  var pageSize = 20;
+
+  var data = $scope.companyWisePeople;
+
+  var start = (pageNo - 1) * pageSize;
+  var end = start + pageSize;
+  data = data.slice(start, end);
+
+  $scope.currtCWPpage = pageNo;
+
+  console.log("data", data);
+
+  displayCompanySize(data);
+ };
+
+ fetchCompanySize();
 }
 
 trackflow.controller("companyStatsController", [

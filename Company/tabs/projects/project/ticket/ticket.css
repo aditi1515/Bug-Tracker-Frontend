@@ -358,6 +358,11 @@ select.form-control:not([size]):not([multiple]) {
  width: 20rem;
  background: white;
  cursor: pointer;
+
+}
+
+.ticket.pending{
+ border-top: 5px solid red;
 }
 
 .ticket:hover {

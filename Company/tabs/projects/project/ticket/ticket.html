@@ -250,8 +250,8 @@
     { filterType: 'ticketType', filterValue: 'FR' , displayValue:'FR' },
     { filterType: 'priority', filterValue: 'LOW' , displayValue:'LOW' },
     { filterType: 'priority', filterValue: 'MEDIUM' , displayValue:'MEDIUM' },
-    { filterType: 'priority', filterValue: 'HIGH' , displayValue:'HIGH' }
-
+    { filterType: 'priority', filterValue: 'HIGH' , displayValue:'HIGH' },
+    { filterType : 'myTickets' , filterValue : 'My Tickets' , displayValue : 'My Tickets' }
 ]"
     >
      {{filterOption.displayValue}}
@@ -268,12 +268,16 @@
   </div>
 
   <div class="tickets-wrapper">
+  
    <div
     class="ticket"
+    ng-class="{'pending' : checkIfTicketIsPending(ticket)}"
     ng-click="viewTicket('viewTicketModal',ticket)"
     ng-repeat="ticket in ticketsData.tickets"
    >
+
     <div class="ticket-header">
+
      <div class="ticket-title">
       <span>{{ticket.name}}</span>
       <!-- ticket assignees -->

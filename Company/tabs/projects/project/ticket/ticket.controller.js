@@ -12,7 +12,7 @@ function ticketController(
   $scope.addTicketFormData = {};
 
   function init() {
-    $scope.addTicketFormData.dueDate = new Date();
+    $scope.addTicketFormData.dueDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);;
     $scope.minDueDate = new Date();
     $scope.isEditing = false;
   }
@@ -55,6 +55,12 @@ function ticketController(
         console.log("Error adding ticket: ", error);
       });
   };
+
+  $scope.checkIfTicketIsPending = function (ticket) {
+    // based on status and duedate 
+    return ["OPEN" , "IN PROGRESS"].includes(ticket.status) && new Date(ticket.dueDate) < new Date();
+
+  }
 
   function filePreviewCallback(filesUrls) {
     if ($scope.isEditing) {
