@@ -81,9 +81,9 @@
     ></i>
     <i
      class="bi-arrow-right-square-fill"
-     ng-disabled="pwuPage === totalPagesInPWU"
+     ng-disabled="pwuPage >= totalPagesInPWU"
      ng-click="projectWiseUsersPageChange(pwuPage + 1)"
-     ng-class="{disabled:pwuPage===totalPagesInPWU}"
+     ng-class="{disabled:pwuPage>=totalPagesInPWU}"
     ></i>
    </div>
   </div>
@@ -111,9 +111,9 @@
     ></i>
     <i
      class="bi-arrow-right-square-fill"
-     ng-disabled="pwtPage === totalPagesInPWT"
+     ng-disabled="pwtPage >= totalPagesInPWT"
      ng-click="projectWiseTicketsPageChange(pwtPage + 1)"
-     ng-class="{disabled:pwtPage===totalPagesInPWT}"
+     ng-class="{disabled:pwtPage>=totalPagesInPWT}"
     ></i>
    </div>
  </div>
@@ -143,9 +143,9 @@
      ></i>
      <i
       class="bi-arrow-right-square-fill"
-      ng-disabled="pctPage === totalPagesInPCT"
+      ng-disabled="pctPage >= totalPagesInPCT"
       ng-click="projectWiseCTPageChange(pctPage + 1)"
-      ng-class="{disabled:pctPage===totalPagesInPCT}"
+      ng-class="{disabled:pctPage>=totalPagesInPCT}"
      ></i>
     </div>
    </div>
@@ -173,9 +173,9 @@
     ></i>
     <i
      class="bi-arrow-right-square-fill"
-     ng-disabled="pWPtPage === totalPagesInPWPT"
+     ng-disabled="pWPtPage >= totalPagesInPWPT"
      ng-click="projectWisePendingTPageChange(pWPtPage + 1)"
-     ng-class="{disabled:pWPtPage===totalPagesInPWPT}"
+     ng-class="{disabled:pWPtPage>=totalPagesInPWPT}"
     ></i>
    </div>
   </div>

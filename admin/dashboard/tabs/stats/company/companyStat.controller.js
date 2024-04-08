@@ -6,7 +6,7 @@ function CompanyStatController($scope, AnalyticsService) {
    new Date().getDate()
   ),
   endDate: new Date(),
-  startYear: new Date().getFullYear(),
+  startYear: new Date().getFullYear()-1,
   endYear: new Date().getFullYear(),
   startMonth: new Date().getMonth(),
   endMonth: new Date().getMonth() + 1,
@@ -28,7 +28,7 @@ function CompanyStatController($scope, AnalyticsService) {
    new Date().getDate()
   ),
   endDate: new Date(),
-  startYear: new Date().getFullYear(),
+  startYear: new Date().getFullYear()-1,
   endYear: new Date().getFullYear(),
   startMonth: new Date().getMonth(),
   endMonth: new Date().getMonth() + 1,

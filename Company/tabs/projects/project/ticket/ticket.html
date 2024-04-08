@@ -15,6 +15,7 @@
    name="addTicketForm"
    ng-submit="addTicketFormSubmit('addTicketModal',addTicketForm)"
    novalidate
+
   >
    <!-- select for project -->
    <div class="form-group">
@@ -224,7 +225,7 @@
     </div>
    </div>
 
-   <button type="submit" class="btn btn-primary">Submit</button>
+   <button type="submit" ng-disabled="ticketFormSubmitted" class="btn btn-primary">Submit</button>
   </form>
  </my-modal>
 

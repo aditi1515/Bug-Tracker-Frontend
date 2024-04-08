@@ -28,9 +28,9 @@
         ></i>
         <i
           class="bi-arrow-right-square-fill"
-          ng-disabled="currtProjectCWPage === totalPagesInProjectCW"
+          ng-disabled="currtProjectCWPage >= totalPagesInProjectCW"
           ng-click="companyWiseProjectPageChange(currtProjectCWPage + 1)"
-          ng-class="{disabled:currtProjectCWPage===totalPagesInProjectCW}"
+          ng-class="{disabled:currtProjectCWPage>=totalPagesInProjectCW}"
         ></i>
       </div>
     </div>
@@ -56,9 +56,9 @@
         ></i>
         <i
           class="bi-arrow-right-square-fill"
-          ng-disabled="cptPage === totalPagesInCPT"
+          ng-disabled="cptPage >= totalPagesInCPT"
           ng-click="companyWiseTicketCountsPageChange(cptPage + 1)"
-          ng-class="{disabled:cptPage===totalPagesInCPT}"
+          ng-class="{disabled:cptPage>=totalPagesInCPT}"
         ></i>
       </div>
     </div>
@@ -88,9 +88,9 @@
       ></i>
       <i
        class="bi-arrow-right-square-fill"
-       ng-disabled="currtCWPpage === totalPagesInCWP"
+       ng-disabled="currtCWPpage >= totalPagesInCWP"
        ng-click="companyWisepeoplePageChange(currtCWPpage + 1)"
-       ng-class="{disabled:currtCWPpage===totalPagesInCWP}"
+       ng-class="{disabled:currtCWPpage>=totalPagesInCWP}"
       ></i>
      </div>
     </div>

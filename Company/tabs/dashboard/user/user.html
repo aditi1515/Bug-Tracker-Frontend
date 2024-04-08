@@ -1,70 +1,63 @@
 <section id="company-users-dashboard">
-  <link
-    rel="stylesheet"
-    href="../../../../Company/tabs/dashboard/user/user.css"
-  />
+ <link
+  rel="stylesheet"
+  href="../../../../Company/tabs/dashboard/user/user.css"
+ />
 
-  <form name="date-picker" class="date-picker">
-    <div class="date-picker-input">
-      <label for="">Start Date</label>
-      <input
-        type="date"
-        name="startDate"
-        ng-model="peopleAnalyticsSearchData.startDate"
-        ng-init="peopleAnalyticsSearchData.startDate = formDataInit.startDate"
-        ng-change="peopleAnalyticsSearchDataChanged()"
-        max="{{peopleAnalyticsSearchData.endDate |  date:'yyyy-MM-dd'}}"
-      />
-    </div>
-
-    <div class="date-picker-input">
-      <label for="">End Date</label>
-      <input
-        type="date"
-        name="endDate"
-        ng-model="peopleAnalyticsSearchData.endDate"
-        ng-init="peopleAnalyticsSearchData.endDate = formDataInit.endDate"
-        ng-change="peopleAnalyticsSearchDataChanged()"
-        min="{{peopleAnalyticsSearchData.startDate |  date:'yyyy-MM-dd'}}"
-        id=""
-      />
-    </div>
-  </form>
-
-  <div class="users-count-wrapper">
-    <h3>Employees Count</h3>
-    <div class="companycount-dateSelector date-range-selector">
-    </div>
-
-    <div class="users-count">
-      <div class="user-count">
-        <span class="user-count-value">{{companySize.companySize}}</span>
-        <span class="user-count-title"> Total Employees </span>
-      </div>
-      <div class="user-count">
-        <span class="user-count-value"
-          >{{companySize.currentMembersCount}}</span
-        >
-        <span class="user-count-title"> Current </span>
-      </div>
-      <div class="user-count">
-        <span class="user-count-value"
-          >{{companySize.nonCurrentMembersCount}}</span
-        >
-        <span class="user-count-title"> Past </span>
-      </div>
-    </div>
+ <form name="date-picker" class="date-picker">
+  <div class="date-picker-input">
+   <label for="">Start Date</label>
+   <input
+    type="date"
+    name="startDate"
+    ng-model="peopleAnalyticsSearchData.startDate"
+    ng-init="peopleAnalyticsSearchData.startDate = formDataInit.startDate"
+    ng-change="peopleAnalyticsSearchDataChanged()"
+    max="{{peopleAnalyticsSearchData.endDate |  date:'yyyy-MM-dd'}}"
+   />
   </div>
-  <div class="trends-wrapper">
-    <div class="users-with-most-projects">
-      <h3>Top 5 Users with most projects</h3>
 
-      <div class="companycount-dateSelector date-range-selector">
-      
-      </div>
+  <div class="date-picker-input">
+   <label for="">End Date</label>
+   <input
+    type="date"
+    name="endDate"
+    ng-model="peopleAnalyticsSearchData.endDate"
+    ng-init="peopleAnalyticsSearchData.endDate = formDataInit.endDate"
+    ng-change="peopleAnalyticsSearchDataChanged()"
+    min="{{peopleAnalyticsSearchData.startDate |  date:'yyyy-MM-dd'}}"
+    id=""
+   />
+  </div>
+ </form>
 
-      <div class="usersWithMostProjects-table">
-        <!-- <table>
+ <div class="users-count-wrapper">
+  <h3>Employees Count</h3>
+  <div class="companycount-dateSelector date-range-selector"></div>
+
+  <div class="users-count">
+   <div class="user-count">
+    <span class="user-count-value">{{companySize.companySize}}</span>
+    <span class="user-count-title"> Total Employees </span>
+   </div>
+   <div class="user-count">
+    <span class="user-count-value">{{companySize.currentMembersCount}}</span>
+    <span class="user-count-title"> Current </span>
+   </div>
+   <div class="user-count">
+    <span class="user-count-value">{{companySize.nonCurrentMembersCount}}</span>
+    <span class="user-count-title"> Past </span>
+   </div>
+  </div>
+ </div>
+ <div class="trends-wrapper">
+  <div class="users-with-most-projects">
+   <h3>Top 5 Users with most projects</h3>
+
+   <div class="companycount-dateSelector date-range-selector"></div>
+
+   <div class="usersWithMostProjects-table">
+    <!-- <table>
         <thead>
           <tr>
             <th>Name</th>
@@ -89,106 +82,107 @@
           </tr>
         </tbody>
       </table> -->
-      </div>
-      <div><canvas id="usersWithMostProject-chart"></canvas></div>
-    </div>
-    <div class="users-with-most-projects">
-      <h3>Employees Distribution by Role</h3>
-
-      <div id="EmployeeRoleDistribution-wrapper"><canvas id="EmployeeRoleDistribution"></canvas></div>
-    </div>
+   </div>
+   <div><canvas id="usersWithMostProject-chart"></canvas></div>
   </div>
-
-  <div class="trends-wrapper">
-    <div class="users-with-most-projects">
-      <h3>Top 5 Users with most tickets assigned</h3>
-      <div><canvas id="usersWithMostTickets-chart"></canvas></div>
-    </div>
-
-    <div class="users-with-most-projects">
-      <h3>Top 5 Ticket Resolvers</h3>
-      <div><canvas id="topTicketResolvers-chart"></canvas></div>
-    </div>
-  </div>
-
-  <div class="trends-wrapper">
-    <div class="users-with-most-projects">
-      <h3>Users with most pending tickets</h3>
-      <div><canvas id="leastTicketResolvers-chart"></canvas></div>
-      <div class="pagination">
-        <div class="pagination__pageCount">
-         <span>Page</span>
-         <span>{{uWMPTPage}}</span>
-         <span>of</span>
-         <span>{{totalPagesInUWMPT}}</span>
-        </div>
-    
-        <i
-         ng-disabled="uWMPTPage <= 1"
-         ng-click="userWithMostPendingTicketsPageChange(uWMPTPage - 1)"
-         class="bi-arrow-left-square-fill"
-         ng-class="{disabled:uWMPTPage<=1}"
-        ></i>
-        <i
-         class="bi-arrow-right-square-fill"
-         ng-disabled="uWMPTPage === totalPagesInUWMPT"
-         ng-click="userWithMostPendingTicketsPageChange(uWMPTPage + 1)"
-         ng-class="{disabled:uWMPTPage===totalPagesInUWMPT}"
-        ></i>
-       </div>
-    </div>
-    <div class="users-with-most-projects">
-      <h3>Most Productive Members</h3>
-      <div><canvas id="mostProductiveMembers-chart"></canvas></div>
-      <div class="pagination">
-        <div class="pagination__pageCount">
-         <span>Page</span>
-         <span>{{mPUPage}}</span>
-         <span>of</span>
-         <span>{{totalPagesInMPU}}</span>
-        </div>
-    
-        <i
-         ng-disabled="mPUPage <= 1"
-         ng-click="mostProductiveMembersPageChange(mPUPage - 1)"
-         class="bi-arrow-left-square-fill"
-         ng-class="{disabled:mPUPage<=1}"
-        ></i>
-        <i
-         class="bi-arrow-right-square-fill"
-         ng-disabled="mPUPage === totalPagesInMPU"
-         ng-click="mostProductiveMembersPageChange(mPUPage + 1)"
-         ng-class="{disabled:mPUPage===totalPagesInMPU}"
-        ></i>
-       </div>
-    </div>
-   
-  </div>
-<div class="trends-wrapper">
   <div class="users-with-most-projects">
-    <h3>Least Productive Members</h3>
-    <div><canvas id="leastProductiveMembers-chart"></canvas></div>
-    <div class="pagination">
-      <div class="pagination__pageCount">
-       <span>Page</span>
-       <span>{{lPUPage}}</span>
-       <span>of</span>
-       <span>{{totalPagesInLPU}}</span>
-      </div>
-  
-      <i
-       ng-disabled="lPUPage <= 1"
-       ng-click="leastProductiveMembersPageChange(lPUPage - 1)"
-       class="bi-arrow-left-square-fill"
-       ng-class="{disabled:lPUPage<=1}"
-      ></i>
-      <i
-       class="bi-arrow-right-square-fill"
-       ng-disabled="lPUPage === totalPagesInLPU"
-       ng-click="leastProductiveMembersPageChange(lPUPage + 1)"
-       ng-class="{disabled:lPUPage===totalPagesInLPU}"
-      ></i>
-     </div>
+   <h3>Employees Distribution by Role</h3>
+
+   <div id="EmployeeRoleDistribution-wrapper">
+    <canvas id="EmployeeRoleDistribution"></canvas>
+   </div>
   </div>
-</div>
+ </div>
+
+ <div class="trends-wrapper">
+  <div class="users-with-most-projects">
+   <h3>Top 5 Users with most tickets assigned</h3>
+   <div><canvas id="usersWithMostTickets-chart"></canvas></div>
+  </div>
+
+  <div class="users-with-most-projects">
+   <h3>Top 5 Ticket Resolvers</h3>
+   <div><canvas id="topTicketResolvers-chart"></canvas></div>
+  </div>
+ </div>
+
+ <div class="trends-wrapper">
+  <div class="users-with-most-projects">
+   <h3>Users with most pending tickets</h3>
+   <div><canvas id="leastTicketResolvers-chart"></canvas></div>
+   <div class="pagination">
+    <div class="pagination__pageCount">
+     <span>Page</span>
+     <span>{{uWMPTPage}}</span>
+     <span>of</span>
+     <span>{{totalPagesInUWMPT}}</span>
+    </div>
+
+    <i
+     ng-disabled="uWMPTPage <= 1"
+     ng-click="userWithMostPendingTicketsPageChange(uWMPTPage - 1)"
+     class="bi-arrow-left-square-fill"
+     ng-class="{disabled:uWMPTPage<=1}"
+    ></i>
+    <i
+     class="bi-arrow-right-square-fill"
+     ng-disabled="uWMPTPage >= totalPagesInUWMPT"
+     ng-click="userWithMostPendingTicketsPageChange(uWMPTPage + 1)"
+     ng-class="{disabled:uWMPTPage>=totalPagesInUWMPT}"
+    ></i>
+   </div>
+  </div>
+  <div class="users-with-most-projects">
+   <h3>Most Productive Members</h3>
+   <div><canvas id="mostProductiveMembers-chart"></canvas></div>
+   <div class="pagination">
+    <div class="pagination__pageCount">
+     <span>Page</span>
+     <span>{{mPUPage}}</span>
+     <span>of</span>
+     <span>{{totalPagesInMPU}}</span>
+    </div>
+
+    <i
+     ng-disabled="mPUPage <= 1"
+     ng-click="mostProductiveMembersPageChange(mPUPage - 1)"
+     class="bi-arrow-left-square-fill"
+     ng-class="{disabled:mPUPage<=1}"
+    ></i>
+    <i
+     class="bi-arrow-right-square-fill"
+     ng-disabled="mPUPage >= totalPagesInMPU"
+     ng-click="mostProductiveMembersPageChange(mPUPage + 1)"
+     ng-class="{disabled:mPUPage>=totalPagesInMPU}"
+    ></i>
+   </div>
+  </div>
+ </div>
+ <div class="trends-wrapper">
+  <div class="users-with-most-projects">
+   <h3>Least Productive Members</h3>
+   <div><canvas id="leastProductiveMembers-chart"></canvas></div>
+   <div class="pagination">
+    <div class="pagination__pageCount">
+     <span>Page</span>
+     <span>{{lPUPage}}</span>
+     <span>of</span>
+     <span>{{totalPagesInLPU}}</span>
+    </div>
+
+    <i
+     ng-disabled="lPUPage <= 1"
+     ng-click="leastProductiveMembersPageChange(lPUPage - 1)"
+     class="bi-arrow-left-square-fill"
+     ng-class="{disabled:lPUPage<=1}"
+    ></i>
+    <i
+     class="bi-arrow-right-square-fill"
+     ng-disabled="lPUPage >= totalPagesInLPU"
+     ng-click="leastProductiveMembersPageChange(lPUPage + 1)"
+     ng-class="{disabled:lPUPage>=totalPagesInLPU}"
+    ></i>
+   </div>
+  </div>
+ </div>
 </section>
