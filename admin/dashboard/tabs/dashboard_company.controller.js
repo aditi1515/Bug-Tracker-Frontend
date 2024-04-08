@@ -108,6 +108,8 @@ function dashboardCompanyController(
   CompanyService.getCompanies(pageNo, pageSize, query)
    .then(function (response) {
     $scope.companiesData = response.data;
+    
+    console.log("Companies: ", $scope.companiesData);
    })
    .catch(function (err) {
     console.error("Error getting companies: ", err);
@@ -124,6 +126,7 @@ function dashboardCompanyController(
 
  function searchCompanies(query) {
   console.log("Search query: ", query);
+  $scope.companiesData.currentPage = 1;
   getCompanies(
    $scope.companiesData.currentPage,
    $scope.companiesData.pageSize,
