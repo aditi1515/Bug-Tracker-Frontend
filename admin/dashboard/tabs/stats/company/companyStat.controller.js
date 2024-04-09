@@ -555,6 +555,21 @@ function CompanyStatController($scope, AnalyticsService) {
   ticketCountTrend();
  };
 
+ $scope.resetDate = function () {
+  $scope.trendCountFormData = {
+   startDate: new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() - 1,
+    new Date().getDate()
+   ),
+   endDate: new Date(),
+   startYear: new Date().getFullYear()-1,
+   endYear: new Date().getFullYear(),
+   startMonth: new Date().getMonth(),
+   endMonth: new Date().getMonth() + 1,
+  };
+ };
+
  $scope.countTrendOptionChange();
 }
 
