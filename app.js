@@ -59,7 +59,7 @@ trackflow.config([
       .state("superAdminDashboard.base", {
         url: "/base",
         templateUrl: "./admin/dashboard/dashboardbase.html",
-        redirectTo: "superAdminDashboard.base.companyStats",
+        redirectTo: "superAdminDashboard.base.overview",
       })
       .state("company.people", {
         url: "/people",

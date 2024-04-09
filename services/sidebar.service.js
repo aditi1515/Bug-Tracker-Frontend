@@ -46,8 +46,7 @@ function sideBarService() {
     }
 
     if (
-      userPermissions.STATS.FULL_ACCESS ||
-      userPermissions.STATS.ONLY_ENROLLED
+      userPermissions.STATS.ACCESS
     ) {
       sideBarOptions.push({
         label: "Dashboard",

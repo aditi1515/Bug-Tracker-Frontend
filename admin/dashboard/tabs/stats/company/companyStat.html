@@ -35,18 +35,18 @@
     ng-change="countTrendOptionChange()"
     ng-init="trendCountFormData.startMonth = formDataInit.startMonth"
     name="month-select-start" id="">
-    <option ng-value="1">January</option>
-    <option ng-value="2">February</option>
-    <option ng-value="3">March</option>
-    <option ng-value="4">April</option>
-    <option ng-value="5">May</option>
-    <option ng-value="6">June</option>
-    <option ng-value="7">July</option>
-    <option ng-value="8">August</option>
-    <option ng-value="9">September</option>
-    <option ng-value="10">October</option>
-    <option ng-value="11">November</option>
-    <option ng-value="12">December</option>
+    <option ng-if="trendCountFormData.startYear < trendCountFormData.endYear || 1 <= trendCountFormData.endMonth" ng-value="1">January</option>
+    <option ng-if="trendCountFormData.startYear < trendCountFormData.endYear || 2 <= trendCountFormData.endMonth" ng-value="2">February</option>
+    <option ng-if="trendCountFormData.startYear < trendCountFormData.endYear || 3 <= trendCountFormData.endMonth" ng-value="3">March</option>
+    <option ng-if="trendCountFormData.startYear < trendCountFormData.endYear || 4 <= trendCountFormData.endMonth" ng-value="4">April</option>
+    <option ng-if="trendCountFormData.startYear < trendCountFormData.endYear || 5 <= trendCountFormData.endMonth" ng-value="5">May</option>
+    <option ng-if="trendCountFormData.startYear < trendCountFormData.endYear || 6 <= trendCountFormData.endMonth" ng-value="6">June</option>
+    <option ng-if="trendCountFormData.startYear < trendCountFormData.endYear || 7 <= trendCountFormData.endMonth" ng-value="7">July</option>
+    <option ng-if="trendCountFormData.startYear < trendCountFormData.endYear || 8 <= trendCountFormData.endMonth" ng-value="8">August</option>
+    <option ng-if="trendCountFormData.startYear < trendCountFormData.endYear || 9 <= trendCountFormData.endMonth" ng-value="9">September</option>
+    <option ng-if="trendCountFormData.startYear < trendCountFormData.endYear || 10 <= trendCountFormData.endMonth" ng-value="10">October</option>
+    <option ng-if="trendCountFormData.startYear < trendCountFormData.endYear || 11 <= trendCountFormData.endMonth" ng-value="11">November</option>
+    <option ng-if="trendCountFormData.startYear < trendCountFormData.endYear || 12 <= trendCountFormData.endMonth" ng-value="12">December</option>
     </select>
     
 
@@ -55,7 +55,7 @@
     ng-model="trendCountFormData.startYear"
     ng-init="trendCountFormData.startYear = formDataInit.startYear"
     ng-change="countTrendOptionChange()"
-    type="number" min="1900" max="2099" step="1" />
+    type="number" min="1900" max="{{trendCountFormData.endYear}}" step="1" />
   </div>
   <div class="input">
     <label for="">End {{trendCountOption}}</label>
@@ -67,6 +67,7 @@
       ng-init="trendCountFormData.endDate"
       ng-change="countTrendOptionChange()"
       min="{{trendCountFormData.startDate |  date:'yyyy-MM-dd'}}"
+      max="{{currentDate | date:'yyyy-MM-dd'}}"
       id=""
     />
 
@@ -76,18 +77,18 @@
     ng-change="countTrendOptionChange()"
     ng-init="trendCountFormData.endMonth = formDataInit.endMonth"
     name="month-select-end" id="">
-    <option ng-value="1">January</option>
-    <option ng-value="2">February</option>
-    <option ng-value="3">March</option>
-    <option ng-value="4">April</option>
-    <option ng-value="5">May</option>
-    <option ng-value="6">June</option>
-    <option ng-value="7">July</option>
-    <option ng-value="8">August</option>
-    <option ng-value="9">September</option>
-    <option ng-value="10">October</option>
-    <option ng-value="11">November</option>
-    <option ng-value="12">December</option>
+    <option ng-if="(trendCountFormData.startYear < trendCountFormData.endYear || 1 >= trendCountFormData.startMonth) && (trendCountFormData.endYear < currentYear || 1 <= currentMonth)" ng-value="1">January</option>
+    <option ng-if="(trendCountFormData.startYear < trendCountFormData.endYear || 2 >= trendCountFormData.startMonth) && (trendCountFormData.endYear < currentYear || 2 <= currentMonth)" ng-value="2">February</option>
+    <option ng-if="(trendCountFormData.startYear < trendCountFormData.endYear || 3 >= trendCountFormData.startMonth) && (trendCountFormData.endYear < currentYear || 3 <= currentMonth)" ng-value="3">March</option>
+    <option ng-if="(trendCountFormData.startYear < trendCountFormData.endYear || 4 >= trendCountFormData.startMonth) && (trendCountFormData.endYear < currentYear || 4 <= currentMonth)" ng-value="4">April</option>
+    <option ng-if="(trendCountFormData.startYear < trendCountFormData.endYear || 5 >= trendCountFormData.startMonth) && (trendCountFormData.endYear < currentYear || 5 <= currentMonth)" ng-value="5">May</option>
+    <option ng-if="(trendCountFormData.startYear < trendCountFormData.endYear || 6 >= trendCountFormData.startMonth) && (trendCountFormData.endYear < currentYear || 6 <= currentMonth)" ng-value="6">June</option>
+    <option ng-if="(trendCountFormData.startYear < trendCountFormData.endYear || 7 >= trendCountFormData.startMonth) && (trendCountFormData.endYear < currentYear || 7 <= currentMonth)" ng-value="7">July</option>
+    <option ng-if="(trendCountFormData.startYear < trendCountFormData.endYear || 8 >= trendCountFormData.startMonth) && (trendCountFormData.endYear < currentYear || 8 <= currentMonth)" ng-value="8">August</option>
+    <option ng-if="(trendCountFormData.startYear < trendCountFormData.endYear || 9 >= trendCountFormData.startMonth) && (trendCountFormData.endYear < currentYear || 9 <= currentMonth)" ng-value="9">September</option>
+    <option ng-if="(trendCountFormData.startYear < trendCountFormData.endYear || 10 >= trendCountFormData.startMonth) && (trendCountFormData.endYear < currentYear || 10 <= currentMonth)" ng-value="10">October</option>
+    <option ng-if="(trendCountFormData.startYear < trendCountFormData.endYear || 11 >= trendCountFormData.startMonth) && (trendCountFormData.endYear < currentYear || 11 <= currentMonth)" ng-value="11">November</option>
+    <option ng-if="(trendCountFormData.startYear < trendCountFormData.endYear || 12 >= trendCountFormData.startMonth) && (trendCountFormData.endYear < currentYear || 12 <= currentMonth)" ng-value="12">December</option>
     
     </select>
 
@@ -95,11 +96,10 @@
     ng-model="trendCountFormData.endYear"
     ng-init="trendCountFormData.endYear = formDataInit.endYear"
     ng-change=" countTrendOptionChange()"
-
-    type="number" min="1900" max="2099" step="1"  />
+    
+    type="number" min="{{trendCountFormData.startYear}}" max="2099" step="1"  />
   
   </div>
-
 
 </form>
 

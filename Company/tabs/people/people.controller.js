@@ -6,9 +6,7 @@ function companyPeopleController(
  UserService,
  RoleService
 ) {
- $scope.addEmployeeFormData = {
-  role: "PROJECT_MANAGER",
- };
+
 
  $scope.peopleData = {};
  $scope.isEditing = false;

@@ -1,7 +1,7 @@
 function overviewSuperAdminController($scope, AnalyticsService) {
   $scope.formDataInit = {
-    startDate: new Date("2023-01-01"),
-    endDate: new Date("2025-01-01"),
+    startDate: new Date("1999-01-01"),
+    endDate: new Date("2050-01-01"),
   };
   $scope.currtCWPpage = 1;
   $scope.totalPagesInCWP = 0;
@@ -29,12 +29,9 @@ function overviewSuperAdminController($scope, AnalyticsService) {
   ];
 
   function fetchcountCompanies() {
-    var startDate =
-      $scope.companyCountFormData.startDate || $scope.formDataInit.startDate;
-    var endDate =
-      $scope.companyCountFormData.endDate || $scope.formDataInit.endDate;
-    console.log("startDate", startDate);
-    console.log("endDate", endDate);
+    var startDate = $scope.formDataInit.startDate;
+    var endDate = $scope.formDataInit.endDate;
+
     AnalyticsService.getCountCompanies({
       startDate: startDate,
       endDate: endDate,
@@ -88,18 +85,12 @@ function overviewSuperAdminController($scope, AnalyticsService) {
 
   fetchcountCompanies();
 
-  $scope.countCompanyDateChanged = function () {
-    fetchcountCompanies();
-  };
-
   fetchprojectCount();
 
   function fetchprojectCount() {
     var body = {
-      startDate:
-        $scope.projectCountFormData.startDate || $scope.formDataInit.startDate,
-      endDate:
-        $scope.projectCountFormData.endDate || $scope.formDataInit.endDate,
+      startDate: $scope.formDataInit.startDate,
+      endDate: $scope.formDataInit.endDate,
     };
 
     AnalyticsService.getProjectCount(body).then(function (response) {
@@ -205,12 +196,12 @@ function overviewSuperAdminController($scope, AnalyticsService) {
         legend: {
           position: "bottom",
         },
-        maintainAspectRatio:true,
+        maintainAspectRatio: true,
         scales: {
           x: {
             title: {
               display: true,
-              text : "Time",
+              text: "Time",
             },
           },
           y: {

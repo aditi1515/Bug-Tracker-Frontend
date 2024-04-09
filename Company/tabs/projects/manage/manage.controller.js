@@ -127,9 +127,7 @@ function companyProjectsManageController(
   return $scope.addProjectFormData.membersAlreadySelected?.some(function (
    member
   ) {
-   if (member._id === person._id) {
-    console.log("Member selected: ", member.firstname, person._id);
-   }
+
    return member._id === person._id;
   });
  };
