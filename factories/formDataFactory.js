@@ -3,6 +3,8 @@ function formDataFactory() {
   
     factory.getCompanyFormData = function (companyFormData) {
       console.log("Company data: ", companyFormData);
+      var formdata = new FormData();
+
       var data = {
         name: companyFormData.name,
         city: companyFormData.city,
@@ -26,6 +28,13 @@ function formDataFactory() {
       if (companyFormData.logo) {
         data.logo = companyFormData.logo;
       }
+
+      formdata.append("name" , data.name)
+      formdata.append("city" , data.city)
+      formdata.append("state" , data.state)
+      formdata.append("country" , data.country)
+      formdata.append("previousLogo" , data.previousLogo)
+      formdata.append("admin" , JSON.stringify(data.admin))
   
   
       return formData;
